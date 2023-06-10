@@ -10,6 +10,12 @@ class AdminIndexController extends Controller
 {
     public function index()
     {
-        return view('admin.admin_panel');
+        $names = Stock::query()->get();
+
+        $labels = $names->pluck('name');
+
+        $data = $names->pluck('total_price');
+
+        return view('admin.admin_panel', compact('labels', 'data'));
     }
 }

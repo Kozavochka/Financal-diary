@@ -18,7 +18,11 @@ class AdminStockController extends Controller
         $stocks = Stock::query()->paginate($perPage, '*', 'page', $page);
 
 
-        return view('admin.stocks.stocks', compact('stocks'));
+        $labels = $stocks->pluck('name');
+
+        $data = $stocks->pluck('total_price');
+
+        return view('admin.stocks.stocks', compact('stocks', 'labels', 'data'));
     }
 
 
