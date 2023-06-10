@@ -10,4 +10,6 @@ class Direction extends Model
     use HasFactory;
 
     protected $guarded =[];
+
+
 }
