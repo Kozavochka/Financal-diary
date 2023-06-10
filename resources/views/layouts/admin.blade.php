@@ -80,7 +80,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="#" class="brand-link">
+        <a href="{{route('admin.index')}}" class="brand-link">
             <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">AdminLTE 3</span>
         </a>
@@ -110,21 +110,22 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                   {{-- @foreach($directions as $direction)
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    {{$direction->name}}
-                                </p>
-                            </a>
-                        </li>
-                    @endforeach--}}
+
                     <li class="nav-item">
                         <a href="{{route('admin.stocks.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                           Акции
+                                <span class="badge badge-info right">13</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admin.bonds.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                          Облигации
+                                <span class="badge badge-info right">3</span>
                             </p>
                         </a>
                     </li>

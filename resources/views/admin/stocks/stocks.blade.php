@@ -35,5 +35,6 @@
         @endforeach
         </tbody>
     </table>
+    {{$stocks->withQueryString()->links('pagination::bootstrap-5')}}
     <div><a href="{{route('admin.stocks.create')}}" class="btn btn-success">+ Добавить акцию</a></div>
 @endsection

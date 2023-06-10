@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\Admin\AdminIndexController::class,'index'])->name('admin.index');
 
 Route::resource('/stocks', \App\Http\Controllers\Admin\AdminStockController::class)->names('admin.stocks');
+
+Route::resource('/bonds', \App\Http\Controllers\Admin\AdminBondController::class)->names('admin.bonds');

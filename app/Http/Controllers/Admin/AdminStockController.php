@@ -12,8 +12,11 @@ class AdminStockController extends Controller
 
     public function index()
     {
+        $page = request('page', 1);
+        $perPage = request('per_page', 10);
 
-        $stocks = Stock::query()->get();
+        $stocks = Stock::query()->paginate($perPage, '*', 'page', $page);
+
 
         return view('admin.stocks.stocks', compact('stocks'));
     }
