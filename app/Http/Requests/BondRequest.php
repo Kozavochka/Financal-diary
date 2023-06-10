@@ -32,6 +32,10 @@ class BondRequest extends FormRequest
                 'numeric',
                 'required',
                 'regex:/^\d+(\.\d{1,2})?$/',
+            ],
+            'expiration_date' => [
+                'date_format:Y-m-d',
+                'nullable',
             ]
         ];
     }

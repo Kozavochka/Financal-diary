@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminBondController;
+use App\Http\Controllers\Admin\AdminFundController;
+use App\Http\Controllers\Admin\AdminIndexController;
+use App\Http\Controllers\Admin\AdminStockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\Admin\AdminIndexController::class,'index'])->name('admin.index');
+Route::get('/', [AdminIndexController::class,'index'])->name('admin.index');
 
-Route::resource('/stocks', \App\Http\Controllers\Admin\AdminStockController::class)->names('admin.stocks');
+Route::resource('/stocks', AdminStockController::class)->names('admin.stocks');
 
-Route::resource('/bonds', \App\Http\Controllers\Admin\AdminBondController::class)->names('admin.bonds');
+Route::resource('/bonds', AdminBondController::class)->names('admin.bonds');
+
+Route::resource('/funds',AdminFundController::class)->names('admin.funds');

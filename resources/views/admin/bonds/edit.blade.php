@@ -39,6 +39,14 @@
             </div>
         </div>
 
+
+        <div class="form-group">
+            <div class="mb-3">
+                <label for="expiration_date" class="form-label">Дата окончания</label>
+                <input id="expiration_date"  name="expiration_date" class="form-control" type="date" placeholder="Введите дату"
+                       value="{{ old('expiration_date', $bond->expiration_date) }}" >
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection
