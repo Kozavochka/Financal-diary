@@ -13,12 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::get('/', [\App\Http\Controllers\Admin\AdminIndexController::class,'index'])->name('admin.index');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
+Route::resource('/stocks', \App\Http\Controllers\Admin\AdminStockController::class)->names('admin.stocks');
