@@ -12,7 +12,10 @@ class AdminStockController extends Controller
 
     public function index()
     {
-        return view('admin..stocks.stocks');
+
+        $stocks = Stock::query()->get();
+
+        return view('admin.stocks.stocks', compact('stocks'));
     }
 
 
@@ -25,55 +28,40 @@ class AdminStockController extends Controller
     public function store(StockRequest $request)
     {
         $data = $request->validated();
-//         dd($data);
+
         Stock::query()
             ->create($data);
 
-        return redirect(route('admin.index'));
+        return redirect(route('admin.stocks.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Stock $stock)
     {
-        //
+        return view('admin.stocks.edit', compact('stock'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(StockRequest $request, Stock $stock)
     {
-        //
+        $data = $request->validated();
+
+        $stock->update($data);
+        $stock->refresh();
+
+        return redirect(route('admin.stocks.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function destroy(Stock $stock)
     {
-        //
+        $stock->delete();
+
+        return redirect(route('admin.stocks.index'));
     }
 }

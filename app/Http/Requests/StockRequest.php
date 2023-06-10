@@ -16,7 +16,7 @@ class StockRequest extends FormRequest
             'name' =>[
                 'string',
                 'required',
-                 Rule::unique('stocks')->ignore($this->route('stocks')),
+                 Rule::unique('stocks')->ignore($this->route('stock')),
             ],
             'ticker' => [
                 'string'
