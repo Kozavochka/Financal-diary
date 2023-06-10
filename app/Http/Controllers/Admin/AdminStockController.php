@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
+use App\Models\Industry;
 use App\Models\Stock;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 
 class AdminStockController extends Controller
@@ -50,7 +52,11 @@ class AdminStockController extends Controller
 
     public function edit(Stock $stock)
     {
-        return view('admin.stocks.edit', compact('stock'));
+        $industries = Industry::query()
+            ->distinct()
+            ->get();
+
+        return view('admin.stocks.edit', compact('stock', 'industries'));
     }
 
 

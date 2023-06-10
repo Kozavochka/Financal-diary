@@ -26,10 +26,15 @@ class StockRequest extends FormRequest
              'numeric',
              'regex:/^\d+(\.\d{1,2})?$/'
             ],
+            'industry_id' => [
+                'integer',
+                Rule::exists('industries','id'),
+            ],
             'lots' => [
                 'numeric',
                 'max:100000'
             ],
+
         ];
     }
 }

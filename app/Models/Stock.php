@@ -21,6 +21,7 @@ class Stock extends Model
         'ticker',
         'price',
         'lots',
+        'industry_id',
     ];
 
 
