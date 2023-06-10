@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminBondController;
+use App\Http\Controllers\Admin\AdminCryptoController;
 use App\Http\Controllers\Admin\AdminFundController;
 use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Admin\AdminLoanController;
@@ -27,3 +28,5 @@ Route::resource('/bonds', AdminBondController::class)->names('admin.bonds');
 Route::resource('/funds',AdminFundController::class)->names('admin.funds');
 
 Route::resource('/loans', AdminLoanController::class)->names('admin.loans');
+
+Route::resource('/crypto', AdminCryptoController::class)->names('admin.crypto');
