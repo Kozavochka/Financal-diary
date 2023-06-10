@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminBondController;
 use App\Http\Controllers\Admin\AdminFundController;
 use App\Http\Controllers\Admin\AdminIndexController;
+use App\Http\Controllers\Admin\AdminLoanController;
 use App\Http\Controllers\Admin\AdminStockController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,5 @@ Route::resource('/stocks', AdminStockController::class)->names('admin.stocks');
 Route::resource('/bonds', AdminBondController::class)->names('admin.bonds');
 
 Route::resource('/funds',AdminFundController::class)->names('admin.funds');
+
+Route::resource('/loans', AdminLoanController::class)->names('admin.loans');

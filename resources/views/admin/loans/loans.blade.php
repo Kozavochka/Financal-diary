@@ -1,25 +1,26 @@
 @extends('layouts.admin')
 @section('content')
-    <h1 class="mb-3">Фонды</h1>
+    <h1 class="mb-3">Займы</h1>
+
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Название</th>
-            <th scope="col">Тикер</th>
             <th scope="col">Стоимость</th>
+            <th scope="col">Количество компаний</th>
             <th scope="col">Действие</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($funds as $fund)
+        @foreach($loans as $loan)
             <tr>
-                <th scope="row">{{$fund->id}}</th>
-                <td>{{$fund->name}}</td>
-                <td>{{$fund->ticker}}</td>
-                <td>{{$fund->price}} RUB</td>
-                <td><a href="{{route('admin.funds.edit', $fund)}}"><i class="fa-solid fa-pen"></i></a>
-                    <form action="{{ route('admin.funds.destroy', $fund) }}" method="POST" class="d-inline">
+                <th scope="row">{{$loan->id}}</th>
+                <td>{{$loan->name}}</td>
+                <td>{{$loan->price}} RUB</td>
+                <td>{{$loan->count_bus}}</td>
+                <td><a href="{{route('admin.loans.edit', $loan)}}"><i class="fa-solid fa-pen"></i></a>
+                    <form action="{{ route('admin.loans.destroy', $loan) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
 
@@ -35,6 +36,6 @@
         </tbody>
     </table>
 
-    {{$funds->withQueryString()->links('pagination::bootstrap-5')}}
-    <div><a href="{{route('admin.funds.create')}}" class="btn btn-success">+ Добавить фонд</a></div>
+    {{$loans->withQueryString()->links('pagination::bootstrap-5')}}
+    <div><a href="{{route('admin.loans.create')}}" class="btn btn-success">+ Добавить займ</a></div>
 @endsection
