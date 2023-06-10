@@ -23,6 +23,12 @@ class Stock extends Model
         'lots',
     ];
 
+
+    public function industry()
+    {
+        return $this->belongsTo(Industry::class);
+    }
+
     //Аксессор получения общей суммы
     public function getTotalPriceAttribute()
     {
