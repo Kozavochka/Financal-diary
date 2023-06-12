@@ -39,5 +39,15 @@
     </tbody>
 </table>
 {{$bonds->withQueryString()->links('pagination::bootstrap-5')}}
-<div><a href="{{route('admin.bonds.create')}}" class="btn btn-success">+ Добавить облигацию</a></div>
+
+<div class="btn-group" role="group" aria-label="Basic example">
+    <a href="{{route('admin.bonds.create')}}" class="btn btn-success me-2">+ Добавить облигацию</a>
+
+    <a href="{{ url()->current() }}?filter[desc_percent]=true" class="btn btn-info me-2">Сортировка по %</a>
+    <a href="{{ url()->current() }}?filter[desc_coupon]=true" class="btn btn-info me-2">Сортировка по купону</a>
+    <a class="nav-link active" aria-current="page"
+       href="{{ url()->current() }}?{{ http_build_query(request()->except('filter')) }}">Сбросить
+        фильтр</a>
+</div>
+
 @endsection

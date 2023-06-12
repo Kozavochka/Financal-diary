@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BondRequest;
 use App\Models\Bond;
 use App\Models\Stock;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminBondController extends Controller
 {
@@ -16,7 +19,15 @@ class AdminBondController extends Controller
         $page = request('page', 1);
         $perPage = request('per_page', 10);
 
-        $bonds = Bond::query()
+        $bonds = QueryBuilder::for(Bond::class)
+            ->allowedFilters([
+                AllowedFilter::callback('desc_percent', function (Builder $query){
+                    $query->orderBy('profit_percent', 'asc');
+                }),
+                AllowedFilter::callback('desc_coupon', function (Builder $query){
+                    $query->orderBy('coupon', 'asc');
+                })
+            ])
             ->paginate($perPage, '*', 'page', $page);
 
         return view('admin.bonds.index', compact('bonds'));
