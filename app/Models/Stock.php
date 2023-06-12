@@ -35,4 +35,10 @@ class Stock extends Model
     {
         return bcdiv($this->price * $this->lots, 1 , 2);
     }
+
+    //Relation к записи изменения стоимости
+    public function records()
+    {
+        return $this->belongsToMany(Record::class);
+    }
 }
