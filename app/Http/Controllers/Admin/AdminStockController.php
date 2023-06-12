@@ -7,7 +7,10 @@ use App\Http\Requests\StockRequest;
 use App\Models\Industry;
 use App\Models\Stock;
 use Dflydev\DotAccessData\Data;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminStockController extends Controller
 {
@@ -17,7 +20,15 @@ class AdminStockController extends Controller
         $page = request('page', 1);
         $perPage = request('per_page', 10);
 
-        $stocks = Stock::query()->paginate($perPage, '*', 'page', $page);
+
+        $stocks =QueryBuilder::for(Stock::class)
+            ->with('industry')
+            ->allowedFilters([
+                AllowedFilter::callback('desc_price', function (Builder $query){
+                    $query->orderByRaw('price*lots');
+                })
+            ])
+            ->paginate($perPage, '*', 'page', $page);
 
 
         $labels = $stocks->pluck('name');
