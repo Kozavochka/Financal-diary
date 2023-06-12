@@ -11,6 +11,7 @@
         <th scope="col">Тикер</th>
         <th scope="col">Купон</th>
         <th scope="col">%</th>
+        <th scope="col">Дата погашения</th>
         <th scope="col">Действие</th>
     </tr>
     </thead>
@@ -22,6 +23,7 @@
             <td>{{$bond->ticker}}</td>
             <td>{{$bond->coupon}} RUB</td>
             <td>{{$bond->profit_percent}} %</td>
+            <td>{{$bond->expiration_date}}</td>
             <td><a href="{{route('admin.bonds.edit', $bond)}}"><i class="fa-solid fa-pen"></i></a>
                 <form action="{{ route('admin.bonds.destroy', $bond) }}" method="POST" class="d-inline">
                     @csrf
@@ -43,8 +45,9 @@
 <div class="btn-group" role="group" aria-label="Basic example">
     <a href="{{route('admin.bonds.create')}}" class="btn btn-success me-2">+ Добавить облигацию</a>
 
-    <a href="{{ url()->current() }}?filter[desc_percent]=true" class="btn btn-info me-2">Сортировка по %</a>
-    <a href="{{ url()->current() }}?filter[desc_coupon]=true" class="btn btn-info me-2">Сортировка по купону</a>
+    <a href="{{ url()->current() }}?filter[asc_percent]=true" class="btn btn-info me-2">Сортировка по %</a>
+    <a href="{{ url()->current() }}?filter[asc_coupon]=true" class="btn btn-info me-2">Сортировка по купону</a>
+    <a href="{{ url()->current() }}?filter[asc_date]=true" class="btn btn-info me-2">Сортировка по дате погашения</a>
     <a class="nav-link active" aria-current="page"
        href="{{ url()->current() }}?{{ http_build_query(request()->except('filter')) }}">Сбросить
         фильтр</a>
