@@ -8,18 +8,26 @@
                     <div class="card-header">
                         <h1>Вы авторизованы</h1>
                     </div>
-
-                    <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                   {{-- <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <p>Доступные страницы</p>
-                        <div class="href_pages">
-                            <a href="{{route('admin.index')}}">Админка</a>
-                        </div>
-                    </div>
+                    </div>--}}
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h2>Доступные разделы</h2>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">Акции</a>
+                    <a href="#" class="list-group-item list-group-item-action">Облиги</a>
+                    <a href="#" class="list-group-item list-group-item-action">и тд</a>
                 </div>
             </div>
         </div>

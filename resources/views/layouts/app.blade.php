@@ -23,6 +23,11 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                @can('view', auth()->user())
+                <a class="navbar-brand" href="{{route('admin.index')}}">
+                   Admin Panel
+                </a>
+                @endcan
                 <a class="navbar-brand" href="{{route('home')}}">
                     {{ config('app.name', 'Laravel') }}
                 </a>

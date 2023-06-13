@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Admin\AdminLoanController;
 use App\Http\Controllers\Admin\AdminStockController;
 use Illuminate\Support\Facades\Route;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,9 @@ Route::resource('/funds',AdminFundController::class)->names('admin.funds');
 Route::resource('/loans', AdminLoanController::class)->names('admin.loans');
 
 Route::resource('/crypto', AdminCryptoController::class)->names('admin.crypto');
+
+
+Route::post('/telegram/webhook', function () {
+    $update = Telegram::commandsHandler(true);
+    return 'ok';
+});
