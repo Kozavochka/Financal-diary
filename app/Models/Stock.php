@@ -39,6 +39,6 @@ class Stock extends Model
     //Relation к записи изменения стоимости
     public function records()
     {
-        return $this->belongsToMany(Record::class);
+        return $this->belongsToMany(Record::class)->withPivot('price');
     }
 }

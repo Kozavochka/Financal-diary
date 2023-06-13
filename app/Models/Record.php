@@ -9,11 +9,13 @@ class Record extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'description',
+    ];
 
     //relation к акциям
     public function stocks()
     {
-        return $this->hasMany(Stock::class);
+        return $this->belongsToMany(Stock::class);
     }
 }
