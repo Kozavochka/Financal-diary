@@ -4,7 +4,7 @@
 
 <ul class="nav nav-pills nav-fill">
     <li class="nav-item">
-        <a class="nav-link" href="#">Акции</a>
+        <a class="nav-link" href="{{route('stocks.record.create')}}">Акции</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">Облиги</a>
@@ -13,5 +13,4 @@
         <a class="nav-link" href="#">И тд</a>
     </li>
 </ul>
-<a href="{{route('stocks.record.create')}}" class="btn btn-success me-2">+ Добавить запись</a>
 @endsection

@@ -60,6 +60,7 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
+
 //        $this->tgBotService->sendRedisterUser($data); // через сервис
         event(new RegisterUser($data));//Создание события регистрации пользователя
 
