@@ -16,6 +16,6 @@ class Record extends Model
     //relation к акциям
     public function stocks()
     {
-        return $this->belongsToMany(Stock::class);
+        return $this->belongsToMany(Stock::class)->withPivot('price');
     }
 }

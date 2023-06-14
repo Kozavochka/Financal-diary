@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Record;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRecordRequest;
 use App\Models\Record;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class StockRecordController extends Controller
@@ -26,11 +27,20 @@ class StockRecordController extends Controller
     {
         $data = $request->validated();
 
-        $record = Record::query()->create($data);
+        $record = Record::query()->create($data);//Создание записи
+        $stocks = $data['stocks'];//Получение акций
+        //Проход по акциям, запись в отслеживание и обновление цены в модели
+        foreach ($stocks as $stock){
+            $record->stocks()->attach($stock['stock_id'],
+                ['price' => $stock['price']]);
 
-        $record->stocks()->attach($data['stocks']);
+            Stock::where('id', $stock['stock_id'])
+                ->update(['price' => $stock['price']]);
+        }
 
-        dd($data);
+//        $record->stocks()->attach($data['stocks']);//Запись цены в stock_record, без обновления в модели
+
+        return redirect()->route('admin.record.index');
     }
 
 

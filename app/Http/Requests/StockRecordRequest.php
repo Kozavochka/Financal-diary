@@ -20,9 +20,9 @@ class StockRecordRequest extends FormRequest
                 'string',
                 'nullable'
             ],
-            'stocks' => 'required|array',
-            'stocks.*.stock_id' => 'required|integer',
-            'stocks.*.price' => 'required|numeric',
+            'stocks' => 'required|array',//Массив акций
+            'stocks.*.stock_id' => 'required|integer',//Массив id
+            'stocks.*.price' => 'required|numeric',//Массив соотв. цены
         ];
     }
 }

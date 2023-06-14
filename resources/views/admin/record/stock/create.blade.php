@@ -23,14 +23,6 @@
             </div>
         </div>
 
-        <input type="hidden" name="stocks[1][stock_id]" value="1">
-        <input type="hidden" name="stocks[1][price]" value="10">
-        <input type="hidden" name="stocks[2][stock_id]" value="2">
-        <input type="hidden" name="stocks[2][price]" value="20">
-
         <button type="submit" class="btn btn-primary">Submit</button>
-
-
-
     </form>
 @endsection
