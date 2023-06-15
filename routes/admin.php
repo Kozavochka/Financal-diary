@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminBondController;
 use App\Http\Controllers\Admin\AdminCryptoController;
 use App\Http\Controllers\Admin\AdminFundController;
+use App\Http\Controllers\Admin\AdminIncomeController;
 use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Admin\AdminLoanController;
 use App\Http\Controllers\Admin\AdminStockController;
@@ -34,6 +35,8 @@ Route::resource('/loans', AdminLoanController::class)->names('admin.loans');
 Route::resource('/crypto', AdminCryptoController::class)->names('admin.crypto');
 
 Route::resource('/record',StockRecordController::class)->names('stocks.record');
+
+Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes');
 
 
 Route::post('/telegram/webhook', function () {

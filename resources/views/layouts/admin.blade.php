@@ -91,7 +91,7 @@
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
                 <div class="info">
-                    <a href="#" class="d-block">Andrey Ermolov</a>
+                    <a href="#" class="d-block">{{auth()->user()->name}}</a>
                 </div>
             </div>
 
@@ -153,6 +153,14 @@
                             <p>
                           Крипта
                                 <span class="badge badge-info right">2</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admin.incomes.index')}}" class="nav-link">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                            <p>
+                          Поступления
                             </p>
                         </a>
                     </li>
