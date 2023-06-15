@@ -41,7 +41,10 @@
     </tbody>
 </table>
 {{$bonds->withQueryString()->links('pagination::bootstrap-5')}}
-
+<div>
+    <span><b>Средний %:</b>{{bcdiv($bonds->avg('profit_percent'),1,0)}} </span>
+    <span><b>Средний купон:</b> {{bcdiv($bonds->avg('coupon'),1,0)}} RUB</span>
+</div>
 <div class="btn-group" role="group" aria-label="Basic example">
     <a href="{{route('admin.bonds.create')}}" class="btn btn-success me-2">+ Добавить облигацию</a>
 
