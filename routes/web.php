@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Guest\StockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+Route::resource('/stocks',StockController::class)->names('stocks');

@@ -25,7 +25,7 @@
             <div class="col-md-8">
                 <h2>Доступные разделы</h2>
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">Акции</a>
+                    <a href="{{route('stocks.index')}}" class="list-group-item list-group-item-action">Акции</a>
                     <a href="#" class="list-group-item list-group-item-action">Облиги</a>
                     <a href="#" class="list-group-item list-group-item-action">и тд</a>
                 </div>
