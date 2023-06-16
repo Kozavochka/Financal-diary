@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminIncomeController;
 use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Admin\AdminLoanController;
 use App\Http\Controllers\Admin\AdminStockController;
+use App\Http\Controllers\Admin\Record\RecordController;
 use App\Http\Controllers\Admin\Record\StockRecordController;
 use Illuminate\Support\Facades\Route;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -34,7 +35,9 @@ Route::resource('/loans', AdminLoanController::class)->names('admin.loans');
 
 Route::resource('/crypto', AdminCryptoController::class)->names('admin.crypto');
 
-Route::resource('/record',StockRecordController::class)->names('stocks.record');
+Route::resource('/stock_record',StockRecordController::class)->names('stocks.record');
+
+Route::resource('/record', RecordController::class)->names('records');
 
 Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes');
 

@@ -4,7 +4,7 @@
 <h2 class="text-muted">В разработке....</h2>
 <ul class="nav nav-pills nav-fill">
     <li class="nav-item">
-        <a class="nav-link" href="{{route('stocks.record.create')}}">Акции</a>
+        <a class="nav-link" href="{{route('stocks.record.index')}}">Акции</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">Облиги</a>
