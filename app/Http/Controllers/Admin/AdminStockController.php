@@ -36,7 +36,6 @@ class AdminStockController extends Controller
         $labels = $stocks->pluck('name');
 
         $data = $stocks->pluck('total_price');
-
         return view('admin.stocks.stocks', compact('stocks', 'labels', 'data'));
     }
 
