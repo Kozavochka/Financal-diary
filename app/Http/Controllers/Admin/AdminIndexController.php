@@ -43,6 +43,6 @@ class AdminIndexController extends Controller
                 $newData[$i] = $value;
             $i++;
         }
-        return view('admin.admin_panel', compact('total', 'labels','newData'));
+        return view('admin.admin_panel', compact('total', 'labels','newData', 'data'));
     }
 }

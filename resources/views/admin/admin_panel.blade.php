@@ -2,6 +2,25 @@
 @section('content')
 <h1>Общая стоимость портфеля: {{$total}} RUB</h1>
 
+<table class="table" style="max-width: 500px">
+    <thead>
+    <tr>
+        <th scope="col">Направление</th>
+        <th scope="col">Стоимость</th>
+        <th scope="col">%</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach($data as $key => $value)
+        <tr>
+            <td>{{$key}}</td>
+            <td>{{$data[$key]}} RUB</td>
+            <td>{{bcdiv($data[$key] / $total * 100,1,0)}}</td>
+        </tr>
+    @endforeach
+    </tbody>
+</table>
+
 <canvas id="myChart"></canvas>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
