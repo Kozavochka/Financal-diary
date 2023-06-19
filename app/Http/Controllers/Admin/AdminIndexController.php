@@ -39,9 +39,8 @@ class AdminIndexController extends Controller
         $i=0;
         //Как же это убого )0)
         foreach ($data as $key => $value) {
-
                 $newData[$i] = $value;
-            $i++;
+                $i++;
         }
         return view('admin.admin_panel', compact('total', 'labels','newData'));
     }
