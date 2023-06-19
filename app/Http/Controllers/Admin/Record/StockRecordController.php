@@ -7,14 +7,23 @@ use App\Http\Requests\StockRecordRequest;
 use App\Models\Record;
 use App\Models\Stock;
 use App\Services\Record\StocksStore;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class StockRecordController extends Controller
 {
 
     public function index()
-    {
-        return view('admin.record.index');
+    {  $page = request('page', 1);
+        $perPage = request('per_page', 10);
+
+        $records = QueryBuilder::for(Record::class)
+            ->with('stocks')
+            ->paginate($perPage, '*', 'page', $page);
+
+        return view('admin.record.stock.index', compact('records'));
     }
 
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Guest\StockController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/pdf', [HomeController::class,'pdf_export'])->name('general_pdf');
 
-Route::resource('/stocks',StockController::class)->names('stocks');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'auth'], function (){
+    Route::resource('/stocks',StockController::class)->names('stocks');
+});
+

@@ -32,7 +32,7 @@ class AdminBondController extends Controller
                 })
             ])
             ->paginate($perPage, '*', 'page', $page);
-//            dd( bcdiv($bonds->avg('coupon'),1,0));
+
         return view('admin.bonds.index', compact('bonds'));
     }
 

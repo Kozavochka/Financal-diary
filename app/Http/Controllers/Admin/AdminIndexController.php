@@ -17,7 +17,7 @@ class AdminIndexController extends Controller
 {
     public function index()
     {
-
+        /*ВЫНЕСТИ В ОТДЕЛЬНЫЙ МЕТОД*/
         $data = [
            'stocks' =>  DB::table('stocks')
                ->selectRaw('SUM(price * lots) as total')
@@ -42,6 +42,6 @@ class AdminIndexController extends Controller
                 $newData[$i] = $value;
                 $i++;
         }
-        return view('admin.admin_panel', compact('total', 'labels','newData'));
+        return view('admin.admin_panel', compact('total', 'labels','newData', 'data'));
     }
 }
