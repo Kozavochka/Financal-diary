@@ -43,6 +43,7 @@
     <div class="btn-group" role="group" aria-label="Basic example">
         <a href="{{route('admin.stocks.create')}}" class="btn btn-success me-2">+ Добавить акцию</a>
         <a href="{{ url()->current() }}?filter[asc_price]=true" class="btn btn-info me-2">Сортировка по стоимости</a>
+        <a href="{{route('stock_excel')}}" class="btn btn-info me-2">Excel</a>
         <a class="nav-link active" aria-current="page"
            href="{{ url()->current() }}?{{ http_build_query(request()->except('filter')) }}">Сбросить
             фильтр</a>
