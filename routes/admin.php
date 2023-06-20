@@ -25,6 +25,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 Route::get('/', [AdminIndexController::class,'index'])->name('admin.index');
 
+Route::get('stocks/export', [AdminStockController::class, 'excel_export'])->name('excel_export');
 Route::resource('/stocks', AdminStockController::class)->names('admin.stocks');
 
 Route::resource('/bonds', AdminBondController::class)->names('admin.bonds');

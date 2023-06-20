@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
 use App\Models\Industry;
@@ -9,6 +10,7 @@ use App\Models\Stock;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -87,5 +89,10 @@ class AdminStockController extends Controller
         $stock->delete();
 
         return redirect(route('admin.stocks.index'));
+    }
+
+    public function excel_export()
+    {
+        return Excel::download(new StocksExport, 'stocks.xlsx');
     }
 }
