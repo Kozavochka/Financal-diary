@@ -31,11 +31,10 @@ class AdminStockController extends Controller
             ->paginate($perPage, '*', 'page', $page);
 
 
-//        dd($stocks[0]->records[0]->pivot->price);
-
         $labels = $stocks->pluck('name');
 
         $data = $stocks->pluck('total_price');
+
         return view('admin.stocks.stocks', compact('stocks', 'labels', 'data'));
     }
 

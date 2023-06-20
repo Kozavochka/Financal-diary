@@ -15,7 +15,7 @@
             <div class="col-md-8 mb-5">
                 <div class="card-header">
                     <h2>Состав портфеля</h2>
-                    <p class="text-success">Общая стоимость: {{$total}} RUB</p>
+                    <p class="text-success">Общая стоимость: {{$dataChart['total']}} RUB</p>
                 </div>
                 <div class="card">
                     <table class="table" style="max-width: 500px">
@@ -31,7 +31,7 @@
                             <tr>
                                 <td>{{$key}}</td>
                                 <td>{{$data[$key]}} RUB</td>
-                                <td>{{bcdiv($data[$key] / $total * 100,1,0)}}</td>
+                                <td>{{bcdiv($data[$key] / $dataChart['total'] * 100,1,0)}}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -43,10 +43,10 @@
                     var myChart = new Chart(ctx, {
                         type: 'pie',
                         data: {
-                            labels: {!! json_encode($labels) !!},
+                            labels: {!! json_encode($dataChart['labels']) !!},
                             datasets: [{
                                 label: 'Состав',
-                                data: {!! json_encode($newData) !!},
+                                data: {!! json_encode($dataChart['numeric']) !!},
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 0.2)',
                                     'rgba(54, 162, 235, 0.2)',

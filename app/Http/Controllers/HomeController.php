@@ -8,6 +8,7 @@ use App\Models\Fund;
 use App\Models\Industry;
 use App\Models\Loan;
 use App\Models\Stock;
+use App\Services\Admin\GetDataChart;
 use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -25,35 +26,25 @@ class HomeController extends Controller
 
 
     public function index()
-    {   /*ВЫНЕСТИ В ОТДЕЛЬНЫЙ МЕТОД*/
+    {
         $data = [
-            'stocks' =>  DB::table('stocks')
+            'Акции' =>  DB::table('stocks')
                 ->selectRaw('SUM(price * lots) as total')
                 ->value('total'),
 
-            'bonds' => Bond::query()->sum('price'),
+            'Облигации' => Bond::query()->sum('price'),
 
-            'crypto' => Crypto::query()->sum('price') * 80,
+            'Крипта' => Crypto::query()->sum('price') * 80,
 
-            'loans' => Loan::query()->sum('price'),
+            'Займы' => Loan::query()->sum('price'),
 
-            'funds' => Fund::query()->sum('price'),
+            'Фонды' => Fund::query()->sum('price'),
         ];
 
-        $total = array_sum($data);
+        //Получение данных для графика и общей стоимости
+        $dataChart = GetDataChart::get_data($data);
 
-        $labels = array_keys($data);
-        $newData = [];
-        $i=0;
-        //Как же это убого )0)
-        foreach ($data as $key => $value) {
-
-            $newData[$i] = $value;
-            $i++;
-        }
-
-
-        return view('home', compact('total', 'labels','newData', 'data'));
+        return view('home', compact('data', 'dataChart'));
     }
 
     public function pdf_export()
