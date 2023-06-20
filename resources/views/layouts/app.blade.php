@@ -31,7 +31,7 @@
                 </a>
                 @endcan
                 <a class="navbar-brand" href="{{route('home')}}">
-                    {{ config('app.name', 'Laravel') }}
+                   Home
                 </a>
                     @if(Auth::check())
                     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">

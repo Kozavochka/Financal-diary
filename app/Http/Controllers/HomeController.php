@@ -9,6 +9,7 @@ use App\Models\Industry;
 use App\Models\Loan;
 use App\Models\Stock;
 use App\Services\Admin\GetDataChart;
+use App\Services\PDF\PdfExportAll;
 use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -48,37 +49,21 @@ class HomeController extends Controller
     }
 
     public function pdf_export()
-    {   /*ВЫНЕСТИ В ОТДЕЛЬНЫЙ МЕТОД*/
+    {
         $data = [
-            'stocks' =>  DB::table('stocks')
+            'Акции' =>  DB::table('stocks')
                 ->selectRaw('SUM(price * lots) as total')
                 ->value('total'),
 
-            'bonds' => Bond::query()->sum('price'),
+            'Облигации' => Bond::query()->sum('price'),
 
-            'crypto' => Crypto::query()->sum('price') * 80,
+            'Крипта' => Crypto::query()->sum('price') * 80,
 
-            'loans' => Loan::query()->sum('price'),
+            'Займы' => Loan::query()->sum('price'),
 
-            'funds' => Fund::query()->sum('price'),
+            'Фонды' => Fund::query()->sum('price'),
         ];
 
-
-        $stocks =QueryBuilder::for(Stock::class)
-            ->with(['industry', 'records'])
-            ->get();
-
-        $industries = Industry::query()
-            ->withCount('stocks')
-            ->get();
-
-        $total = array_sum($data);
-
-        $pdf = new Dompdf();
-        $pdf->loadHtml(view('pdf.general_pdf', compact('data', 'total', 'stocks', 'industries')));
-        $pdf->setPaper('A4', 'portrait');
-        $pdf->render();
-
-        return $pdf->stream('general.pdf');
+        PdfExportAll::export($data);
     }
 }

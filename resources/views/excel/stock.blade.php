@@ -2,8 +2,9 @@
     <thead>
     <tr>
         <th>Name</th>
-        <th>Price</th>
+        <th>Price, RUB</th>
         <th>Lots</th>
+        <th>Total, RUB</th>
         <th>Industry</th>
     </tr>
     </thead>
@@ -13,6 +14,7 @@
             <td>{{ $stock->name }}</td>
             <td>{{ $stock->price }}</td>
             <td>{{ $stock->lots }}</td>
+            <td>{{ $stock->lots * $stock->price }}</td>
             <td>{{ $stock->industry->name }}</td>
         </tr>
     @endforeach

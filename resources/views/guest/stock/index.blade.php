@@ -31,25 +31,26 @@
 
     <div class="btn-group" role="group" aria-label="Basic example">
         <a href="{{ url()->current() }}?filter[asc_price]=true" class="btn btn-info me-2">Сортировка по стоимости</a>
-        <div class="dropdown">
+        <div class="dropdown me-2">
             <a class="btn btn-secondary dropdown-toggle" href=" " role="button" id="dropdownMenuLink"
                data-bs-toggle="dropdown" aria-expanded="false">
                 Фильтр отрасли
             </a>
             @include('filters.filter_industry')
         </div>
+        <a href="{{ route('excel_export') }}?filter[asc_price]=true" class="btn btn-success me-2">
+            <i class="fa-solid fa-file-excel"></i>Excel</a>
         <a class="nav-link active" aria-current="page"
            href="{{ url()->current() }}?{{ http_build_query(request()->except('filter')) }}">Сбросить
             фильтр</a>
-    </div>
 
-            <div class="col col-xl-4">
+    </div>
+    <div class="col col-xl-4">
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">Отрасль</th>
                         <th scope="col">Кол-во</th>
-
                     </tr>
                     </thead>
                     <tbody>
@@ -59,7 +60,6 @@
                             <td>{{$industry->stocks_count}}</td>
                         </tr>
                     @endforeach
-
                     </tbody>
                 </table>
             </div>

@@ -26,6 +26,7 @@ Route::get('/pdf', [HomeController::class,'pdf_export'])->name('general_pdf');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function (){
+    Route::get('stocks/export', [StockController::class, 'excel_export'])->name('excel_export');
     Route::resource('/stocks',StockController::class)->names('stocks');
 });
 
