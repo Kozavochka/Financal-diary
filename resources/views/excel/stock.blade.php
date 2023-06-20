@@ -14,7 +14,7 @@
             <td>{{ $stock->name }}</td>
             <td>{{ $stock->price }}</td>
             <td>{{ $stock->lots }}</td>
-            <td>{{ $stock->lots * $stock->price }}</td>
+            <td>{{ $stock->total_price }}</td>
             <td>{{ $stock->industry->name }}</td>
         </tr>
     @endforeach

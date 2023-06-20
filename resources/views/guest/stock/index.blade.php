@@ -18,7 +18,7 @@
         @foreach($stocks as $stock)
             <tr>
                 <th scope="row">{{$stock->id}}</th>
-                <td>{{$stock->name}}</td>
+                <td><a href="{{route('stocks.show', $stock)}}">{{$stock->name}}</a> </td>
                 <td>{{$stock->ticker}}</td>
                 <td>{{$stock->industry->name}}</td>
                 <td>{{$stock->total_price}} RUB</td>

@@ -8,6 +8,7 @@ use App\Models\Industry;
 use App\Models\Stock;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -56,7 +57,9 @@ class StockController extends Controller
 
     public function show(Stock $stock)
     {
+        $total =Cache::get('total');
 
+        return view('guest.stock.show', compact('stock', 'total'));
     }
 
 
