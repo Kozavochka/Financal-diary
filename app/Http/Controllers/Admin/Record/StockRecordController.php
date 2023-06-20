@@ -19,17 +19,23 @@ class StockRecordController extends Controller
     {  $page = request('page', 1);
         $perPage = request('per_page', 10);
 
-        $records = QueryBuilder::for(Record::class)
+        $records = Record::query()
             ->with('stocks')
             ->paginate($perPage, '*', 'page', $page);
 
-        return view('admin.record.stock.index', compact('records'));
+        $stocks_dist = Stock::query()
+            ->orderByRaw('price*lots desc')
+            ->get();
+
+        return view('admin.record.stock.index', compact('records', 'stocks_dist'));
     }
 
 
     public function create()
     {
-        $stocks = Stock::query()->get();
+        $stocks = Stock::query()
+            ->orderByRaw('price*lots desc')
+            ->get();
 
         return view('admin.record.stock.create', compact('stocks'));
     }

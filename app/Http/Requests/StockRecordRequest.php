@@ -22,7 +22,11 @@ class StockRecordRequest extends FormRequest
             ],
             'stocks' => 'required|array',//Массив акций
             'stocks.*.stock_id' => 'required|integer',//Массив id
-            'stocks.*.price' => 'required|numeric',//Массив соотв. цены
+            'stocks.*.price' => [
+                'required',
+                'numeric',
+                'regex:/^\d+(\.\d{1,2})?$/'
+            ],//Массив соотв. цены
         ];
     }
 }

@@ -3,23 +3,25 @@
     <table class="table">
         <thead>
         <tr>
+
             <th scope="col">#</th>
-            <th scope="col">Акция</th>
-            <th scope="col">Цена</th>
             <th scope="col">Описание</th>
+            @foreach($stocks_dist as $stock)
+                <th scope="col">{{$stock->name}}</th>
+                @endforeach
+
         </tr>
         </thead>
         <tbody>
         @foreach($records as $record)
-            @foreach($record->stocks as $stock)
-                <tr>
-                    <th scope="row">{{$record->id}}</th>
-                    <td>{{$stock->name}}</td>
-                    <td>{{$stock->price}}</td>
-                    <td>{{$record->description}}</td>
-                </tr>
-            @endforeach
+            <tr>
+                <th scope="row">{{$loop->index}}</th>
+                <th scope="row">{{$record?->description}}</th>
 
+            @foreach($record->stocks as $stock)
+                    <td>{{$stock?->pivot?->price}} RUB</td>
+            @endforeach
+            </tr>
         @endforeach
         </tbody>
     </table>

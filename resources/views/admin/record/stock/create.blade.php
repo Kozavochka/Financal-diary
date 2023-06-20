@@ -21,7 +21,7 @@
 
                         <label for="prices" class="form-label">Цена</label>
                         <input id="prices"  name="stocks[{{$loop->index}}][price]" class="form-control card-text"
-                               type="number" placeholder="Введите число">
+                               type="number" step="0.01" placeholder="Введите число">
                     </div>
                 </div>
             </div>
