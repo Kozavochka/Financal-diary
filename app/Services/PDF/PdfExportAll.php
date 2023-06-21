@@ -23,17 +23,17 @@ class PdfExportAll
             ->get();
 
         $total = array_sum($data);
-
-
         $options = new Options();
+        $options->setChroot(__DIR__);
+        //$isRemoteEnabled = true;   - не идет загрузка
+        $pdf = new Dompdf($options);
 
-//        dd(__DIR__);
-        $pdf = new Dompdf(['chroot' => __DIR__]);
         $pdf->set_base_path( __DIR__ );
-        $pdf->loadHtml(view('pdf.general_pdf', compact('data', 'total', 'stocks', 'industries')));
+
+        $pdf->loadHtml(view('pdf.general_pdf', compact('data', 'total', 'stocks', 'industries')),
+            'UTF-8');
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
-
-        return $pdf->stream('general.pdf');
+        $pdf->stream('general.pdf');
     }
 }

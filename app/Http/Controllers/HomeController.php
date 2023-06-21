@@ -63,7 +63,7 @@ class HomeController extends Controller
 
             'Фонды' => Fund::query()->sum('price'),
         ];
-
+        // Вынести в job так как долго загружается
         PdfExportAll::export($data);
     }
 }
