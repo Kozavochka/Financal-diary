@@ -5,6 +5,7 @@ namespace App\Services\PDF;
 use App\Models\Industry;
 use App\Models\Stock;
 use Dompdf\Dompdf;
+use Spatie\Browsershot\Browsershot;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class PdfExportAll
@@ -28,5 +29,6 @@ class PdfExportAll
         $pdf->render();
 
         return $pdf->stream('general.pdf');
+
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Guest\StockController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Browsershot\Browsershot;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => 'auth'], function (){
     Route::get('stocks/export', [StockController::class, 'excel_export'])->name('excel_export');
     Route::resource('/stocks',StockController::class)->names('stocks');
+
+    Route::get('/br', function() {
+        Browsershot::html('<h1>Hello world!!</h1>')->save('example.pdf');
+        echo 'Pdf generated at <i>public/browsershot.pdf</i>';
+    });
 });
 
