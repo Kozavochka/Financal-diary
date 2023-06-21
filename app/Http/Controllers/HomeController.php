@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ExportAllPdf;
 use App\Models\Bond;
 use App\Models\Crypto;
 use App\Models\Fund;
@@ -65,5 +66,8 @@ class HomeController extends Controller
         ];
         // Вынести в job так как долго загружается
         PdfExportAll::export($data);
+
+//        event(new ExportAllPdf($data)); //Не предлагает скачиваться???
+
     }
 }

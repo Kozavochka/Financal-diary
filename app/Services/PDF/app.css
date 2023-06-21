@@ -1,4 +1,6 @@
-
-body {
-    font-family: DejaVu Sans, 'sans-serif' !important;
+body{
+    font-family: DejaVu Sans , sans-serif;
+}
+.h_text{
+    font-size: 30px;
 }

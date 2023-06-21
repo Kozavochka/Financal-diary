@@ -10,22 +10,17 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-
-{{--    <link rel="stylesheet" href="{{asset('css/app.css ')}}">--}}
-
-
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link  type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
     <link   type="text/css"  rel="stylesheet" href="app.css">
+
 </head>
 <body>
 <div class="container">
     <div class="col-md-8 mb-5">
         <div class="card-header">
-            <h2>Portfolio</h2>
+            <p class="mb-3 h_text"><b>Портфель</b></p>
             <p class="text-success">Общая стоимость: {{$total}} RUB</p>
         </div>
         <div class="card">
@@ -50,7 +45,7 @@
         </div>
     </div>
     <div class="col-md-8 mb-5">
-        <h2 class="mb-3">Stocks</h2>
+        <p class="mb-3 h_text"><b>Акции</b></p>
         <table class="table">
             <thead>
             <tr>

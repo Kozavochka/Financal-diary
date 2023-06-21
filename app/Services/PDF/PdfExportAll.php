@@ -25,7 +25,7 @@ class PdfExportAll
         $total = array_sum($data);
         $options = new Options();
         $options->setChroot(__DIR__);
-        //$isRemoteEnabled = true;   - не идет загрузка
+
         $pdf = new Dompdf($options);
 
         $pdf->set_base_path( __DIR__ );
