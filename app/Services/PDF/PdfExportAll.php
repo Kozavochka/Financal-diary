@@ -26,14 +26,14 @@ class PdfExportAll
 
 
         $options = new Options();
-//        $options->setFontDir(storage_path('css')); //?????
 
-
-        $pdf = new Dompdf($options);
+//        dd(__DIR__);
+        $pdf = new Dompdf(['chroot' => __DIR__]);
+        $pdf->set_base_path( __DIR__ );
         $pdf->loadHtml(view('pdf.general_pdf', compact('data', 'total', 'stocks', 'industries')));
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
-//        dd($pdf);
+
         return $pdf->stream('general.pdf');
     }
 }
