@@ -40,6 +40,6 @@ class PdfExportAll
             'UTF-8');
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
-        $pdf->stream('general.pdf');
+        $pdf->stream('Отчёт.pdf');
     }
 }

@@ -4,3 +4,6 @@ body{
 .h_text{
     font-size: 30px;
 }
+.container{
+    margin-left: 10% !important;
+}

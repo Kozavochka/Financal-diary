@@ -97,7 +97,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Название</th>
                 <th scope="col">Тикер</th>
-                <th scope="col">Купон RUB</th>
+                <th scope="col">Купон <br> RUB</th>
                 <th scope="col">%</th>
                 <th scope="col">Дата погашения</th>
             </tr>
