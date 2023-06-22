@@ -21,7 +21,8 @@
         <div class="form-group">
             <div class="mb-3">
                 <label for="price" class="form-label">Цена</label>
-                <input id="price"  name="price" class="form-control" type="number" step="0.01" placeholder="Введите число" value="1000">
+                <input id="price"  name="price" class="form-control" type="number" step="0.01" placeholder="Введите число"
+                       value="{{ old('ticker', $bond->price) }}">
             </div>
         </div>
         <div class="form-group">
