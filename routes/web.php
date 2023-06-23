@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\Guest\StockController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Telegram\TelegramController;
 use Illuminate\Support\Facades\Route;
-
+use Telegram\Bot\Laravel\Facades\Telegram;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,10 +24,16 @@ Auth::routes();
 
 Route::get('/pdf', [HomeController::class,'pdf_export'])->name('general_pdf');
 
+Route::get('/start-tg',[HomeController::class,'telegram']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function (){
     Route::get('stocks/export', [StockController::class, 'excel_export'])->name('excel_export');
     Route::resource('/stocks',StockController::class)->names('stocks');
+});
+
+Route::post('/telegram/webhook', function () {
+    $update = Telegram::commandsHandler(true);
+    return 'ok';
 });
 

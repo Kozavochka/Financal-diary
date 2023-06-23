@@ -11,12 +11,15 @@ use App\Models\Loan;
 use App\Models\Stock;
 use App\Services\Admin\GetDataChart;
 use App\Services\PDF\PdfExportAll;
+use App\Telegram\Commands\StartCommand;
 use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Methods\Update;
 
 class HomeController extends Controller
 {
@@ -27,10 +30,26 @@ class HomeController extends Controller
     }
 
 
+    public function telegram()
+    {
+        $response = Telegram::bot('worker')->getCommands();
+         $update =  Telegram::bot('worker')->commandsHandler(true);
+        /* Telegram::bot('worker')->sendMessage([
+             'chat_id' => env('TELEGRAM_MY_CHAT_ID'), // ID чата, куда отправлять уведомление
+             'text' => 'Работай падла'// Текст уведомления
+         ]);*/
+
+        Telegram::bot('worker')->addCommand(StartCommand::class);//Команда добавилась
+
+       Telegram::bot('worker')->processCommand($update);
+
+        dd($response);
+    }
+
     public function index()
     {
         $data = [
-            'Акции' =>  DB::table('stocks')
+            'Акции' => DB::table('stocks')
                 ->selectRaw('SUM(price * lots) as total')
                 ->value('total'),
 
@@ -46,13 +65,14 @@ class HomeController extends Controller
         //Получение данных для графика и общей стоимости
         $dataChart = GetDataChart::get_data($data);
 
+
         return view('home', compact('data', 'dataChart'));
     }
 
     public function pdf_export()
     {
         $data = [
-            'Акции' =>  DB::table('stocks')
+            'Акции' => DB::table('stocks')
                 ->selectRaw('SUM(price * lots) as total')
                 ->value('total'),
 

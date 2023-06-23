@@ -40,9 +40,14 @@ return [
             ],
         ],
 
-        //        'mySecondBot' => [
-        //            'token' => '123456:abc',
-        //        ],
+        'worker' => [
+            'token' => env('WORKER_BOT_TOKEN'),
+            'username' => env('WORKER_BOT_USERNAME'),
+            'commands' => [
+                \App\Telegram\Commands\StartCommand::class,
+            ]
+        ],
+        'default' => 'mybot'
     ],
 
     /*

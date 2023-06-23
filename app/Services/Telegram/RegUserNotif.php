@@ -12,5 +12,6 @@ class RegUserNotif
             'chat_id' => env('TELEGRAM_MY_CHAT_ID'), // ID чата, куда отправлять уведомление
             'text' => 'Новый пользователь зарегистрирован: '.$data['name'].' '.$data['email'] // Текст уведомления
         ]);
+
     }
 }
