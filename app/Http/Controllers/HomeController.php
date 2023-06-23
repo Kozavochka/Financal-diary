@@ -33,13 +33,33 @@ class HomeController extends Controller
     public function telegram()
     {
         $response = Telegram::bot('worker')->getCommands();
-         $update =  Telegram::bot('worker')->commandsHandler(true);
+
         /* Telegram::bot('worker')->sendMessage([
              'chat_id' => env('TELEGRAM_MY_CHAT_ID'), // ID чата, куда отправлять уведомление
              'text' => 'Работай падла'// Текст уведомления
          ]);*/
+        Telegram::bot('worker')->addCommand(StartCommand::class);
 
-        Telegram::bot('worker')->addCommand(StartCommand::class);//Команда добавилась
+        $update = new \Telegram\Bot\Objects\Update([
+            "update_id" => 123456789,
+            "message" => [
+                "message_id" => 1,
+                "chat" => [
+                    "id" => env('TELEGRAM_MY_CHAT_ID'),
+                    "type" => "private",
+                ],
+                "date" => 1641297154,
+                "text" => "/start",
+                "entities" => [
+                    [
+                        "offset" => 0,
+                        "length" => 6,
+                        "type" => "bot_command",
+                    ],
+                ],
+            ],
+        ]);
+
 
        Telegram::bot('worker')->processCommand($update);
 

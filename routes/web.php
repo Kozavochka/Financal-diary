@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Guest\StockController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Telegram\TelegramController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Telegram\Bot\Laravel\Facades\Telegram;
 /*
@@ -32,8 +32,13 @@ Route::group(['middleware' => 'auth'], function (){
     Route::resource('/stocks',StockController::class)->names('stocks');
 });
 
+Route::post('/bot/webhook', function (Request $request) {
+    $update = Telegram::bot('worker')->commandsHandler(true);
+    return response('OK', 200);
+});
+
 Route::post('/telegram/webhook', function () {
-    $update = Telegram::commandsHandler(true);
+    $update = Telegram::bot('worker')->commandsHandler(true);
     return 'ok';
 });
 
