@@ -7,7 +7,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 class StartCommand extends Command
 {
     protected string $name = 'start';
-    protected string $description = 'Работай умаляю';
+    protected string $description = 'Стартовая команда';
 
     public function handle()
     {   $chat_id = $this->getUpdate()->getMessage()->getChat()->getId();

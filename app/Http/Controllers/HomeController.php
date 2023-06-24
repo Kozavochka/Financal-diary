@@ -32,12 +32,11 @@ class HomeController extends Controller
 
     public function telegram()
     {
-        $response = Telegram::bot('worker')->getCommands();
+//        Telegram::bot('worker')->setWebhook([
+//           'url' => 'https://73ea-46-73-165-51.eu.ngrok.io/webhook',
+//        ]);
 
-        /* Telegram::bot('worker')->sendMessage([
-             'chat_id' => env('TELEGRAM_MY_CHAT_ID'), // ID чата, куда отправлять уведомление
-             'text' => 'Работай падла'// Текст уведомления
-         ]);*/
+        $response = Telegram::bot('worker')->getWebhookInfo();
         Telegram::bot('worker')->addCommand(StartCommand::class);
 
         $update = new \Telegram\Bot\Objects\Update([
@@ -61,9 +60,11 @@ class HomeController extends Controller
         ]);
 
 
-       Telegram::bot('worker')->processCommand($update);
+//       Telegram::bot('worker')->processCommand($update);
 
-        dd($response);
+        dump($response);
+
+        return 'OK123';
     }
 
     public function index()
