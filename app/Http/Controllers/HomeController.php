@@ -32,14 +32,14 @@ class HomeController extends Controller
 
     public function telegram()
     {
-//        Telegram::bot('worker')->setWebhook([
-//           'url' => 'https://73ea-46-73-165-51.eu.ngrok.io/webhook',
-//        ]);
-
-        $response = Telegram::bot('worker')->getWebhookInfo();
+        Telegram::bot('worker')->setWebhook([
+           'url' => 'https://0a1f-46-73-165-51.ngrok-free.app/webhook',
+        ]);
         Telegram::bot('worker')->addCommand(StartCommand::class);
+        $response = Telegram::bot('worker')->getCommands();
 
-        $update = new \Telegram\Bot\Objects\Update([
+
+     /*   $update = new \Telegram\Bot\Objects\Update([
             "update_id" => 123456789,
             "message" => [
                 "message_id" => 1,
@@ -60,7 +60,7 @@ class HomeController extends Controller
         ]);
 
 
-//       Telegram::bot('worker')->processCommand($update);
+       Telegram::bot('worker')->processCommand($update);*/
 
         dump($response);
 

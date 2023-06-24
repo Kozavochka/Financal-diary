@@ -17,7 +17,7 @@ class StartCommand extends Command
             'text' => $text
         ];*/
         $this->replyWithMessage([
-            'text' => 'Hey, there! Welcome to our bot!',
+            'text' => $text,
         ]);
 //        Telegram::bot('worker')->sendMessage($data);
     }
