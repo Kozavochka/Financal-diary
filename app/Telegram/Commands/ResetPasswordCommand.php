@@ -15,8 +15,8 @@ class ResetPasswordCommand extends Command
     public function handle()
     {
         $resetCode = $this->generateCode()->getCode();
-
-        Cache::put('reset_code', $resetCode, $minutes = 10);
+        //Сохранение пароля в кэш
+        Cache::put('reset_code', $resetCode, now()->addMinutes(3));
 
         $this->replyWithMessage([
             'text' => 'Код для сброса пароля: '.$resetCode,

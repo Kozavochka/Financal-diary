@@ -18,7 +18,7 @@ class ResetTgPasswordRequest extends FormRequest
         return [
             'code' => [
                 'required',
-                'numeric'
+                'integer'
             ],
             'pass' => [
                 'required',

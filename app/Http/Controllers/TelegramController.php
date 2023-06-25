@@ -20,7 +20,7 @@ class TelegramController extends Controller
 
     public function index(User $user)
     {
-        Cache::put('user_tg', $user->id, $minutes = 10);
+        Cache::put('user_tg', $user->id, now()->addMinutes(2));
 
         return redirect('https://t.me/FinDiaryWorker_bot');
 
@@ -37,17 +37,17 @@ class TelegramController extends Controller
         $data = $request->validated();
 
         $tgCode = Cache::get('reset_code');
-        dump(Cache::get('reset_code'));
-       /* if($tgCode !== $data['code']){
-            return redirect()->back();
-        }*/
-        dd($data);
+        //Проверка кода
+        if($tgCode !== intval( $data['code'],$base = 10)){
+            return redirect()->route('login');
+        }
+        //Обновление пароля
         User::query()
             ->where('email', $data['email'])
             ->update([
                 'password' => Hash::make($data['pass'])
             ]);
-
+        //Очищение кэша
         Cache::forget('reset_code');
 
         return redirect()->route('login');
