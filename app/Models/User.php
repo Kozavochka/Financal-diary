@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'reset_code',
+        'chat_id'
     ];
 
     /**

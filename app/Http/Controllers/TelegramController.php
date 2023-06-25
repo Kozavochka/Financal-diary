@@ -32,13 +32,16 @@ class TelegramController extends Controller
             return view('auth.passwords.reset-tg', compact('data'));
     }
 
-    public function reset(ResetTgPasswordRequest $request)
+    public function reset(ResetTgPasswordRequest $request)//Вынести в методы
     {
         $data = $request->validated();
-
-        $tgCode = Cache::get('reset_code');
+        //Получение поля сбрасывающего кода
+        $tgCode = User::query()
+        ->select('reset_code')
+        ->where('email', $data['email'])
+        ->get();
         //Проверка кода
-        if($tgCode !== intval( $data['code'],$base = 10)){
+        if(!Hash::check($data['code'], $tgCode[0]->reset_code)){
             return redirect()->route('login');
         }
         //Обновление пароля
@@ -47,8 +50,6 @@ class TelegramController extends Controller
             ->update([
                 'password' => Hash::make($data['pass'])
             ]);
-        //Очищение кэша
-        Cache::forget('reset_code');
 
         return redirect()->route('login');
     }
