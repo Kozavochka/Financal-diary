@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class TelegramController extends Controller
@@ -27,9 +28,14 @@ class TelegramController extends Controller
     }
 
     public function reset_show(Request $request)
-    {       $data = $request->validate(['email' => 'required|email']);
+    {
+        $data = $request->validate(['email' => [
+            'required',
+            'email',
+            Rule::exists('users','email'),
+        ]]);
 
-            return view('auth.passwords.reset-tg', compact('data'));
+        return view('auth.passwords.reset-tg', compact('data'));
     }
 
     public function reset(ResetTgPasswordRequest $request)//Вынести в методы
@@ -37,11 +43,11 @@ class TelegramController extends Controller
         $data = $request->validated();
         //Получение поля сбрасывающего кода
         $tgCode = User::query()
-        ->select('reset_code')
-        ->where('email', $data['email'])
-        ->get();
+            ->select('reset_code')
+            ->where('email', $data['email'])
+            ->get();
         //Проверка кода
-        if(!Hash::check($data['code'], $tgCode[0]->reset_code)){
+        if (!Hash::check($data['code'], $tgCode[0]->reset_code)) {
             return redirect()->route('login');
         }
         //Обновление пароля
