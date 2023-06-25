@@ -46,6 +46,7 @@ return [
             'webhook_url' => env('WORKER_WEBHOOK_URL'),
             'commands' => [
                 \App\Telegram\Commands\StartCommand::class,
+                \App\Telegram\Commands\ResetPasswordCommand::class,
             ]
         ],
         'default' => 'mybot'
