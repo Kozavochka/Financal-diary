@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('chat_id')->after('role');
+            $table->unsignedInteger('chat_id')->after('role')->nullable();
         });
     }
 
