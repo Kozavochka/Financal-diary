@@ -10,6 +10,7 @@ use App\Models\Fund;
 use App\Models\Loan;
 use App\Models\Stock;
 use App\Services\Admin\GetDataChart;
+use App\Telegram\Commands\StartCommand;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -38,5 +39,19 @@ class AdminIndexController extends Controller
         $dataChart = GetDataChart::get_data($data);
         /*Cache::put('total',  $dataChart['total'], $minutes = 60*24*7);*/ //Настроить!
         return view('admin.admin_panel', compact('dataChart',  'data'));
+    }
+
+
+    //Метод для обновления телеграмм бота
+    public function setTG()
+    {
+        Telegram::bot('worker')->setWebhook([
+            'url' => env('WORKER_WEBHOOK_URL'),
+        ]);
+        Telegram::bot('worker')->addCommand(StartCommand::class);
+        $response = Telegram::bot('worker')->getWebhookInfo();
+
+        dump($response);
+        return 'Действие выполнено ';
     }
 }

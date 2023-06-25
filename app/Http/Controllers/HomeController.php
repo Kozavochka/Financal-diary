@@ -29,44 +29,6 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-
-    public function telegram()
-    {
-        Telegram::bot('worker')->setWebhook([
-           'url' => 'https://0a1f-46-73-165-51.ngrok-free.app/webhook',
-        ]);
-        Telegram::bot('worker')->addCommand(StartCommand::class);
-        $response = Telegram::bot('worker')->getCommands();
-
-
-     /*   $update = new \Telegram\Bot\Objects\Update([
-            "update_id" => 123456789,
-            "message" => [
-                "message_id" => 1,
-                "chat" => [
-                    "id" => env('TELEGRAM_MY_CHAT_ID'),
-                    "type" => "private",
-                ],
-                "date" => 1641297154,
-                "text" => "/start",
-                "entities" => [
-                    [
-                        "offset" => 0,
-                        "length" => 6,
-                        "type" => "bot_command",
-                    ],
-                ],
-            ],
-        ]);
-
-
-       Telegram::bot('worker')->processCommand($update);*/
-
-        dump($response);
-
-        return 'OK123';
-    }
-
     public function index()
     {
         $data = [

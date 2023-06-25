@@ -24,7 +24,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 */
 
 Route::get('/', [AdminIndexController::class,'index'])->name('admin.index');
-
+/* Роуты на активы */
 Route::get('stocks/export', [AdminStockController::class, 'excel_export'])->name('excel_export');
 Route::resource('/stocks', AdminStockController::class)->names('admin.stocks');
 
@@ -42,8 +42,5 @@ Route::resource('/record', RecordController::class)->names('records');
 
 Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes');
 
-
-Route::post('/telegram/webhook', function () {
-    $update = Telegram::commandsHandler(true);
-    return 'ok';
-});
+/* Телеграмм */
+Route::get('/set-tg',[AdminIndexController::class,'setTG']);

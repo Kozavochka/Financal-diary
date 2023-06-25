@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Telegram\Commands;
+use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -11,14 +13,21 @@ class StartCommand extends Command
 
     public function handle()
     {   $chat_id = $this->getUpdate()->getMessage()->getChat()->getId();
-        $text = "Привет! Ваш chat_id: " . $chat_id;
-/*        $data = [
-            'chat_id' => $chat_id,
-            'text' => $text
-        ];*/
+        $text = "Привет,этот телеграмм бот предназначен для дополнительной верификации аккаунта,а также рассылке новостей!
+Ваш chat_id: " . $chat_id;
+
+        //Вынести в метод?
+        if(Cache::get('user_tg')) {//Для обхода если start не через сайт
+            User::query()
+                ->where('id', Cache::get('user_tg'))
+                ->update([
+                    'chat_id' => $chat_id
+                ]);
+            Cache::forget('user_tg');
+        }
+
         $this->replyWithMessage([
             'text' => $text,
         ]);
-//        Telegram::bot('worker')->sendMessage($data);
     }
 }

@@ -43,7 +43,7 @@ return [
         'worker' => [
             'token' => env('WORKER_BOT_TOKEN'),
             'username' => env('WORKER_BOT_USERNAME'),
-            'webhook_url' => 'https://0a1f-46-73-165-51.ngrok-free.app/webhook',
+            'webhook_url' => env('WORKER_WEBHOOK_URL'),
             'commands' => [
                 \App\Telegram\Commands\StartCommand::class,
             ]

@@ -86,7 +86,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{route('tg', auth()->user())}}">
                                         <i class="fa-brands fa-telegram"></i> Telegram
                                     </a>
 

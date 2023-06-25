@@ -22,10 +22,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+//Роут на экспорт портфеля
 Route::get('/pdf', [HomeController::class,'pdf_export'])->name('general_pdf');
 
-Route::get('/start-tg',[HomeController::class,'telegram']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function (){
@@ -33,6 +32,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::resource('/stocks',StockController::class)->names('stocks');
 });
 
-
-Route::post('/webhook', [TelegramController::class,'index']);
+//Роут веб хука
+Route::post('/webhook', [TelegramController::class,'webhook']);
+Route::get('/tg/{user}',[TelegramController::class,'index'])->name('tg');
 
