@@ -43,4 +43,4 @@ Route::resource('/record', RecordController::class)->names('records');
 Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes');
 
 /* Телеграмм */
-Route::get('/set-tg',[AdminIndexController::class,'setTG']);
+Route::get('/set-tg',[AdminIndexController::class,'setTG'])->name('set-tg');

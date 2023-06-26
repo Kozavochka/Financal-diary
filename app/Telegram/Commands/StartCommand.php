@@ -16,8 +16,8 @@ class StartCommand extends Command
         $text = "Привет,этот телеграмм бот предназначен для дополнительной верификации аккаунта,а также рассылке новостей!
 Ваш chat_id: " . $chat_id;
 
-        //Вынести в метод?
-        if(Cache::get('user_tg')) {//Для обхода если start не через сайт
+        //Eсли start не через сайт
+        if(Cache::get('user_tg')) {
             User::query()
                 ->where('id', Cache::get('user_tg'))
                 ->update([

@@ -88,10 +88,14 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex flex-column">
 
                 <div class="info">
                     <a href="#" class="d-block">{{auth()->user()->name}}</a>
+                </div>
+                <div class="info">
+                    <a href="{{route('set-tg')}}" class="d-block"><i class="fa-brands fa-telegram fa-xl" style="color: #346cda;"></i>
+                    Обновить бота</a>
                 </div>
             </div>
 

@@ -19,10 +19,10 @@ class TelegramController extends Controller
         Telegram::bot('worker')->commandsHandler(true);
     }
 
-    public function index(User $user)
-    {
+    public function index(User $user)//Метод добавления чата пользователя в таблицу
+    {   //Сохранение в кэш
         Cache::put('user_tg', $user->id, now()->addMinutes(2));
-
+        //Перенаправление на бота
         return redirect('https://t.me/FinDiaryWorker_bot');
 
     }
