@@ -54,7 +54,8 @@ class TelegramController extends Controller
         User::query()
             ->where('email', $data['email'])
             ->update([
-                'password' => Hash::make($data['pass'])
+                'password' => Hash::make($data['pass']),
+                'reset_code' => null,
             ]);
 
         return redirect()->route('login');
