@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Guest\BondController;
 use App\Http\Controllers\Guest\StockController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TelegramController;
@@ -27,9 +28,12 @@ Route::get('/pdf', [HomeController::class,'pdf_export'])->name('general_pdf');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+//Група рутов на разделы гостя
 Route::group(['middleware' => 'auth'], function (){
     Route::get('stocks/export', [StockController::class, 'excel_export'])->name('excel_export');
     Route::resource('/stocks',StockController::class)->names('stocks');
+
+    Route::resource('/bonds', BondController::class)->names('bonds');
 });
 
 //Роут веб хука

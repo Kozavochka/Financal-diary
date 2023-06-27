@@ -44,6 +44,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item" href="{{route('stocks.index')}}">Акции</a></li>
+                                    <li><a class="dropdown-item" href="{{route('bonds.index')}}">Облигации</a></li>
                                 </ul>
                             </li>
                         </ul>

@@ -24,6 +24,7 @@ class GetDataChart
         $dataChart = [
           'labels' => array_keys($data),//Получение названий (актив),
           'numeric' => $newData,
+          'total' =>  array_sum($data),//Расчёт общей стоимости
         ];
 
         return $dataChart;
