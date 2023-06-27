@@ -59,23 +59,10 @@ class HomeController extends Controller
 
     public function pdf_export()
     {
-        $data = [
-            'Акции' => DB::table('stocks')
-                ->selectRaw('SUM(price * lots) as total')
-                ->value('total'),
 
-            'Облигации' => Bond::query()->sum('price'),
+        PdfExportAll::export();
 
-            'Крипта' => Crypto::query()->sum('price') * 80,
-
-            'Займы' => Loan::query()->sum('price'),
-
-            'Фонды' => Fund::query()->sum('price'),
-        ];
-        // Вынести в job так как долго загружается
-        PdfExportAll::export($data);
-
-//        event(new ExportAllPdf($data)); //Не предлагает скачиваться???
+//      event(new ExportAllPdf($data)); //Не предлагает скачиваться???
 
     }
 }
