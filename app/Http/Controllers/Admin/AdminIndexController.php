@@ -38,7 +38,7 @@ class AdminIndexController extends Controller
 
         //Получение данных для графика и общей стоимости
         $dataChart = GetDataChart::get_data($data);
-        /*Cache::put('total',  $dataChart['total'], $minutes = 60*24*7);*/ //Настроить!
+
         return view('admin.admin_panel', compact('dataChart',  'data'));
     }
 

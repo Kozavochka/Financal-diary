@@ -16,6 +16,7 @@ use Dompdf\Dompdf;
 use http\Client\Curl\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -46,6 +47,7 @@ class HomeController extends Controller
 
             'Фонды' => Fund::query()->sum('price'),
         ];
+        Cache::put('total',  array_sum($data), now()->addMinutes(10));
 
         //Получение данных для графика и общей стоимости
         $dataChart = GetDataChart::get_data($data);
