@@ -30,6 +30,7 @@ class AdminStockController extends Controller
                     $query->orderByRaw('price*lots');
                 })
             ])
+            ->orderByRaw('price*lots desc')
             ->paginate($perPage, '*', 'page', $page);
 
 
