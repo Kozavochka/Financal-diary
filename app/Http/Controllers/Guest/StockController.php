@@ -22,7 +22,7 @@ class StockController extends Controller
         $perPage = request('per_page', 15);
 
         $stocks =QueryBuilder::for(Stock::class)
-            ->with(['industry', 'records'])
+            ->with('industry')
             ->allowedFilters([
                 AllowedFilter::callback('asc_price', function (Builder $query){
                     $query->orderByRaw('price*lots');

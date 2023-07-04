@@ -24,12 +24,13 @@ class AdminStockController extends Controller
 
 
         $stocks =QueryBuilder::for(Stock::class)
-            ->with(['industry', 'records'])
+            ->with('industry')
             ->allowedFilters([
                 AllowedFilter::callback('asc_price', function (Builder $query){
                     $query->orderByRaw('price*lots');
                 })
             ])
+            ->orderByRaw('price*lots desc')
             ->paginate($perPage, '*', 'page', $page);
 
 
