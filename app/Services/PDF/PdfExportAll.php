@@ -52,7 +52,7 @@ class PdfExportAll
 
             'Облигации' => $data['bonds']->sum('price'),
 
-            'Крипта' => $data['crypto']->sum('price') * 80,
+            'Крипта' => $data['crypto']->sum('price') * 90,
 
             'Займы' => $data['loans']->sum('price'),
 
