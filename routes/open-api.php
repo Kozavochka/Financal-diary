@@ -11,3 +11,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/admin', ApiAdminController::class);
+
+Route::group(['prefix' => 'auth'], function () {
+
+    Route::post('login', [AuthController::class,'login']);
+    Route::post('registration', [AuthController::class,'registration']);
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+});
