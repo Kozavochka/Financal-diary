@@ -3,7 +3,8 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\JwtMiddleware;
+use App\Http\Middleware\Api\AdminApiMiddleware;
+use App\Http\Middleware\Api\JwtMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -84,5 +85,7 @@ class Kernel extends HttpKernel
         'admin.panel' => AdminMiddleware::class,
 
         'jwt-verify' => JwtMiddleware::class,
+        'admin.api' => AdminApiMiddleware::class,
+
     ];
 }

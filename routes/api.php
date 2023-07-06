@@ -10,4 +10,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/admin', ApiAdminController::class);
+Route::group(['middleware' => 'admin.api', 'prefix' => 'admin'], function (){
+    Route::apiResource('/', ApiAdminController::class);
+});
+
