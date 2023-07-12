@@ -13,6 +13,7 @@ use App\Services\Admin\GetDataChart;
 use App\Services\PDF\PdfExportAll;
 use App\Telegram\Commands\StartCommand;
 use Dompdf\Dompdf;
+use GuzzleHttp\Client;
 use http\Client\Curl\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
