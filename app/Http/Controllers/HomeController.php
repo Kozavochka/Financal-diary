@@ -52,8 +52,6 @@ class HomeController extends Controller
         //Получение данных для графика и общей стоимости
         $dataChart = GetDataChart::get_data($data);
 
-        Cache::put('total',  $dataChart['total'], now()->addMinutes(10));
-
         return view('home', compact('data', 'dataChart'));
     }
 
