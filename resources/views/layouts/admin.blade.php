@@ -131,7 +131,7 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                           Облигации
-                                <span class="badge badge-info right">3</span>
+                                <span class="badge badge-info right">6</span>
                             </p>
                         </a>
                     </li>
