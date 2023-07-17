@@ -6,10 +6,13 @@ use App\Models\Crypto;
 use GuzzleHttp\Client;
 use PHPUnit\Exception;
 
-class CryptoUpdate
+/**
+ * Класс обновления стоимости криптоактивов
+*/
+class CryptoUpdateMethod implements UpdateAssetsPrice
 {
 
-    public static function update()
+    public function update()
     {
 
         $client = new Client();
@@ -24,9 +27,11 @@ class CryptoUpdate
                 "&from_currency={$crypto->ticker}&".
                 "to_currency=USD&".
                 "apikey={$key}");
+
             $data = json_decode($response->getBody(), true);
             $cryptoPrice = $data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
             /*     dump($crypto->ticker ,$cryptoPrice);*/
+
             $crypto->update(['price' => bcdiv($crypto->lots * $cryptoPrice,1,2)]);
         }
     }

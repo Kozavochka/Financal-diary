@@ -7,7 +7,7 @@ use App\Services\Api\Command\StockPriceUpdateMethod;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 
-class StockPriceUpdate extends Command
+class UpdateStockPrice extends Command
 {
 
     protected $signature = 'stock:update';
@@ -17,7 +17,9 @@ class StockPriceUpdate extends Command
 
     public function handle()
     {
-        StockPriceUpdateMethod::update();
+         $stockupdate = new StockPriceUpdateMethod();
+
+         $stockupdate->update();
 
         dd('Update success');
     }

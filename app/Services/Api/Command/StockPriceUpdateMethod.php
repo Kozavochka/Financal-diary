@@ -5,9 +5,13 @@ namespace App\Services\Api\Command;
 use App\Models\Stock;
 use GuzzleHttp\Client;
 
-class StockPriceUpdateMethod
+/**
+ * Класс обновления стоимости акций
+ */
+
+class StockPriceUpdateMethod implements UpdateAssetsPrice
 {
-    public static function update()
+    public function update()
     {
         try {
             $client = new Client();

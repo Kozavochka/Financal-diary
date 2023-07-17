@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Crypto;
-use App\Services\Api\Command\CryptoUpdate;
+use App\Services\Api\Command\CryptoUpdateMethod;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Mockery\Exception;
@@ -19,7 +19,9 @@ class UpdateCryptoPrice extends Command
 
     public function handle()
     {
-        CryptoUpdate::update();
+        $crypto = new CryptoUpdateMethod();
+
+        $crypto->update();
 
        dd('Update success');
     }
