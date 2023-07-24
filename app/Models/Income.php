@@ -4,7 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+/**
+ * @property double $price
+ * @property string $description
+ * @property integer $income_type_id
+*/
 class Income extends Model
 {
     use HasFactory;

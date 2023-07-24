@@ -17,11 +17,11 @@ class Stock extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'ticker',
-        'price',
-        'lots',
-        'industry_id',
+        'name', //название компании
+        'ticker',//тикер
+        'price',//цена за 1шт
+        'lots',//сколько лотов
+        'industry_id',//отрасль
     ];
 
 
