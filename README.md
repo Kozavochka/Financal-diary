@@ -10,13 +10,13 @@
 <h2>Авторизация</h2>
 <h3>Web авторизация</h3>
 <p>Для авторизации использовался шаблон laravel php artisan ui:auth</p>
-<p>В контроллерах авторизации использовался стандартный middleware (guest), поэтому
+<p>В <a href="https://github.com/Kozavochka/Financal-diary/tree/ecdfc57af80b746f0951fbe3248a66cbb8cdb3ef/app/Http/Controllers/Auth">контроллерах авторизации</a> использовался стандартный middleware (guest), поэтому
 маршруты доступны без авторизации</p>
 <p>Далее в маршрутах используется middleware auth, который даёт доступ ко всем страницам,
 которые доступны для гостей. Скачивание всех отчётов также лежит под auth.</p>
 <p>Для администратора авторизация и вход такой же как и для обычного пользователя,
 права администратору выдаются вручную в базе данных. Переход в админ панель находится
-под middleware 'admin.panel', а ссылка под [Policy](./app/Policies)</p>
+под middleware 'admin.panel', а ссылка под <a href="https://github.com/Kozavochka/Financal-diary/blob/develop/app/Policies/AdminPolicy.php">Policy</a></p>
 ...что использовал
 ...сброс пароля (интеграция с тг)
 ...куда попадет пользователь
