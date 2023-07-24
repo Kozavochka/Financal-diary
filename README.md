@@ -22,7 +22,7 @@
 <h4>Интеграция с Тelegram</h4>
 <p>Подробнее об использовании и настройки ТГ ботов будет описано ниже</p>
 <p>При регистрации пользователя создаётся событие <a href="https://github.com/Kozavochka/Financal-diary/blob/bd271dc47d2cdebb454858e1f15937abd6c96a9a/app/Events/RegisterUser.php">RegisterUser</a>
-,в котором действие отправляется в очередь с помощью [Job`а](./app/Jobs/RegisterUserProcess.php)
+,в котором действие отправляется в очередь с помощью [Job`а](app/Jobs/RegisterUserProcess.php)
 </p>
 
 ...сброс пароля (интеграция с тг)
