@@ -10,7 +10,7 @@ use App\Models\Loan;
 use App\Models\Stock;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use http\Env;
+use Illuminate\Support\Facades\Cache;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class PdfExportAll
@@ -19,34 +19,35 @@ class PdfExportAll
     public static function export()
     {
         //Данные для pdf файла
-        $stocks_builder =QueryBuilder::for(Stock::class);//????
 
+        //отрасли
         $industries = Industry::query()
             ->withCount('stocks')
             ->get();
 
-        //Получение записей
-        $data = [
-          'stocks' => $stocks_builder
-              ->with('industry')
-//              ->select('name', 'ticker', 'price', 'lots')
-              ->get(),
-          'bonds' => Bond::query()
-              ->select('name', 'price', 'ticker', 'coupon', 'profit_percent', 'expiration_date')
-              ->get(),
-          'crypto' => Crypto::query()
-              ->select('name', 'ticker', 'price')
-              ->get(),
-          'loans' => Loan::query()
-              ->select('name', 'price', 'count_bus')
-              ->get(),
-          'funds' => Fund::query()
-              ->select('name', 'ticker', 'price')
-              ->get(),
-        ];
+        //кэширование данных
+        $data = Cache::remember('data_chart', now()->addMinutes(10), function (){
+            return [
+                'stocks' => Stock::query()
+                    ->with('industry')
+                    ->get(),
+                'bonds' => Bond::query()
+                    ->select('name', 'price', 'ticker', 'coupon', 'profit_percent', 'expiration_date')
+                    ->get(),
+                'crypto' => Crypto::query()
+                    ->select('name', 'ticker', 'price')
+                    ->get(),
+                'loans' => Loan::query()
+                    ->select('name', 'price', 'count_bus')
+                    ->get(),
+                'funds' => Fund::query()
+                    ->select('name', 'ticker', 'price')
+                    ->get(),
+            ];
+        }) ;
         //Получение сумм
         $data_sum = [
-            'Акции' =>$stocks_builder
+            'Акции' => Stock::query()
                 ->selectRaw('SUM(price * lots) as total')
                 ->value('total'),
 
