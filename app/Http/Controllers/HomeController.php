@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Events\ExportAllPdf;
 use App\Models\Bond;
 use App\Models\Crypto;
@@ -32,6 +33,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
+
 
     public function index()
     {
@@ -64,6 +66,7 @@ class HomeController extends Controller
         PdfExportAll::export();
 
 //      event(new ExportAllPdf($data)); //Не предлагает скачиваться???
+
 
     }
 }

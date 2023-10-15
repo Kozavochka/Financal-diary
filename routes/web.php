@@ -23,6 +23,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
 //Роут на экспорт портфеля
 Route::get('/pdf', [HomeController::class,'pdf_export'])->name('general_pdf');
 
@@ -41,5 +42,6 @@ Route::post('/reset-tg',[TelegramController::class,'reset'])->name('reset-pass')
 Route::post('/webhook', [TelegramController::class,'webhook']);
 Route::get('/tg/{user}',[TelegramController::class,'index'])->name('tg');
 Route::post('/reset-tg-form', [TelegramController::class,'reset_show'])->name('reset-tg');
+
 
 

@@ -17,10 +17,14 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Telegram\Bot\Api;
+
+
+
 class AdminIndexController extends Controller
 {
     public function index()
     {
+
         //Получение стоимости активов (актив => стоимость)
         $data = [
            'stocks' =>  DB::table('stocks')
@@ -53,5 +57,6 @@ class AdminIndexController extends Controller
 
         dump($response);
         return 'Действие выполнено ';
+
     }
 }

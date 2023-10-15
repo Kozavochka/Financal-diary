@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+
     <h1 class="mb-3">Акции</h1>
 
     <table class="table">
@@ -96,4 +97,5 @@
             }
         });
     </script>
+
 @endsection

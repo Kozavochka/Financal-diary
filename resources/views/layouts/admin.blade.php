@@ -19,7 +19,6 @@
 
     <script src="https://kit.fontawesome.com/a1a14b61d0.js" crossorigin="anonymous"></script>
 
-    @livewireStyles
 </head>
 <!--
 `body` tag options:
@@ -82,7 +81,9 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
+
         <a href="{{route('admin.index')}}" class="brand-link">
+
             <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">AdminLTE 3</span>
         </a>
@@ -90,6 +91,7 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
+
             <div class="user-panel mt-3 pb-3 mb-3 d-flex flex-column">
 
                 <div class="info">
@@ -98,6 +100,7 @@
                 <div class="info">
                     <a href="{{route('set-tg')}}" class="d-block"><i class="fa-brands fa-telegram fa-xl" style="color: #346cda;"></i>
                     Обновить бота</a>
+
                 </div>
             </div>
 
@@ -117,11 +120,13 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
+
                     <li class="nav-item">
                         <a href="{{route('admin.stocks.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                           Акции
+
                                 <span class="badge badge-info right">13</span>
                             </p>
                         </a>
@@ -175,6 +180,7 @@
                             <i class="fa-solid fa-thumbtack fa-xl"></i>
                             <p>
                           Отслеживание
+
                             </p>
                         </a>
                     </li>
@@ -242,6 +248,8 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('dist/js/pages/dashboard3.js')}}"></script>
 
+
 @livewireScripts
+
 </body>
 </html>
