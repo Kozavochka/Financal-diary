@@ -11,6 +11,7 @@ use App\Models\Loan;
 use App\Models\Stock;
 use App\Services\Admin\GetDataChart;
 use App\Services\PDF\PdfExportAll;
+use App\Services\PDF\PdfExportServiceContract;
 use App\Telegram\Commands\StartCommand;
 use Dompdf\Dompdf;
 use GuzzleHttp\Client;
@@ -28,8 +29,12 @@ use Telegram\Bot\Methods\Update;
 class HomeController extends Controller
 {
 
-    public function __construct()
+    private $pdfSerice;
+
+    public function __construct(PdfExportServiceContract $pdfServ)
     {
+        $this->pdfSerice = $pdfServ;
+
         $this->middleware('auth');
     }
 
@@ -60,10 +65,6 @@ class HomeController extends Controller
 
     public function pdf_export()
     {
-
-        PdfExportAll::export();
-
-//      event(new ExportAllPdf($data)); //Не предлагает скачиваться???
-
+        $this->pdfSerice->export();
     }
 }
