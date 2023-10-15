@@ -6,6 +6,7 @@ use App\Models\Bond;
 use App\Models\Crypto;
 use App\Models\Fund;
 use App\Models\Loan;
+use App\Models\TotalStatistic;
 use App\Services\Admin\GetDataChart;
 use App\Services\PDF\PdfExportServiceContract;
 use Illuminate\Support\Facades\Cache;
@@ -32,7 +33,7 @@ class HomeController extends Controller
 
             'Облигации' => Bond::query()->sum('price'),
 
-            'Крипта' => Crypto::query()->sum('price') * 80,
+            'Крипта' => Crypto::query()->sum('price') * 90,
 
             'Займы' => Loan::query()->sum('price'),
 

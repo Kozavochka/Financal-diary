@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,15 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Stock extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDirection;
 
-    protected $fillable = [
-        'name',
-        'ticker',
-        'price',
-        'lots',
-        'industry_id',
-    ];
+    protected $guarded = ['id'];
 
 
     public function industry()
