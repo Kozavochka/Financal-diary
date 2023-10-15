@@ -1,0 +1,10 @@
+body{
+    font-family: DejaVu Sans , sans-serif;
+}
+.h_text{
+    font-size: 30px;
+    color: #2e6da4;
+}
+.container{
+    margin-left: 10% !important;
+}

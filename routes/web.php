@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\Guest\BondController;
+use App\Http\Controllers\Guest\StockController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TelegramController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Telegram\Bot\Laravel\Facades\Telegram;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +24,24 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Роут на экспорт портфеля
+Route::get('/pdf', [HomeController::class,'pdf_export'])->name('general_pdf');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+//Група рутов на разделы гостя
+Route::group(['middleware' => 'auth'], function (){
+    Route::get('stocks/export', [StockController::class, 'excel_export'])->name('excel_export');
+    Route::resource('/stocks',StockController::class)->names('stocks');
+
+    Route::resource('/bonds', BondController::class)->names('bonds');
+});
+
+//Роут веб хука
+Route::post('/reset-tg',[TelegramController::class,'reset'])->name('reset-pass');
+Route::post('/webhook', [TelegramController::class,'webhook']);
+Route::get('/tg/{user}',[TelegramController::class,'index'])->name('tg');
+Route::post('/reset-tg-form', [TelegramController::class,'reset_show'])->name('reset-tg');
+
 
 
