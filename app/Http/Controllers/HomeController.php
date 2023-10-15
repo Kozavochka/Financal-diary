@@ -2,29 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ExportAllPdf;
 use App\Models\Bond;
 use App\Models\Crypto;
 use App\Models\Fund;
-use App\Models\Industry;
 use App\Models\Loan;
-use App\Models\Stock;
 use App\Services\Admin\GetDataChart;
-use App\Services\PDF\PdfExportAll;
 use App\Services\PDF\PdfExportServiceContract;
-use App\Telegram\Commands\StartCommand;
-use Dompdf\Dompdf;
-use GuzzleHttp\Client;
-use http\Client\Curl\User;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
-use Telegram\Bot\Laravel\Facades\Telegram;
-use Telegram\Bot\Methods\Update;
 
 class HomeController extends Controller
 {
