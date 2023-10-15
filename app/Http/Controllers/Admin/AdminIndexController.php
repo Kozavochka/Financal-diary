@@ -48,7 +48,7 @@ class AdminIndexController extends Controller
         Telegram::bot('worker')->setWebhook([
             'url' => env('WORKER_WEBHOOK_URL'),
         ]);
-        Telegram::bot('worker')->addCommand(ResetPasswordCommand::class);
+//        Telegram::bot('worker')->addCommand(ResetPasswordCommand::class);
         $response = Telegram::bot('worker')->getWebhookInfo();
 
         dump($response);
