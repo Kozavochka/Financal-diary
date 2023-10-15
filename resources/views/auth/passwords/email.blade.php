@@ -13,8 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <form method="POST" action="{{ route('reset-tg') }}">
 
-                    <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
                         <div class="row mb-3">
