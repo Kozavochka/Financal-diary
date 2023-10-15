@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+
+
 use App\Models\Bond;
 use App\Models\Crypto;
 use App\Models\Fund;
@@ -23,6 +26,7 @@ class HomeController extends Controller
 
         $this->middleware('auth');
     }
+
 
     public function index()
     {
@@ -51,6 +55,8 @@ class HomeController extends Controller
 
     public function pdf_export()
     {
+
         $this->pdfSerice->export();
+
     }
 }

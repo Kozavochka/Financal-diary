@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\Admin\AdminBondController;
 use App\Http\Controllers\Admin\AdminCryptoController;
 use App\Http\Controllers\Admin\AdminFundController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Admin\Record\StockRecordController;
 use Illuminate\Support\Facades\Route;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +24,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::get('/', [AdminIndexController::class,'index'])->name('admin.index');
 /* Роуты на активы */
@@ -44,3 +47,8 @@ Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes'
 
 /* Телеграмм */
 Route::get('/set-tg',[AdminIndexController::class,'setTG'])->name('set-tg');
+=======
+Route::get('/', [\App\Http\Controllers\Admin\AdminIndexController::class,'index'])->name('admin.index');
+
+Route::resource('/stocks', \App\Http\Controllers\Admin\AdminStockController::class)->names('admin.stocks');
+

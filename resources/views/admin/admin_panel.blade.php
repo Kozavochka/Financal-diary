@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+
 <h1>Общая стоимость портфеля: {{$dataChart['total']}} RUB</h1>
 
 <table class="table" style="max-width: 500px">
@@ -62,4 +63,5 @@
         }
     });
 </script>
+
 @endsection

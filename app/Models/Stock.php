@@ -15,9 +15,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Stock extends Model
 {
+
     use HasFactory, HasDirection;
 
     protected $guarded = ['id'];
+
 
 
     public function industry()

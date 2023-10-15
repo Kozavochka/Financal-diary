@@ -22,12 +22,14 @@ class StockRequest extends FormRequest
             ],
             'price' => [
                 'required',
+
                 'numeric',
                 'regex:/^\d+(\.\d{1,2})?$/'
             ],
             'industry_id' => [
                 'integer',
                 Rule::exists('industries', 'id'),
+
             ],
             'lots' => [
                 'numeric',

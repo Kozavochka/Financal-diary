@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
@@ -14,11 +15,13 @@ use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
+
 class AdminStockController extends Controller
 {
 
     public function index()
     {
+
         $page = request('page', 1);
         $perPage = request('per_page', 10);
 
@@ -39,6 +42,7 @@ class AdminStockController extends Controller
         $data = $stocks->pluck('total_price');
 
         return view('admin.stocks.stocks', compact('stocks', 'labels', 'data'));
+
     }
 
 
@@ -52,6 +56,7 @@ class AdminStockController extends Controller
     {
         $data = $request->validated();
 
+
         Stock::query()
             ->create($data);
 
@@ -63,6 +68,7 @@ class AdminStockController extends Controller
     {
         //
     }
+
 
     public function edit(Stock $stock)
     {
@@ -95,5 +101,6 @@ class AdminStockController extends Controller
     public function excel_export()
     {
         return Excel::download(new StocksExport, 'stocks.xlsx');
+
     }
 }
