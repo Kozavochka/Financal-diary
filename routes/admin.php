@@ -47,7 +47,7 @@ Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes'
 
 /* Телеграмм */
 Route::get('/set-tg',[AdminIndexController::class,'setTG'])->name('set-tg');
-=======
+
 Route::get('/', [\App\Http\Controllers\Admin\AdminIndexController::class,'index'])->name('admin.index');
 
 Route::resource('/stocks', \App\Http\Controllers\Admin\AdminStockController::class)->names('admin.stocks');
