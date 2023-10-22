@@ -25,24 +25,13 @@ class AdminDirectionController extends Controller
 
     public function create()
     {
-        $industries = Industry::query()
-            ->distinct()
-            ->get();
-        $directions = Direction::query()->get();
 
-        return view('admin.stocks.create', compact('industries', 'directions'));
     }
 
 
-    public function store(StockRequest $request)
+    public function store($request)
     {
-        $data = $request->validated();
 
-
-        Stock::query()
-            ->create($data);
-
-        return redirect(route('admin.stocks.index'));
     }
 
 
@@ -52,34 +41,20 @@ class AdminDirectionController extends Controller
     }
 
 
-    public function edit(Stock $stock)
+    public function edit()
     {
-        $stock->loadMissing(['industry', 'direction']);
 
-        $industries = Industry::query()
-            ->distinct()
-            ->get();
-        $directions = Direction::query()->get();
-
-        return view('admin.stocks.edit', compact('stock', 'industries', 'directions'));
     }
 
 
-    public function update(StockRequest $request, Stock $stock)
+    public function update()
     {
-        $data = $request->validated();
 
-        $stock->update($data);
-        $stock->refresh();
-
-        return redirect(route('admin.stocks.index'));
     }
 
 
-    public function destroy(Stock $stock)
+    public function destroy()
     {
-        $stock->delete();
 
-        return redirect(route('admin.stocks.index'));
     }
 }
