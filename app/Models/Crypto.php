@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 /**
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Crypto extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDirection;
 
     protected $guarded = [
         'id'

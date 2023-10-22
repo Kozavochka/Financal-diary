@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+
+use App\Events\RegisterUser;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Services\Telegram\Contracts\TelegramBotServiceContract;
+
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -31,14 +35,14 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    private $tgBotService;
+
+    public function __construct(TelegramBotServiceContract $tgServ)
     {
         $this->middleware('guest');
+
+        $this->tgBotService = $tgServ;
+
     }
 
     /**
@@ -56,14 +60,15 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
+
+
     protected function create(array $data)
     {
+
+//        $this->tgBotService->sendRedisterUser($data); // через сервис
+        event(new RegisterUser($data));//Создание события регистрации пользователя
+
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

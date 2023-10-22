@@ -2,17 +2,47 @@
 
 namespace App\Http\Controllers\Admin;
 
+
+use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
+use App\Models\Industry;
 use App\Models\Stock;
+use Dflydev\DotAccessData\Data;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+
 
 class AdminStockController extends Controller
 {
 
     public function index()
     {
-        return view('admin..stocks.stocks');
+
+        $page = request('page', 1);
+        $perPage = request('per_page', 10);
+
+
+        $stocks =QueryBuilder::for(Stock::class)
+            ->with('industry')
+            ->allowedFilters([
+                AllowedFilter::callback('asc_price', function (Builder $query){
+                    $query->orderByRaw('price*lots');
+                })
+            ])
+            ->orderByRaw('price*lots desc')
+            ->paginate($perPage, '*', 'page', $page);
+
+
+        $labels = $stocks->pluck('name');
+
+        $data = $stocks->pluck('total_price');
+
+        return view('admin.stocks.stocks', compact('stocks', 'labels', 'data'));
+
     }
 
 
@@ -25,55 +55,52 @@ class AdminStockController extends Controller
     public function store(StockRequest $request)
     {
         $data = $request->validated();
-//         dd($data);
+
+
         Stock::query()
             ->create($data);
 
-        return redirect(route('admin.index'));
+        return redirect(route('admin.stocks.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function edit(Stock $stock)
     {
-        //
+        $industries = Industry::query()
+            ->distinct()
+            ->get();
+
+        return view('admin.stocks.edit', compact('stock', 'industries'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(StockRequest $request, Stock $stock)
     {
-        //
+        $data = $request->validated();
+
+        $stock->update($data);
+        $stock->refresh();
+
+        return redirect(route('admin.stocks.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function destroy(Stock $stock)
     {
-        //
+        $stock->delete();
+
+        return redirect(route('admin.stocks.index'));
+    }
+
+    public function excel_export()
+    {
+        return Excel::download(new StocksExport, 'stocks.xlsx');
+
     }
 }

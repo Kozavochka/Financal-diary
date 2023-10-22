@@ -2,7 +2,14 @@
 
 namespace App\Providers;
 
+use App\Services\PDF\PdfExportSerivce;
+use App\Services\PDF\PdfExportServiceContract;
+use App\Services\Telegram\Contracts\TelegramBotServiceContract;
+use App\Services\Telegram\TelegramBotService;
+
 use Illuminate\Support\ServiceProvider;
+use Telegram\Bot\Laravel\Facades\Telegram;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
+
     }
 
     /**
@@ -23,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->singleton(TelegramBotServiceContract::class, TelegramBotService::class);
+        $this->app->singleton(PdfExportServiceContract::class, PdfExportSerivce::class);
+
     }
 }
