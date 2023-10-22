@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
+use App\Models\Direction;
 use App\Models\Industry;
 use App\Models\Stock;
 use Dflydev\DotAccessData\Data;
@@ -48,7 +49,12 @@ class AdminStockController extends Controller
 
     public function create()
     {
-        return view('admin.stocks.create');
+        $industries = Industry::query()
+            ->distinct()
+            ->get();
+        $directions = Direction::query()->get();
+
+        return view('admin.stocks.create', compact('industries', 'directions'));
     }
 
 
@@ -72,11 +78,14 @@ class AdminStockController extends Controller
 
     public function edit(Stock $stock)
     {
+        $stock->loadMissing(['industry', 'direction']);
+
         $industries = Industry::query()
             ->distinct()
             ->get();
+        $directions = Direction::query()->get();
 
-        return view('admin.stocks.edit', compact('stock', 'industries'));
+        return view('admin.stocks.edit', compact('stock', 'industries', 'directions'));
     }
 
 

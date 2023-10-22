@@ -34,12 +34,28 @@
         </div>
         <div class="form-group">
             <div class="mb-3">
+                <label for="direction_id" class="form-label">Выбор отрасли</label>
                 <select class="form-select" aria-label="Default select example" id="industry_id" name="industry_id">
-            <option selected>Выбор отрасли</option>
+                    @if(isset($stock->industry->id))
+                        <option selected value="{{$stock->industry->id}}" >{{$stock->industry->name}}</option>
+                    @endif
                     @foreach($industries as $industry)
                         <option value="{{$industry->id}}">{{$industry->name}}</option>
                     @endforeach
                  </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="mb-3">
+                <label for="direction_id" class="form-label">Выбор направления</label>
+                <select class="form-select" aria-label="Default select example" id="industry_id" name="direction_id">
+                    @if(isset($stock->direction->id))
+                        <option selected value="{{$stock->direction->id}}" >{{$stock->direction->name}}</option>
+                    @endif
+                    @foreach($directions as $direction)
+                        <option value="{{$direction->id}}">{{$direction->name}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
