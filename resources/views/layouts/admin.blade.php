@@ -120,68 +120,52 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-
+                    <li class="nav-item">
+                        <a href="{{route('admin.directions.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>Направления</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{route('admin.stocks.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
-                            <p>
-                          Акции
-
-                                <span class="badge badge-info right">13</span>
-                            </p>
+                            <p>Акции</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('admin.bonds.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
-                            <p>
-                          Облигации
-                                <span class="badge badge-info right">6</span>
-                            </p>
+                            <p>Облигации</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('admin.funds.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
-                            <p>
-                          Фонды
-                                <span class="badge badge-info right">6</span>
-                            </p>
+                            <p>Фонды</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('admin.loans.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
-                            <p>
-                          Займы
-                                <span class="badge badge-info right">1</span>
-                            </p>
+                            <p>Займы</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('admin.crypto.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
-                            <p>
-                          Крипта
-                                <span class="badge badge-info right">2</span>
-                            </p>
+                            <p>Крипта</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('admin.incomes.index')}}" class="nav-link">
                             <i class="fa-solid fa-sack-dollar"></i>
-                            <p>
-                          Поступления
-                            </p>
+                            <p>Поступления</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('records.index')}}" class="nav-link">
                             <i class="fa-solid fa-thumbtack fa-xl"></i>
-                            <p>
-                          Отслеживание
-
-                            </p>
+                            <p>Отслеживание</p>
                         </a>
                     </li>
                 </ul>
