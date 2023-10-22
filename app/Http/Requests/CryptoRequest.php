@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CryptoRequest extends FormRequest
 {
@@ -24,7 +25,11 @@ class CryptoRequest extends FormRequest
             ],
             'lots' => [
                 'nullable'
-            ]
+            ],
+            'direction_id' => [
+                'integer',
+                Rule::exists('directions', 'id'),
+            ],
         ];
     }
 }

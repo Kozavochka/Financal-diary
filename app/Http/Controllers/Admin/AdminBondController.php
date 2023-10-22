@@ -39,7 +39,7 @@ class AdminBondController extends Controller
 
 
     public function create()
-    {
+    {   //TODO кэш
         $directions = Direction::query()->get();
 
         return view('admin.bonds.create', compact('directions'));
