@@ -83,9 +83,8 @@ class AdminStockController extends Controller
         $industries = Industry::query()
             ->distinct()
             ->get();
-        $directions = Direction::query()->get();
 
-        return view('admin.stocks.edit', compact('stock', 'industries', 'directions'));
+        return view('admin.stocks.edit', compact('stock', 'industries'));
     }
 
 
