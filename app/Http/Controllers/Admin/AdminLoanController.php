@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoanRequest;
+use App\Models\Direction;
 use App\Models\Loan;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,9 @@ class AdminLoanController extends Controller
 
     public function create()
     {
-        return view('admin.loans.create');
+        $directions = Direction::query()->get();
+
+        return view('admin.loans.create', compact('directions'));
     }
 
 

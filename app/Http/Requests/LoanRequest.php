@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class LoanRequest extends FormRequest
 {
@@ -28,6 +29,10 @@ class LoanRequest extends FormRequest
             'count_bus' => [
                 'numeric',
                 'nullable',
+            ],
+            'direction_id' => [
+                'integer',
+                Rule::exists('directions', 'id'),
             ],
         ];
     }

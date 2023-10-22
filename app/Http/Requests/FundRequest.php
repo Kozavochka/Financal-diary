@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class FundRequest extends FormRequest
 {
@@ -28,6 +29,10 @@ class FundRequest extends FormRequest
                 'numeric',
                 'required',
                 'regex:/^\d+(\.\d{1,2})?$/',
+            ],
+            'direction_id' => [
+                'integer',
+                Rule::exists('directions', 'id'),
             ],
         ];
     }
