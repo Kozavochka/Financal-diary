@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CryptoRequest;
 use App\Models\Crypto;
+use App\Models\Direction;
 use Illuminate\Http\Request;
 
 class AdminCryptoController extends Controller
@@ -24,7 +25,9 @@ class AdminCryptoController extends Controller
 
     public function create()
     {
-        return view('admin.crypto.create');
+        $directions = Direction::query()->get();
+
+        return view('admin.crypto.create', compact('directions'));
     }
 
 

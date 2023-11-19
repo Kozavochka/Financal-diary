@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\PDF\PdfExportSerivce;
+use App\Services\PDF\PdfExportServiceContract;
 use App\Services\Telegram\Contracts\TelegramBotServiceContract;
 use App\Services\Telegram\TelegramBotService;
 
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->singleton(TelegramBotServiceContract::class, TelegramBotService::class);
+        $this->app->singleton(PdfExportServiceContract::class, PdfExportSerivce::class);
 
     }
 }

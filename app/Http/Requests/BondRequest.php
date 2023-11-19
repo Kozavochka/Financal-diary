@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BondRequest extends FormRequest
 {
@@ -36,7 +37,11 @@ class BondRequest extends FormRequest
             'expiration_date' => [
                 'date_format:Y-m-d',
                 'nullable',
-            ]
+            ],
+            'direction_id' => [
+                'integer',
+                Rule::exists('directions', 'id'),
+            ],
         ];
     }
 }

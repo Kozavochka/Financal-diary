@@ -13,6 +13,7 @@ use Dompdf\Options;
 use http\Env;
 use Spatie\QueryBuilder\QueryBuilder;
 
+//Перенесён в сервис
 class PdfExportAll
 {
 
@@ -29,7 +30,6 @@ class PdfExportAll
         $data = [
           'stocks' => $stocks_builder
               ->with('industry')
-//              ->select('name', 'ticker', 'price', 'lots')
               ->get(),
           'bonds' => Bond::query()
               ->select('name', 'price', 'ticker', 'coupon', 'profit_percent', 'expiration_date')

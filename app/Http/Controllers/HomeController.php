@@ -3,34 +3,27 @@
 namespace App\Http\Controllers;
 
 
-use App\Events\ExportAllPdf;
+
+
 use App\Models\Bond;
 use App\Models\Crypto;
 use App\Models\Fund;
-use App\Models\Industry;
 use App\Models\Loan;
-use App\Models\Stock;
+use App\Models\TotalStatistic;
 use App\Services\Admin\GetDataChart;
-use App\Services\PDF\PdfExportAll;
-use App\Telegram\Commands\StartCommand;
-use Dompdf\Dompdf;
-use GuzzleHttp\Client;
-use http\Client\Curl\User;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use App\Services\PDF\PdfExportServiceContract;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
-use Telegram\Bot\Laravel\Facades\Telegram;
-use Telegram\Bot\Methods\Update;
 
 class HomeController extends Controller
 {
 
-    public function __construct()
+    private $pdfSerice;
+
+    public function __construct(PdfExportServiceContract $pdfServ)
     {
+        $this->pdfSerice = $pdfServ;
+
         $this->middleware('auth');
     }
 
@@ -44,7 +37,7 @@ class HomeController extends Controller
 
             'Облигации' => Bond::query()->sum('price'),
 
-            'Крипта' => Crypto::query()->sum('price') * 80,
+            'Крипта' => Crypto::query()->sum('price') * 90,
 
             'Займы' => Loan::query()->sum('price'),
 
@@ -63,10 +56,7 @@ class HomeController extends Controller
     public function pdf_export()
     {
 
-        PdfExportAll::export();
-
-//      event(new ExportAllPdf($data)); //Не предлагает скачиваться???
-
+        $this->pdfSerice->export();
 
     }
 }

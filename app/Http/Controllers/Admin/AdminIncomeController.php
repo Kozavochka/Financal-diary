@@ -35,7 +35,7 @@ class AdminIncomeController extends Controller
     public function store(IncomeRequest $request)
     {
         $data = $request->validated();
-//        dd($data);
+
         Income::query()->create($data);
 
         return redirect()->route('admin.incomes.index');
