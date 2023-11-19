@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminDirectionController;
 use App\Http\Controllers\Admin\AdminFundController;
 use App\Http\Controllers\Admin\AdminIncomeController;
 use App\Http\Controllers\Admin\AdminIndexController;
+use App\Http\Controllers\Admin\AdminIndustryController;
 use App\Http\Controllers\Admin\AdminLoanController;
 use App\Http\Controllers\Admin\AdminStockController;
 use App\Http\Controllers\Admin\Record\RecordController;
@@ -47,6 +48,8 @@ Route::resource('/record', RecordController::class)->names('records');
 Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes');
 
 Route::resource('/directions', AdminDirectionController::class)->names('admin.directions');
+
+Route::resource('/industries', AdminIndustryController::class)->names('admin.industries');
 
 /* Телеграмм */
 Route::get('/set-tg',[AdminIndexController::class,'setTG'])->name('set-tg');
