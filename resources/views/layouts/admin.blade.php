@@ -127,6 +127,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('admin.industries.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>Отрасли</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('admin.stocks.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>Акции</p>
