@@ -27,17 +27,17 @@ class AdminIndexController extends Controller
 
         //Получение стоимости активов (актив => стоимость)
         $data = [
-           'stocks' =>  DB::table('stocks')
+           'Акции' =>  DB::table('stocks')
                ->selectRaw('SUM(price * lots) as total')
                ->value('total'),
 
-            'bonds' => Bond::query()->sum('price'),
+            'Облигации' => Bond::query()->sum('price'),
 
-            'crypto' => Crypto::query()->sum('price') * 80,
+            'Крипта' => Crypto::query()->sum('price') * 80,
 
-            'loans' => Loan::query()->sum('price'),
+            'Займы' => Loan::query()->sum('price'),
 
-            'funds' => Fund::query()->sum('price'),
+            'Фонды' => Fund::query()->sum('price'),
         ];
 
         //Получение данных для графика и общей стоимости
