@@ -18,6 +18,15 @@ class TotalStatistic extends Model
 
     protected $with = ['items'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model){
+            $model->user_id = auth()->user()->id;
+        });
+    }
+
     public function items()
     {
         return $this->hasMany(TotalStatisticItem::class);
