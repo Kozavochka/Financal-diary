@@ -26,6 +26,6 @@ class StatisticController extends Controller
     public function create()
     {
         //todo получение последней статистики и проверка времени
-
+        $this->service->calculate();
     }
 }
