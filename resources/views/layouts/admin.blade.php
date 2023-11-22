@@ -169,6 +169,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('statistic.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>Статистика</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('records.index')}}" class="nav-link">
                             <i class="fa-solid fa-thumbtack fa-xl"></i>
                             <p>Отслеживание</p>
