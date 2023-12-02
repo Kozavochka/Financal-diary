@@ -19,7 +19,7 @@ class StatisticController extends Controller
     public function index()
     {
         $statistics = TotalStatistic::query()->get();
-
+//        dd($statistics);
         return view('admin.statistic.index', compact('statistics'));
     }
 
@@ -27,5 +27,7 @@ class StatisticController extends Controller
     {
         //todo получение последней статистики и проверка времени
         $this->service->calculate();
+
+        return view('admin.statistic.wait');
     }
 }

@@ -5,7 +5,6 @@ namespace App\Services\Statistic;
 use App\Models\Direction;
 use App\Models\TotalStatistic;
 use App\Models\TotalStatisticItem;
-use Illuminate\Database\Eloquent\Builder;
 
 class TotalStatisticService implements TotalStatisticServiceContract
 {
@@ -57,7 +56,7 @@ class TotalStatisticService implements TotalStatisticServiceContract
      */
     public function getSumInfo($direction)//todo refactoring
     {
-        if ($direction->stocks_sum_price != 0) return $direction->stocks_sum_price;
+        if ($direction->stocks_sum_total_price != 0) return $direction->stocks_sum_total_price;
 
         if ($direction->bonds_sum_price != 0) return $direction->bonds_sum_price;
 
@@ -99,13 +98,13 @@ class TotalStatisticService implements TotalStatisticServiceContract
     {
         $this->directions = Direction::query()
             ->withCount(['stocks','bonds','funds','cryptos','loans'])
-            ->withSum('stocks','price')//todo рефакторинг, нужно получить price_lots
+            ->withSum('stocks','total_price')
             ->withSum('bonds','price')
             ->withSum('funds','price')
             ->withSum('cryptos','price')
             ->withSum('loans','price')
             ->get();
-        dd($this->directions);
+
         return $this;
     }
 
@@ -126,6 +125,6 @@ class TotalStatisticService implements TotalStatisticServiceContract
 
         $this->statistic->total_sum = $this->totalSum;
         $this->statistic->save();
-        dd($this->statistic);
+
     }
 }
