@@ -27,12 +27,6 @@ class Stock extends Model
         return $this->belongsTo(Industry::class);
     }
 
-    //Аксессор получения общей суммы
-    public function getTotalPriceAttribute()
-    {
-        return bcdiv($this->price * $this->lots, 1 , 2);
-    }
-
     //Relation к записи изменения стоимости
     public function records()
     {
