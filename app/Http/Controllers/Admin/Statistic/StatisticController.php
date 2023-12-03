@@ -28,7 +28,7 @@ class StatisticController extends Controller
     public function create()
     {
         $statistic = TotalStatistic::query()->first();
-
+        //TODO поменять на diffInDays и сделать настройку на минимальное время статистики
         if ($statistic && Carbon::now()->diffInWeeks($statistic->created_at) < 1){
             return back()->withError("Период записи меньше недели")->withInput();
         }
