@@ -41,10 +41,6 @@ Route::resource('/loans', AdminLoanController::class)->names('admin.loans');
 
 Route::resource('/crypto', AdminCryptoController::class)->names('admin.crypto');
 
-Route::resource('/stock_record',StockRecordController::class)->names('stocks.record');
-
-Route::resource('/record', RecordController::class)->names('records');
-
 Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes');
 
 Route::resource('/directions', AdminDirectionController::class)->names('admin.directions');

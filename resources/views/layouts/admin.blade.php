@@ -174,12 +174,6 @@
                             <p>Статистика</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('records.index')}}" class="nav-link">
-                            <i class="fa-solid fa-thumbtack fa-xl"></i>
-                            <p>Отслеживание</p>
-                        </a>
-                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
