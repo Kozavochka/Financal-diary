@@ -5,6 +5,7 @@ namespace App\Services\Statistic;
 use App\Models\Direction;
 use App\Models\TotalStatistic;
 use App\Models\TotalStatisticItem;
+use App\Services\Api\Finance\PriceCurrencyHelper;
 
 class TotalStatisticService implements TotalStatisticServiceContract
 {
@@ -13,14 +14,8 @@ class TotalStatisticService implements TotalStatisticServiceContract
     protected $directions;
 
     protected $totalSum = 0;
-    /**
-     * Проверка периода даты
-     */
-    public function checkAvailableDate()
-    {
 
-    }
-
+    protected $usdPrice = 90;
     /**
      * Создание модельки статистики
      */
@@ -62,7 +57,7 @@ class TotalStatisticService implements TotalStatisticServiceContract
 
         if ($direction->funds_sum_price != 0) return $direction->funds_sum_price;
 
-        if ($direction->cryptos_sum_price != 0) return $direction->cryptos_sum_price;
+        if ($direction->cryptos_sum_price != 0) return $direction->cryptos_sum_price * $this->usdPrice;
 
         if ($direction->loans_sum_price != 0) return $direction->loans_sum_price;
 
@@ -114,7 +109,7 @@ class TotalStatisticService implements TotalStatisticServiceContract
      */
     public function calculate()
     {
-        $this->checkAvailableDate();
+        $this->usdPrice =  PriceCurrencyHelper::getUSDPrice();
 
         $this->totalSum = 0;
 

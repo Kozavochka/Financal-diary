@@ -14,12 +14,18 @@ class UpdateStockPrice extends Command
 
     protected $description = 'Update stock price by MOEX API';
 
+    protected $service;
+    public function __construct(StockPriceUpdateMethod $service)
+    {
+        parent::__construct();
+
+        $this->service = $service;
+    }
 
     public function handle()
     {
-         $stockupdate = new StockPriceUpdateMethod();
 
-         $stockupdate->update();
+        $this->service->update();
 
         dd('Update success');
     }

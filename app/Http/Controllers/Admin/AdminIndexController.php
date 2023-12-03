@@ -3,45 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bond;
-use App\Models\Crypto;
-use App\Models\Direction;
-use App\Models\Fund;
-use App\Models\Loan;
-use App\Models\Stock;
-use App\Services\Admin\GetDataChart;
-use App\Telegram\Commands\ResetPasswordCommand;
-use App\Telegram\Commands\StartCommand;
-use Dflydev\DotAccessData\Data;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
+use App\Services\Chart\DataChartService;
 use Telegram\Bot\Laravel\Facades\Telegram;
-use Telegram\Bot\Api;
+
 
 
 
 class AdminIndexController extends Controller
 {
+    private $chartSerive;
+
+    public function __construct(DataChartService $service)
+    {
+        $this->chartSerive = $service;
+    }
     public function index()
     {
 
-        //Получение стоимости активов (актив => стоимость)
-        $data = [
-           'Акции' =>  DB::table('stocks')
-               ->selectRaw('SUM(price * lots) as total')
-               ->value('total'),
+        $dataArray = $this->chartSerive
+            ->setAssetsData()
+            ->getChartData();
 
-            'Облигации' => Bond::query()->sum('price'),
-
-            'Крипта' => Crypto::query()->sum('price') * 80,
-
-            'Займы' => Loan::query()->sum('price'),
-
-            'Фонды' => Fund::query()->sum('price'),
-        ];
-
-        //Получение данных для графика и общей стоимости
-        $dataChart = GetDataChart::get_data($data);
+        $dataChart = $dataArray['dataChart'];
+        $data = $dataArray['data'];
 
         return view('admin.admin_panel', compact('dataChart',  'data'));
     }

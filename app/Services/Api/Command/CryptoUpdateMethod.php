@@ -22,7 +22,7 @@ class CryptoUpdateMethod implements UpdateAssetsPrice
 
         $key = env('MY_ALPHAVANTAGE_API_KEY');
         foreach ($cryptos as $crypto){
-            $response = $client->get("https://www.alphavantage.co/query?".
+            $response = $client->get(env('CRYPTO_API_URL')."query?".
                 "function=CURRENCY_EXCHANGE_RATE".
                 "&from_currency={$crypto->ticker}&".
                 "to_currency=USD&".

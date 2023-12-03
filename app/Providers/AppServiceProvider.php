@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Chart\DataChartService;
+use App\Services\Chart\DataChartServiceContract;
 use App\Services\PDF\PdfExportSerivce;
 use App\Services\PDF\PdfExportServiceContract;
 use App\Services\Statistic\TotalStatisticService;
@@ -36,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(TelegramBotServiceContract::class, TelegramBotService::class);
         $this->app->singleton(PdfExportServiceContract::class, PdfExportSerivce::class);
         $this->app->singleton(TotalStatisticServiceContract::class, TotalStatisticService::class);
+        $this->app->singleton(DataChartServiceContract::class, DataChartService::class);
 
     }
 }

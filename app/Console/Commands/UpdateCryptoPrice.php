@@ -16,12 +16,16 @@ class UpdateCryptoPrice extends Command
 
     protected $description = 'Update crypto price by using API';
 
+    protected $service;
+    public function __construct(CryptoUpdateMethod $service)
+    {
+        parent::__construct();
 
+        $this->service = $service;
+    }
     public function handle()
     {
-        $crypto = new CryptoUpdateMethod();
-
-        $crypto->update();
+        $this->service->update();
 
        dd('Update success');
     }

@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Services\Chart;
+
+use App\Models\Bond;
+use App\Models\Crypto;
+use App\Models\Fund;
+use App\Models\Loan;
+use App\Services\Api\Finance\PriceCurrencyHelper;
+use Illuminate\Support\Facades\DB;
+
+class DataChartService implements DataChartServiceContract
+{
+    private $data = [];
+
+    /**
+     * Заполнение данных по активам
+     * @return $this
+     */
+    public function setAssetsData()
+    {
+        $usdPrice =  PriceCurrencyHelper::getUSDPrice();
+        //Получение стоимости активов (актив => стоимость)
+        $this->data = [
+            'Акции' =>  DB::table('stocks')
+                ->selectRaw('SUM(price * lots) as total')
+                ->value('total'),
+
+            'Облигации' => Bond::query()->sum('price'),
+
+            'Крипта' => round(Crypto::query()->sum('price') * $usdPrice,2),
+
+            'Займы' => Loan::query()->sum('price'),
+
+            'Фонды' => Fund::query()->sum('price'),
+        ];
+        return $this;
+    }
+
+    /**
+     * Получение и возврат данных для графиков
+     * @return array
+     */
+    public function getChartData()
+    {
+        $newData = [];//Массив значений стоимости (стоимость)
+        $i=0;
+        foreach ($this->data as $key => $value) {
+            $newData[$i] = $value;
+            $i++;
+        }
+
+        $dataChart = [
+            'labels' => array_keys($this->data),//Получение названий (актив),
+            'numeric' => $newData,
+            'total' =>  array_sum($this->data),//Расчёт общей стоимости
+        ];
+
+        return [
+           'dataChart' => $dataChart,
+            'data' =>$this->data
+        ];
+    }
+}
