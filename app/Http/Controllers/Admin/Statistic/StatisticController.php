@@ -20,7 +20,7 @@ class StatisticController extends Controller
 
     public function index()
     {
-        $statistics = TotalStatistic::query()->get();
+        $statistics = TotalStatistic::query()->paginate(10);
 
         return view('admin.statistic.index', compact('statistics'));
     }
