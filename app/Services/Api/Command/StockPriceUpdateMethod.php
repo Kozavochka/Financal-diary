@@ -21,7 +21,7 @@ class StockPriceUpdateMethod implements UpdateAssetsPrice
 
             foreach ($stocks as $stock){
                 //Получение информации по тикеру акции
-                $response = $client->get("https://iss.moex.com/iss/engines/stock/markets/shares/boards/tqbr/securities/".
+                $response = $client->get(env('MOEX_API_URL')."engines/stock/markets/shares/boards/tqbr/securities/".
                     "{$stock->ticker}.json".
                     "?securities.columns=SECID,SHORTNAME, PREVPRICE");//Get параметры, можно убрать первые два
                 //Раскодирование
