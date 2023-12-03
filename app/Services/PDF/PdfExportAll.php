@@ -8,6 +8,7 @@ use App\Models\Fund;
 use App\Models\Industry;
 use App\Models\Loan;
 use App\Models\Stock;
+use App\Services\Api\Finance\PriceCurrencyHelper;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use http\Env;
@@ -19,6 +20,7 @@ class PdfExportAll
 
     public static function export()
     {
+        $usdPrice =  PriceCurrencyHelper::getUSDPrice();
         //Данные для pdf файла
         $stocks_builder =QueryBuilder::for(Stock::class);//????
 
@@ -52,7 +54,7 @@ class PdfExportAll
 
             'Облигации' => $data['bonds']->sum('price'),
 
-            'Крипта' => $data['crypto']->sum('price') * 90,
+            'Крипта' => $data['crypto']->sum('price') * $usdPrice,
 
             'Займы' => $data['loans']->sum('price'),
 

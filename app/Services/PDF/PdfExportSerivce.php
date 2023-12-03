@@ -8,6 +8,7 @@ use App\Models\Fund;
 use App\Models\Industry;
 use App\Models\Loan;
 use App\Models\Stock;
+use App\Services\Api\Finance\PriceCurrencyHelper;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -55,6 +56,7 @@ class PdfExportSerivce implements PdfExportServiceContract
 
     public function getDataSum($data)
     {
+        $usdPrice =  PriceCurrencyHelper::getUSDPrice();
        //TODO кэш
        $dataSum =  [
 
@@ -64,7 +66,7 @@ class PdfExportSerivce implements PdfExportServiceContract
 
            'Облигации' => $data['bonds']->sum('price'),
 
-           'Крипта' => $data['crypto']->sum('price') * 90,
+           'Крипта' => $data['crypto']->sum('price') * $usdPrice,
 
            'Займы' => $data['loans']->sum('price'),
 
