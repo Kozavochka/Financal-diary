@@ -10,6 +10,7 @@ use App\Models\Fund;
 use App\Models\Loan;
 use App\Models\Stock;
 use App\Services\Admin\GetDataChart;
+use App\Services\Api\Finance\PriceCurrencyHelper;
 use App\Telegram\Commands\ResetPasswordCommand;
 use App\Telegram\Commands\StartCommand;
 use Dflydev\DotAccessData\Data;
@@ -24,7 +25,7 @@ class AdminIndexController extends Controller
 {
     public function index()
     {
-
+        $usdPrice =  PriceCurrencyHelper::getUSDPrice();
         //Получение стоимости активов (актив => стоимость)
         $data = [
            'Акции' =>  DB::table('stocks')
@@ -33,7 +34,7 @@ class AdminIndexController extends Controller
 
             'Облигации' => Bond::query()->sum('price'),
 
-            'Крипта' => Crypto::query()->sum('price') * 80,
+            'Крипта' => round(Crypto::query()->sum('price') * $usdPrice,2),
 
             'Займы' => Loan::query()->sum('price'),
 
