@@ -62,6 +62,7 @@ class AdminStockController extends Controller
     {
         $data = $request->validated();
 
+        $data['total_price'] = round($data['price'] * $data['lots'],2) ?? 0;
 
         Stock::query()
             ->create($data);
