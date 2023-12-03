@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Statistic;
 
-use App\Exceptions\StatisticCreateTimeLessThanWeek;
 use App\Http\Controllers\Controller;
 use App\Models\TotalStatistic;
 use App\Services\Statistic\TotalStatisticServiceContract;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class StatisticController extends Controller
 {
