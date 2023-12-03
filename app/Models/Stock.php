@@ -27,9 +27,4 @@ class Stock extends Model
         return $this->belongsTo(Industry::class);
     }
 
-    //Relation к записи изменения стоимости
-    public function records()
-    {
-        return $this->belongsToMany(Record::class)->withPivot('price');
-    }
 }
