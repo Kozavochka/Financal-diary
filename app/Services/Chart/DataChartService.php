@@ -56,6 +56,8 @@ class DataChartService implements DataChartServiceContract
             'total' =>  array_sum($this->data),//Расчёт общей стоимости
         ];
 
+        $dataChart['total'] =  $dataChart['total'] == 0 ? 1:$dataChart['total'];
+
         return [
            'dataChart' => $dataChart,
             'data' =>$this->data
