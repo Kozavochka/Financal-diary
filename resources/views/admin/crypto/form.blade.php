@@ -20,7 +20,7 @@
 <div class="form-group">
     <div class="mb-3">
         <label for="lots" class="form-label">Количество монеток</label>
-        <input id="lots"  name="lots" class="form-control" type="number" placeholder="Введите число" value="1">
+        <input id="lots"  name="lots" class="form-control" type="number" placeholder="Введите число" value="1" step="0.00001">
     </div>
 </div>
 <div class="form-group">
