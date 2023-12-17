@@ -27,7 +27,12 @@ class StockPriceUpdateMethod implements UpdateAssetsPrice
                 //Раскодирование
                 $data = json_decode($response->getBody(), true);
                 //Обновление цены
-                $stock->update(['price' => $data['securities']['data'][0][2]]);
+                $stock->update(
+                    [
+                        'price' => $data['securities']['data'][0][2],
+                        'total_price' => round($stock->lots * $data['securities']['data'][0][2],2)
+                    ]
+                );
                 $stock->refresh();
             }
         }

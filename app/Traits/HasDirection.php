@@ -9,7 +9,7 @@ trait HasDirection
 
     public function direction()
     {
-        return $this->belongsTo(Direction::class)->withTrashed();
+        return $this->belongsTo(Direction::class);
     }
 
 }
