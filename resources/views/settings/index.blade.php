@@ -30,5 +30,12 @@
                 Обновить USD
             </button>
         </form>
+        <form method="post" action="{{ route('settings.total_price_update') }}" >
+            @csrf
+            <button class="btn btn-success me-2">
+                <i class="fa-solid fa-money-bill-wave"></i>
+                Обновить общую сумму
+            </button>
+        </form>
     </div>
 @endsection

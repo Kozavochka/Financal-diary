@@ -120,6 +120,25 @@ class TotalStatisticService implements TotalStatisticServiceContract
 
         $this->statistic->total_sum = $this->totalSum;
         $this->statistic->save();
+    }
 
+    /**
+     * Расчёт общей суммы для заполнения настройки
+     * @return double
+     */
+    public function getTotalSumForSetting()
+    {
+        $this->usdPrice =  PriceCurrencyHelper::getUSDPrice();
+
+        $this->totalSum = 0;
+
+        $this->getAssetsInfo();
+
+        foreach ($this->directions as $direction){
+            $this->totalSum = bcadd($this->totalSum,$this->getSumInfo($direction),2);
+        }
+        if ($this->totalSum == 0 ) return 1;// для обработки деления на ноль
+
+        return $this->totalSum;
     }
 }

@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function (){
 
    Route::get('/settings',[SettingsController::class,'index'])->name('settings.index');
    Route::post('/settings/usd-update', [SettingsController::class,'updateUsdPrice'])->name('settings.usd_update');
+   Route::post('/settings/total-price', [SettingsController::class,'updateTotalPrice'])->name('settings.total_price_update');
 });
 
 //Роут веб хука
