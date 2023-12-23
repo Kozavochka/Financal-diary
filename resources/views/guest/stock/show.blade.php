@@ -3,7 +3,7 @@
     <div class="container">
         <div class="card text-center">
             <div class="card-header">
-                Доля от всего портфеля: {{ bcdiv($stock->total_price/$total,3 ,4)*100  }} %
+                Доля от всего портфеля: {{ round($stock->total_price/$total->getValuePrice(),2)*100  }} %
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{$stock->name}}</h5>

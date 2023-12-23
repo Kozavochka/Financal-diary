@@ -30,6 +30,6 @@ class SettingsDTO
 
     public function getValuePrice()
     {
-        return $this->setting->value['price'];
+        return (float)$this->setting->value['price'];
     }
 }
