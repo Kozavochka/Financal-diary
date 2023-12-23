@@ -56,7 +56,7 @@ class SettingsController extends Controller
             Settings::query()
                 ->where('key','total_price')
                 ->update([
-                    'value' => ['price' => $this->stastisticSerivce->getTotalSumForSetting()]
+                    'value' => ['price' => $this->stastisticSerivce->getTotalPriceForSetting()]
                 ]);
         }
         catch (\Exception $exception){

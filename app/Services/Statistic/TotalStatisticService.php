@@ -3,6 +3,7 @@
 namespace App\Services\Statistic;
 
 use App\Models\Direction;
+use App\Models\Settings;
 use App\Models\TotalStatistic;
 use App\Models\TotalStatisticItem;
 use App\Services\Api\Finance\PriceCurrencyHelper;
@@ -118,6 +119,8 @@ class TotalStatisticService implements TotalStatisticServiceContract
             ->getAssetsInfo()
             ->createItems();
 
+        $this->setTotalPriceForSetting();
+
         $this->statistic->total_sum = $this->totalSum;
         $this->statistic->save();
     }
@@ -126,7 +129,7 @@ class TotalStatisticService implements TotalStatisticServiceContract
      * Расчёт общей суммы для заполнения настройки
      * @return double
      */
-    public function getTotalSumForSetting()
+    public function getTotalPriceForSetting()
     {
         $this->usdPrice =  PriceCurrencyHelper::getUSDPrice();
 
@@ -140,5 +143,19 @@ class TotalStatisticService implements TotalStatisticServiceContract
         if ($this->totalSum == 0 ) return 1;// для обработки деления на ноль
 
         return $this->totalSum;
+    }
+    /**
+     * Обновление общей суммы в настройке после расчёта статистики
+     * @return $this
+     */
+    public function setTotalPriceForSetting()
+    {
+        Settings::query()
+            ->where('key','total_price')
+            ->update([
+                'value' => ['price' => $this->totalSum]
+            ]);
+
+        return $this;
     }
 }

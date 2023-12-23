@@ -17,5 +17,7 @@ interface TotalStatisticServiceContract
 
     public function calculate();
 
-    public function getTotalSumForSetting();
+    public function getTotalPriceForSetting();
+
+    public function setTotalPriceForSetting();
 }
