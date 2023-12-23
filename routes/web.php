@@ -37,7 +37,8 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::resource('/bonds', BondController::class)->names('bonds');
 
-    Route::resource('/settings', SettingsController::class)->names('settings');
+   Route::get('/settings',[SettingsController::class,'index'])->name('settings.index');
+   Route::post('/settings/usd-update', [SettingsController::class,'updateUsdPrice'])->name('settings.usd_update');
 });
 
 //Роут веб хука

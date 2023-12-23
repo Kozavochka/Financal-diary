@@ -7,6 +7,7 @@ use App\Models\Settings;
 class SettingsDTO
 {
     protected $setting;
+
     public function __construct(Settings $setting)
     {
         $this->setting = $setting;
