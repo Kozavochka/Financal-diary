@@ -170,7 +170,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{route('statistic.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="fa-solid fa-chart-pie"></i>
                             <p>Статистика</p>
                         </a>
                     </li>
