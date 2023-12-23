@@ -174,6 +174,12 @@
                             <p>Статистика</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('settings.index')}}" class="nav-link">
+                            <i class="fa-solid fa-gear"></i>
+                            <p>Настройки</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
