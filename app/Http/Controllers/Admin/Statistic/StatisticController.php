@@ -18,15 +18,19 @@ class StatisticController extends Controller
 
     public function index()
     {
-        $statistics = TotalStatistic::query()->paginate(10);
-
-        return view('admin.statistic.index', compact('statistics'));
+        return view('admin.statistic.index');
     }
 
+    public function totalResultStatistic()
+    {
+        $statistics = TotalStatistic::query()->paginate(10);
+
+        return view('admin.statistic.total_result', compact('statistics'));
+    }
     public function create()
     {
         $statistic = TotalStatistic::query()->first();
-        //TODO поменять на diffInDays и сделать настройку на минимальное время статистики
+
         if ($statistic && Carbon::now()->diffInWeeks($statistic->created_at) < 1){
             return back()->withError("Период записи меньше недели")->withInput();
         }

@@ -1,44 +1,24 @@
 @extends('layouts.admin')
 @section('content')
-    {{-- NEED REFACTORING --}}
-    <h1 class="mb-3">Статистика</h1>
-    <form method="post" action="{{ route('statistic.create') }}" >
-        @csrf
-        <button type="submit" class="btn btn-success me-2">Закрепить результат</button>
-    </form>
-    @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
-    <table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Дата</th>
-        <th>Общая сумма</th>
-    </tr>
-    </thead>
-    </table>
-        @foreach($statistics as $statistic)
-        <table class="table table-bordered">
-            <tbody>
-            <tr data-toggle="collapse" data-target="#row{{$statistic->id}}" class="clickable">
-                <td>{{$statistic->created_at}}</td>
-                <td>{{$statistic->total_sum}} RUB</td>
-            </tr>
-            @foreach($statistic->items as $item)
-            <tr id="row{{$statistic->id}}" class="collapse">
-                <td>
-                        <div >{{$item->direction->name}}</div>
-                </td>
-                <td>
-                    <div class="container" style="display: flex; justify-content: space-around">
-                        <div>{{$item->sum}} RUB</div>
-                        <div>N: {{$item->count}}</div>
-                    </div>
-                </td>
-            </tr>
-            @endforeach
-            </tbody>
-        </table>
-        @endforeach
-
+    <h1 class="mb-3">Раздел статистик</h1>
+    <ol class="list-group list-group-numbered">
+        <li class="list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold"><a href="">Статистика динамики портфеля</a></div>
+                Позволяет увидеть и рассчитать динамику изменения стоимости активов
+            </div>
+        </li>
+        <li class="list-group-item list-group-item-action list-group-item-success d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold"><a class="link-success" href="">Общая статистика портфеля</a></div>
+                Позволяет посмотреть информацию о стоимости текущих направлениях
+            </div>
+        </li>
+        <li class="list-group-item list-group-item-action list-group-item-info d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold"><a class="link-info" href="">Статистика активов</a></div>
+                Позволяет посмотреть стоимость текущих активов в различных направлениях
+            </div>
+        </li>
+    </ol>
 @endsection
