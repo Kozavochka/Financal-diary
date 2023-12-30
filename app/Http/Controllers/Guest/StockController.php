@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Guest;
 use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
 use App\Models\Industry;
+use App\Models\Settings;
 use App\Models\Stock;
+use App\Services\DTO\SettingsDTO;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -57,7 +59,11 @@ class StockController extends Controller
 
     public function show(Stock $stock)
     {
-        $total =Cache::get('total');
+        $total = new  SettingsDTO(
+            Settings::query()
+                ->where('key','total_price')
+                ->first()
+        );
 
         return view('guest.stock.show', compact('stock', 'total'));
     }

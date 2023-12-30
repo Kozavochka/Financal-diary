@@ -31,9 +31,6 @@ class HomeController extends Controller
         $dataChart = $dataArray['dataChart'];
         $data = $dataArray['data'];
 
-        //Сохранение общей стоимости для страницы отображения единичной акции
-        Cache::put('total', $dataChart['total'], now()->addMinutes(10));
-
         return view('home', compact('data', 'dataChart'));
     }
 

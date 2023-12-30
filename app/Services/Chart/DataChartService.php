@@ -6,6 +6,7 @@ use App\Models\Bond;
 use App\Models\Crypto;
 use App\Models\Fund;
 use App\Models\Loan;
+use App\Models\Settings;
 use App\Services\Api\Finance\PriceCurrencyHelper;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +20,9 @@ class DataChartService implements DataChartServiceContract
      */
     public function setAssetsData()
     {
-        $usdPrice =  PriceCurrencyHelper::getUSDPrice();
+        $usdPrice =  Settings::query()
+            ->where('key','usd_price')
+            ->first()->value['price'];
         //Получение стоимости активов (актив => стоимость)
         $this->data = [
             'Акции' =>  DB::table('stocks')

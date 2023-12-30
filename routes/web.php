@@ -3,6 +3,7 @@
 use App\Http\Controllers\Guest\BondController;
 use App\Http\Controllers\Guest\StockController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TelegramController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,10 @@ Route::group(['middleware' => 'auth'], function (){
     Route::resource('/stocks',StockController::class)->names('stocks');
 
     Route::resource('/bonds', BondController::class)->names('bonds');
+
+   Route::get('/settings',[SettingsController::class,'index'])->name('settings.index');
+   Route::post('/settings/usd-update', [SettingsController::class,'updateUsdPrice'])->name('settings.usd_update');
+   Route::post('/settings/total-price', [SettingsController::class,'updateTotalPrice'])->name('settings.total_price_update');
 });
 
 //Роут веб хука

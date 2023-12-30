@@ -16,4 +16,8 @@ interface TotalStatisticServiceContract
     public function getAssetsInfo();
 
     public function calculate();
+
+    public function getTotalPriceForSetting();
+
+    public function setTotalPriceForSetting();
 }
