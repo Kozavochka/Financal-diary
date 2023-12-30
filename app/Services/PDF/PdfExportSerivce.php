@@ -7,6 +7,7 @@ use App\Models\Crypto;
 use App\Models\Fund;
 use App\Models\Industry;
 use App\Models\Loan;
+use App\Models\Settings;
 use App\Models\Stock;
 use App\Services\Api\Finance\PriceCurrencyHelper;
 use Dompdf\Dompdf;
@@ -56,7 +57,9 @@ class PdfExportSerivce implements PdfExportServiceContract
 
     public function getDataSum($data)
     {
-        $usdPrice =  PriceCurrencyHelper::getUSDPrice();
+        $usdPrice =  Settings::query()
+            ->where('key','usd_price')
+            ->first()->value['price'];
        //TODO кэш
        $dataSum =  [
 
