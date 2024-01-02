@@ -1,5 +1,5 @@
 <h1 class="mb-3">Облигации</h1>
-<canvas style="max-height: 1000px; max-width: 500px;" id="myBondChart"></canvas>
+<canvas class="default-chart-size" id="myBondChart"></canvas>
 <script>
     colors=[];
     for(let i=0;i<{{$bonds->pluck('name')->count()}};i++){

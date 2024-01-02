@@ -1,5 +1,5 @@
 <h1 class="mb-3">Акции</h1>
-<canvas style="max-height: 1000px; max-width: 1000px;" id="myStockChart"></canvas>
+<canvas class="default-chart-size" id="myStockChart"></canvas>
 <script>
     colors=[];
     for(let i=0;i<{{$stocks->count()}};i++){

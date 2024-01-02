@@ -1,5 +1,5 @@
 <h1 class="mb-3">Отрасли</h1>
-<canvas style="max-width: 500px;" id="myIndustryChart"></canvas>
+<canvas class="industry-chart" id="myIndustryChart"></canvas>
 <script>
     colors=[];
     for(let i=0;i<{{$industries->pluck('name')->count()}};i++){
@@ -27,7 +27,7 @@
         }
     });
 </script>
-<canvas style="max-width: 500px;" id="myIndustrySumChart"></canvas>
+<canvas class="industry-chart" id="myIndustrySumChart"></canvas>
 <script>
     colors=[];
     for(let i=0;i<{{$industries->pluck('name')->count()}};i++){
