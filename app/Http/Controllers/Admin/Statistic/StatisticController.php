@@ -67,6 +67,7 @@ class StatisticController extends Controller
 
         $industries = Industry::query()
             ->withCount('stocks')
+            ->withSum('stocks','total_price')
             ->get();
 
         $bonds = Bond::query()->get();
