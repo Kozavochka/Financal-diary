@@ -22,27 +22,20 @@ class AdminStockController extends Controller
 
     public function index()
     {
-
         $page = request('page', 1);
         $perPage = request('per_page', 10);
 
-
-        $stocks =QueryBuilder::for(Stock::class)
+        $stocks = QueryBuilder::for(Stock::class)
             ->with('industry')
             ->allowedFilters([
                 AllowedFilter::callback('asc_price', function (Builder $query){
-                    $query->orderByRaw('price*lots');
+                    $query->orderByRaw('total_price');
                 })
             ])
-            ->orderByRaw('price*lots desc')
+            ->orderByRaw('total_price desc')
             ->paginate($perPage, '*', 'page', $page);
 
-
-        $labels = $stocks->pluck('name');
-
-        $data = $stocks->pluck('total_price');
-
-        return view('admin.stocks.stocks', compact('stocks', 'labels', 'data'));
+        return view('admin.stocks.stocks', compact('stocks'));
 
     }
 

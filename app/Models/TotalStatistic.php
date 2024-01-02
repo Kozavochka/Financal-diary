@@ -18,6 +18,10 @@ class TotalStatistic extends Model
 
     protected $with = ['items'];
 
+    protected $casts = [
+        'created_at' => 'datetime'
+    ];
+
     public static function boot()
     {
         parent::boot();

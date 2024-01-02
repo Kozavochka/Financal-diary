@@ -47,10 +47,9 @@ class DataChartService implements DataChartServiceContract
     public function getChartData()
     {
         $newData = [];//Массив значений стоимости (стоимость)
-        $i=0;
+
         foreach ($this->data as $key => $value) {
-            $newData[$i] = $value;
-            $i++;
+            $newData[] = $value;
         }
 
         $dataChart = [
