@@ -19,6 +19,8 @@
 
     <script src="https://kit.fontawesome.com/a1a14b61d0.js" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="{{asset('css/admin.css')}}">
+
 </head>
 <!--
 `body` tag options:
