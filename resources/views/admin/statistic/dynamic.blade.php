@@ -2,7 +2,7 @@
 @section('content')
     {{-- NEED REFACTORING --}}
     <h1 class="mb-3">Статистика</h1>
-    <form method="post" action="{{ route('statistic.create') }}" >
+    <form method="post" action="{{ route('statistic.dynamic.create') }}" >
         @csrf
         <button type="submit" class="btn btn-success me-2">Закрепить результат</button>
     </form>
@@ -12,6 +12,7 @@
     <table class="table table-bordered">
     <thead>
     <tr>
+        <th style="width: 10px">№</th>
         <th>Дата</th>
         <th>Общая сумма</th>
     </tr>
@@ -21,6 +22,7 @@
         <table class="table table-bordered">
             <tbody>
             <tr data-toggle="collapse" data-target="#row{{$statistic->id}}" class="clickable">
+                <td style="width: 10px">{{$statistic->id}}</td>
                 <td>{{$statistic->created_at}}</td>
                 <td>{{$statistic->total_sum}} RUB</td>
             </tr>
@@ -40,5 +42,5 @@
             </tbody>
         </table>
         @endforeach
-
+    @include('admin.statistic.charts.dynamic')
 @endsection
