@@ -60,12 +60,6 @@ class AdminStockController extends Controller
     }
 
 
-    public function show($id)
-    {
-        //
-    }
-
-
     public function edit(Stock $stock)
     {
         $stock->loadMissing(['industry', 'direction']);
@@ -99,6 +93,5 @@ class AdminStockController extends Controller
     public function excel_export()
     {
         return Excel::download(new StocksExport, 'stocks.xlsx');
-
     }
 }

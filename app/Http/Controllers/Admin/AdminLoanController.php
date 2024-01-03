@@ -22,7 +22,6 @@ class AdminLoanController extends Controller
 
     public function create()
     {
-
         return view('admin.loans.create');
     }
 
@@ -36,13 +35,6 @@ class AdminLoanController extends Controller
 
         return redirect(route('admin.loans.index'));
     }
-
-
-    public function show(Loan $loan)
-    {
-        //
-    }
-
 
     public function edit(Loan $loan)
     {

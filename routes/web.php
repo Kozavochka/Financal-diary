@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function (){
 Route::post('/reset-tg',[TelegramController::class,'reset'])->name('reset-pass');
 Route::post('/webhook', [TelegramController::class,'webhook']);
 Route::get('/tg/{user}',[TelegramController::class,'index'])->name('tg');
-Route::post('/reset-tg-form', [TelegramController::class,'reset_show'])->name('reset-tg');
+Route::post('/reset-tg-form', [TelegramController::class,'resetShow'])->name('reset-tg');
 
 
 
