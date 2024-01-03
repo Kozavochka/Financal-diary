@@ -6,12 +6,9 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
-use App\Models\Direction;
 use App\Models\Industry;
 use App\Models\Stock;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -45,9 +42,8 @@ class AdminStockController extends Controller
         $industries = Industry::query()
             ->distinct()
             ->get();
-        $directions = Direction::query()->get();
 
-        return view('admin.stocks.create', compact('industries', 'directions'));
+        return view('admin.stocks.create', compact('industries'));
     }
 
 
@@ -61,12 +57,6 @@ class AdminStockController extends Controller
             ->create($data);
 
         return redirect(route('admin.stocks.index'));
-    }
-
-
-    public function show($id)
-    {
-        //
     }
 
 
@@ -103,6 +93,5 @@ class AdminStockController extends Controller
     public function excel_export()
     {
         return Excel::download(new StocksExport, 'stocks.xlsx');
-
     }
 }

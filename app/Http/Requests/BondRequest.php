@@ -38,10 +38,6 @@ class BondRequest extends FormRequest
                 'date_format:Y-m-d',
                 'nullable',
             ],
-            'direction_id' => [
-                'integer',
-                Rule::exists('directions', 'id'),
-            ],
         ];
     }
 }

@@ -36,6 +36,7 @@ class StockController extends Controller
         $industries = Industry::query()
             ->withCount('stocks')
             ->get();
+
         return view('guest.stock.index', compact('stocks', 'industries'));
     }
 

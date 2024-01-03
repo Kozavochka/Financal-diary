@@ -6,7 +6,7 @@
             <div class="mb-3">
                 <select class="form-select" aria-label="Default select example" id="industry_id" name="income_type_id">
                     <option selected>Выбор типа поступления</option>
-                    @foreach($income_types as $type)
+                    @foreach($incomeTypes as $type)
                         <option value="{{$type->id}}">{{$type->name}}</option>
                     @endforeach
                 </select>

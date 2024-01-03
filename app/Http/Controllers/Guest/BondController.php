@@ -17,13 +17,13 @@ class BondController extends Controller
         $bonds = QueryBuilder::for(Bond::class)
             ->allowedFilters([
                 AllowedFilter::callback('asc_percent', function (Builder $query){
-                    $query->orderBy('profit_percent', 'asc');
+                    $query->orderBy('profit_percent');
                 }),
                 AllowedFilter::callback('asc_coupon', function (Builder $query){
-                    $query->orderBy('coupon', 'asc');
+                    $query->orderBy('coupon');
                 }),
                 AllowedFilter::callback('asc_date', function (Builder $query){
-                    $query->orderBy('expiration_date', 'asc');
+                    $query->orderBy('expiration_date');
                 })
             ])
             ->get();

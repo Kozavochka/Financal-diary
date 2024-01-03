@@ -36,8 +36,8 @@
                 @foreach($data_sum as $key => $value)
                     <tr>
                         <td>{{$key}}</td>
-                        <td>{{$data_sum[$key]}}</td>
-                        <td>{{bcdiv($data_sum[$key] / $total * 100,1,0)}}</td>
+                        <td>{{$dataSum[$key]}}</td>
+                        <td>{{bcdiv($dataSum[$key] / $total * 100,1,0)}}</td>
                     </tr>
                 @endforeach
                 </tbody>

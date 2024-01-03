@@ -29,7 +29,6 @@ class AdminIndustryController extends Controller
 
     public function create()
     {
-
         return view('admin.industries.create');
     }
 
@@ -43,24 +42,6 @@ class AdminIndustryController extends Controller
 
         return redirect(route('admin.industries.index'));
     }
-
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit(Industry $industry)
-    {
-
-    }
-
-
-    public function update(IndustryRequest $request, Industry $industry)
-    {
-    }
-
 
     public function destroy(Industry $industry)
     {

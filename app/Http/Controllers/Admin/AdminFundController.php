@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FundRequest;
-use App\Models\Direction;
 use App\Models\Fund;
-use Illuminate\Http\Request;
 
 class AdminFundController extends Controller
 {
@@ -23,9 +21,8 @@ class AdminFundController extends Controller
 
     public function create()
     {
-        $directions = Direction::query()->get();
 
-        return view('admin.funds.create', compact('directions'));
+        return view('admin.funds.create');
     }
 
 

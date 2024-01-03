@@ -30,9 +30,8 @@ class PdfExportSerivce implements PdfExportServiceContract
 
     public function getData()
     {
-        //TODO кэш
         //Получение записей
-        $data = [
+        return [
             'stocks' => Stock::query()
                 ->with('industry')
                 ->get(),
@@ -50,8 +49,6 @@ class PdfExportSerivce implements PdfExportServiceContract
                 ->get(),
         ];
 
-        return $data;
-
 
     }
 
@@ -60,34 +57,28 @@ class PdfExportSerivce implements PdfExportServiceContract
         $usdPrice =  Settings::query()
             ->where('key','usd_price')
             ->first()->value['price'];
-       //TODO кэш
-       $dataSum =  [
 
-           'Акции' => Stock::query()
-               ->selectRaw('SUM(price * lots) as total')
-               ->value('total'),
+        return [
+            'Акции' => Stock::query()
+                ->selectRaw('SUM(price * lots) as total')
+                ->value('total'),
 
-           'Облигации' => $data['bonds']->sum('price'),
+            'Облигации' => $data['bonds']->sum('price'),
 
-           'Крипта' => $data['crypto']->sum('price') * $usdPrice,
+            'Крипта' => $data['crypto']->sum('price') * $usdPrice,
 
-           'Займы' => $data['loans']->sum('price'),
+            'Займы' => $data['loans']->sum('price'),
 
-           'Фонды' => $data['funds']->sum('price'),
+            'Фонды' => $data['funds']->sum('price'),
 
-       ];
-
-       return $dataSum;
+        ];
     }
 
     public function getIndustries()
     {
-        //TODO кэш
-        $industries = Industry::query()
+        return Industry::query()
             ->withCount('stocks')
             ->get();
-
-        return $industries;
     }
 
     public function getTotal($dataSum)
@@ -110,7 +101,7 @@ class PdfExportSerivce implements PdfExportServiceContract
 
         $this->loadHtml();
 
-        $this->pdf->setPaper('A4', 'portrait');
+        $this->pdf->setPaper('A4');
 
         return $this;
     }
@@ -119,11 +110,11 @@ class PdfExportSerivce implements PdfExportServiceContract
     {
 
         $data = $this->getData();
-        $data_sum = $this->getDataSum($data);
-        $total = $this->getTotal($data_sum);
+        $dataSum = $this->getDataSum($data);
+        $total = $this->getTotal($dataSum);
         $industries = $this->getIndustries();
 
-        $this->pdf->loadHtml(view('pdf.general_pdf', compact('data','data_sum', 'total', 'industries')),
+        $this->pdf->loadHtml(view('pdf.general_pdf', compact('data','dataSum', 'total', 'industries')),
             'UTF-8');
 
         return $this;

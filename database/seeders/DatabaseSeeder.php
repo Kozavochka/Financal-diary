@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DirectionSeeder::class);
         $this->call(IndustrySeeder::class);
         $this->call(SettingsSeeder::class);
+        $this->call(IncomeTypeSeeder::class);
     }
 }

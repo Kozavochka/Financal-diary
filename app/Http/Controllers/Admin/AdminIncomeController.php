@@ -20,15 +20,14 @@ class AdminIncomeController extends Controller
             ->with('income_type')
             ->paginate($perPage, '*', 'page', $page);
 
-
         return view('admin.income.index', compact('incomes'));
     }
 
     public function create()
     {
-        $income_types = IncomeType::query()->get();
+        $incomeTypes = IncomeType::query()->get();
 
-        return view('admin.income.create', compact('income_types'));
+        return view('admin.income.create', compact('incomeTypes'));
     }
 
 

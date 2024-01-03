@@ -27,7 +27,7 @@ class TelegramController extends Controller
 
     }
 
-    public function reset_show(Request $request)
+    public function resetShow(Request $request)
     {
         $data = $request->validate(['email' => [
             'required',
@@ -45,9 +45,9 @@ class TelegramController extends Controller
         $tgCode = User::query()
             ->select('reset_code')
             ->where('email', $data['email'])
-            ->get();
+            ->first();
         //Проверка кода
-        if (!Hash::check($data['code'], $tgCode[0]->reset_code)) {
+        if (!Hash::check($data['code'], $tgCode->reset_code)) {
             return redirect()->route('login');
         }
         //Обновление пароля
