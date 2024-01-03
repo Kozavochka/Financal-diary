@@ -8,6 +8,7 @@ use App\Http\Requests\BondRequest;
 use App\Models\Bond;
 use App\Models\Direction;
 use App\Models\Stock;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -20,6 +21,10 @@ class AdminBondController extends Controller
     {
         $page = request('page', 1);
         $perPage = request('per_page', 10);
+
+        if (Bond::query()->where('expiration_date','<',Carbon::now())->exists()){
+            Bond::query()->where('expiration_date','<',Carbon::now())->delete();
+        }
 
         $bonds = QueryBuilder::for(Bond::class)
             ->allowedFilters([
