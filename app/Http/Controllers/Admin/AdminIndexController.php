@@ -11,23 +11,9 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class AdminIndexController extends Controller
 {
-    private $chartSerive;
-
-    public function __construct(DataChartService $service)
-    {
-        $this->chartSerive = $service;
-    }
     public function index()
     {
-
-        $dataArray = $this->chartSerive
-            ->setAssetsData()
-            ->getChartData();
-
-        $dataChart = $dataArray['dataChart'];
-        $data = $dataArray['data'];
-
-        return view('admin.admin_panel', compact('dataChart',  'data'));
+        return view('admin.admin_panel');
     }
 
     //Метод для обновления телеграмм бота

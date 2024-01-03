@@ -1,0 +1,29 @@
+/* CHARTS */
+#myDynamicChart {
+    max-width: 1000px;
+    margin: auto;
+}
+#myTotalChart {
+    max-width: 1000px;
+    margin: auto;
+}
+
+#myBondChart {
+    max-width: 500px;
+}
+
+#myCryptoChart {
+    max-width: 500px;
+}
+
+#myStockChart {
+    max-width: 1000px;
+}
+
+.default-chart-size {
+    max-height: 1000px;
+}
+
+.industry-chart {
+    max-width: 500px;
+}

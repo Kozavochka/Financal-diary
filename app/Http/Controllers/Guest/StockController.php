@@ -36,12 +36,7 @@ class StockController extends Controller
         $industries = Industry::query()
             ->withCount('stocks')
             ->get();
-
-        $labels = $stocks->pluck('name');
-
-        $data_price = $stocks->pluck('total_price');
-
-        return view('guest.stock.index', compact('stocks', 'industries','labels', 'data_price'));
+        return view('guest.stock.index', compact('stocks', 'industries'));
     }
 
 
