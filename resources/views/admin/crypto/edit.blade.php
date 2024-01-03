@@ -28,7 +28,7 @@
         <div class="form-group">
             <div class="mb-3">
                 <label for="lots" class="form-label">Количество лотов</label>
-                <input id="lots"  name="lots" class="form-control" type="number" placeholder="Введите число"
+                <input id="lots"  name="lots" class="form-control" type="number" placeholder="Введите число" step="0.00001"
                        value="{{ old('lots', $crypto->lots) }}" >
             </div>
         </div>
