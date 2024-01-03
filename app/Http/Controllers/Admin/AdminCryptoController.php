@@ -1,13 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
-use App\Enums\DirectionNameEnums;
+;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CryptoRequest;
 use App\Models\Crypto;
-use App\Models\Direction;
-use Illuminate\Http\Request;
 
 class AdminCryptoController extends Controller
 {
@@ -33,9 +30,6 @@ class AdminCryptoController extends Controller
     public function store(CryptoRequest $request)
     {
         $data = $request->validated();
-        $data['direction_id'] = Direction::query()
-            ->where('name', DirectionNameEnums::stocks()->value)
-            ->first()?->id;
 
         Crypto::query()
             ->create($data);

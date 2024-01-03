@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\DirectionNameEnums;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FundRequest;
-use App\Models\Direction;
 use App\Models\Fund;
-use Illuminate\Http\Request;
 
 class AdminFundController extends Controller
 {
@@ -32,10 +29,6 @@ class AdminFundController extends Controller
     public function store(FundRequest $request)
     {
         $data = $request->validated();
-
-        $data['direction_id'] = Direction::query()
-            ->where('name', DirectionNameEnums::funds()->value)
-            ->first()->id;
 
         Fund::query()
             ->create($data);

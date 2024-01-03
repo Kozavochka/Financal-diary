@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\DirectionNameEnums;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BondRequest;
 use App\Models\Bond;
-use App\Models\Direction;
-use App\Models\Stock;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -29,15 +25,16 @@ class AdminBondController extends Controller
         $bonds = QueryBuilder::for(Bond::class)
             ->allowedFilters([
                 AllowedFilter::callback('asc_percent', function (Builder $query){
-                    $query->orderBy('profit_percent', 'asc');
+                    $query->orderBy('profit_percent');
                 }),
                 AllowedFilter::callback('asc_coupon', function (Builder $query){
-                    $query->orderBy('coupon', 'asc');
+                    $query->orderBy('coupon');
                 }),
                 AllowedFilter::callback('asc_date', function (Builder $query){
-                    $query->orderBy('expiration_date', 'asc');
+                    $query->orderBy('expiration_date');
                 })
             ])
+            ->orderBy('profit_percent','desc')
             ->paginate($perPage, '*', 'page', $page);
 
         return view('admin.bonds.index', compact('bonds'));
@@ -53,10 +50,6 @@ class AdminBondController extends Controller
     public function store(BondRequest $request)
     {
         $data = $request->validated();
-
-        $data['direction_id'] = Direction::query()
-            ->where('name', DirectionNameEnums::bonds()->value)
-            ->first()?->id;
 
         Bond::query()
             ->create($data);

@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\DirectionNameEnums;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoanRequest;
-use App\Models\Direction;
 use App\Models\Loan;
-use Illuminate\Http\Request;
 
 class AdminLoanController extends Controller
 {
@@ -33,10 +30,6 @@ class AdminLoanController extends Controller
     public function store(LoanRequest $request)
     {
         $data = $request->validated();
-
-        $data['direction_id'] = Direction::query()
-            ->where('name', DirectionNameEnums::loans()->value)
-            ->first()?->id;
 
         Loan::query()
             ->create($data);
