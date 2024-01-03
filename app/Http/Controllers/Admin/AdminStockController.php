@@ -44,9 +44,8 @@ class AdminStockController extends Controller
         $industries = Industry::query()
             ->distinct()
             ->get();
-        $directions = Direction::query()->get();
 
-        return view('admin.stocks.create', compact('industries', 'directions'));
+        return view('admin.stocks.create', compact('industries'));
     }
 
 
@@ -57,7 +56,7 @@ class AdminStockController extends Controller
         $data['total_price'] = round($data['price'] * $data['lots'],2) ?? 0;
         $data['direction_id'] = Direction::query()
             ->where('name', DirectionNameEnums::stocks()->value)
-            ->first()->id;
+            ->first()?->id;
 
         Stock::query()
             ->create($data);

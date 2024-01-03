@@ -26,10 +26,6 @@ class CryptoRequest extends FormRequest
             'lots' => [
                 'nullable'
             ],
-            'direction_id' => [
-                'integer',
-                Rule::exists('directions', 'id'),
-            ],
         ];
     }
 }

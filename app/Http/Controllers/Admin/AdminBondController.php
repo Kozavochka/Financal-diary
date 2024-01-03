@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\DirectionNameEnums;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BondRequest;
 use App\Models\Bond;
@@ -39,16 +40,18 @@ class AdminBondController extends Controller
 
 
     public function create()
-    {   //TODO кэш
-        $directions = Direction::query()->get();
-
-        return view('admin.bonds.create', compact('directions'));
+    {
+        return view('admin.bonds.create');
     }
 
 
     public function store(BondRequest $request)
     {
         $data = $request->validated();
+
+        $data['direction_id'] = Direction::query()
+            ->where('name', DirectionNameEnums::bonds()->value)
+            ->first()?->id;
 
         Bond::query()
             ->create($data);

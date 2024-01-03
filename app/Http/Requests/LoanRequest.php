@@ -30,10 +30,6 @@ class LoanRequest extends FormRequest
                 'numeric',
                 'nullable',
             ],
-            'direction_id' => [
-                'integer',
-                Rule::exists('directions', 'id'),
-            ],
         ];
     }
 }

@@ -30,10 +30,6 @@ class FundRequest extends FormRequest
                 'required',
                 'regex:/^\d+(\.\d{1,2})?$/',
             ],
-            'direction_id' => [
-                'integer',
-                Rule::exists('directions', 'id'),
-            ],
         ];
     }
 }
