@@ -30,10 +30,6 @@ class StockRequest extends FormRequest
                 Rule::exists('industries', 'id'),
 
             ],
-            'direction_id' => [
-                'integer',
-                Rule::exists('directions', 'id'),
-            ],
             'lots' => [
                 'numeric',
                 'max:100000'

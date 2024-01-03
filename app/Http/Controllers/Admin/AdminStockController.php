@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Enums\DirectionNameEnums;
 use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
 use App\Models\Direction;
 use App\Models\Industry;
 use App\Models\Stock;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -56,6 +55,9 @@ class AdminStockController extends Controller
         $data = $request->validated();
 
         $data['total_price'] = round($data['price'] * $data['lots'],2) ?? 0;
+        $data['direction_id'] = Direction::query()
+            ->where('name', DirectionNameEnums::stocks()->value)
+            ->first()->id;
 
         Stock::query()
             ->create($data);
