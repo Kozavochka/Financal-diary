@@ -13,7 +13,7 @@ class Cash extends Model
         'id'
     ];
 
-    public function change_histroies()
+    public function change_histories()
     {
         return $this->hasMany(ChangeHistory::class);
     }

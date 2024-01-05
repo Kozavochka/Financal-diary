@@ -15,7 +15,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($cash->change_histroies as $change)
+            @foreach($cash->change_histories as $change)
                 <tr>
                     <th scope="row">{{$loop->index + 1}}</th>
                     <td>{{$change->change_reason->income_type->name}}</td>

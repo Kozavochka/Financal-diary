@@ -42,7 +42,7 @@ class AdminCashController extends Controller
     public function show(Cash $cash)
     {
         $cash->load([
-            'change_histroies.change_reason.income_type'
+            'change_histories.change_reason.income_type'
         ]);
 
         return view('admin.cash.show',compact('cash'));
