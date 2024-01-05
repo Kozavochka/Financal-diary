@@ -171,6 +171,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('admin.cash.index')}}" class="nav-link">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <p>Денежные счета</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('statistic.index')}}" class="nav-link">
                             <i class="fa-solid fa-chart-pie"></i>
                             <p>Статистика</p>
