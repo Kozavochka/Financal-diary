@@ -21,4 +21,6 @@
         @endforeach
         </tbody>
     </table>
+
+    <div><a href="{{route('admin.cash.create')}}" class="btn btn-success">+ Добавить денежный счёт</a></div>
 @endsection

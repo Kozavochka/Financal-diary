@@ -48,7 +48,7 @@ Route::resource('/directions', AdminDirectionController::class)->names('admin.di
 
 Route::resource('/industries', AdminIndustryController::class)->names('admin.industries');
 
-Route::get('/cash',[AdminCashController::class,'index'])->name('admin.cash.index');
+Route::resource('/cash',AdminCashController::class)->names('admin.cash');
 /* Телеграмм */
 Route::get('/set-tg',[AdminIndexController::class,'setTG'])->name('set-tg');
 
