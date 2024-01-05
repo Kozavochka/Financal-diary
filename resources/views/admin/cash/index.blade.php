@@ -9,6 +9,7 @@
             <th scope="col">#</th>
             <th scope="col">Название</th>
             <th scope="col">Остаток</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -17,6 +18,18 @@
                 <th scope="row">{{$loop->index + 1}}</th>
                 <td>{{$cash->name}}</td>
                 <td>{{$cash->sum}}</td>
+                <td>
+                    <form action="{{ route('admin.cash.destroy', $cash) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn btn-danger"
+                                onclick="return confirm('Вы уверены, что хотите удалить?');"
+                                data-toggle="tooltip" data-placement="top" title="Удалить">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
             </tr>
         @endforeach
         </tbody>

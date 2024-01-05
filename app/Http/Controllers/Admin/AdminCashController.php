@@ -30,4 +30,12 @@ class AdminCashController extends Controller
 
         return redirect(route('admin.cash.index'));
     }
+
+
+    public function destroy(Cash $cash)
+    {
+        $cash->delete();
+
+        return redirect(route('admin.cash.index'));
+    }
 }
