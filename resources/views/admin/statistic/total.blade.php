@@ -7,7 +7,7 @@
         <thead>
         <tr>
             <th scope="col">Направление</th>
-            <th scope="col">Стоимость</th>
+            <th scope="col">Стоимость RUB</th>
             <th scope="col">%</th>
         </tr>
         </thead>
@@ -15,10 +15,14 @@
         @foreach($data as $key => $value)
             <tr>
                 <td>{{$key}}</td>
-                <td>{{$data[$key]}} RUB</td>
+                <td>{{$data[$key]}}</td>
                 <td>{{bcdiv($data[$key] / $dataChart['total'] * 100,1,0)}}</td>
             </tr>
         @endforeach
+        <tr>
+            <td>Наличные</td>
+            <td>{{$cashSum}}</td>
+        </tr>
         </tbody>
     </table>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cash;
 use App\Services\Chart\DataChartService;
 use App\Services\PDF\PdfExportServiceContract;
 use Illuminate\Support\Facades\Cache;
@@ -30,8 +31,9 @@ class HomeController extends Controller
 
         $dataChart = $dataArray['dataChart'];
         $data = $dataArray['data'];
+        $cashSum = Cash::query()->sum('sum');
 
-        return view('home', compact('data', 'dataChart'));
+        return view('home', compact('data', 'dataChart','cashSum'));
     }
 
     public function pdf_export()

@@ -3,6 +3,7 @@
 namespace App\Services\PDF;
 
 use App\Models\Bond;
+use App\Models\Cash;
 use App\Models\Crypto;
 use App\Models\Fund;
 use App\Models\Industry;
@@ -113,8 +114,10 @@ class PdfExportSerivce implements PdfExportServiceContract
         $dataSum = $this->getDataSum($data);
         $total = $this->getTotal($dataSum);
         $industries = $this->getIndustries();
+        $cashSum = Cash::query()->sum('sum');
 
-        $this->pdf->loadHtml(view('pdf.general_pdf', compact('data','dataSum', 'total', 'industries')),
+        $this->pdf->loadHtml(view('pdf.general_pdf',
+            compact('data','dataSum', 'total', 'industries','cashSum')),
             'UTF-8');
 
         return $this;

@@ -33,13 +33,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($data_sum as $key => $value)
+                @foreach($dataSum as $key => $value)
                     <tr>
                         <td>{{$key}}</td>
                         <td>{{$dataSum[$key]}}</td>
                         <td>{{bcdiv($dataSum[$key] / $total * 100,1,0)}}</td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td>Наличные</td>
+                    <td>{{$cashSum}}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
