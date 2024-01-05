@@ -38,4 +38,13 @@ class AdminCashController extends Controller
 
         return redirect(route('admin.cash.index'));
     }
+
+    public function show(Cash $cash)
+    {
+        $cash->load([
+            'change_histroies.change_reason.income_type'
+        ]);
+
+        return view('admin.cash.show',compact('cash'));
+    }
 }
