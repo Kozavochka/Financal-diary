@@ -23,4 +23,9 @@ class Income extends Model
     {
         return $this->belongsTo(IncomeType::class);
     }
+
+    public function change_history()
+    {
+        return $this->morphOne(ChangeHistory::class,'change_reason');
+    }
 }
