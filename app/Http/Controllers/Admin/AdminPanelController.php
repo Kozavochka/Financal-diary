@@ -8,7 +8,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 
 
-class AdminIndexController extends Controller
+class AdminPanelController extends Controller
 {
     public function index()
     {

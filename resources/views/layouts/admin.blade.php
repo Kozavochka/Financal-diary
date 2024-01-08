@@ -121,7 +121,6 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
                     <li class="nav-item">
                         <a href="{{route('admin.directions.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
@@ -134,35 +133,43 @@
                             <p>Отрасли</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('admin.stocks.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>Акции</p>
+                    <li class="nav-item ">
+                        <a  class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+                           <i class="fa-solid fa-business-time"></i>
+                            Активы
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('admin.bonds.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>Облигации</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('admin.funds.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>Фонды</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('admin.loans.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>Займы</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('admin.crypto.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>Крипта</p>
-                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                          <li>
+                              <a href="{{route('admin.stocks.index')}}" class="nav-link">
+                                  <i class="nav-icon fa-solid fa-arrow-trend-up"></i>
+                                  <p>Акции</p>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="{{route('admin.bonds.index')}}" class="nav-link">
+                                  <i class="nav-icon fa-solid fa-money-check-dollar"></i>
+                                  <p>Облигации</p>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="{{route('admin.funds.index')}}" class="nav-link">
+                                  <i class="nav-icon fa-solid fa-building-columns"></i>
+                                  <p>Фонды</p>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="{{route('admin.crypto.index')}}" class="nav-link">
+                                  <i class="nav-icon fa-brands fa-bitcoin"></i>
+                                  <p>Крипта</p>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="{{route('admin.loans.index')}}" class="nav-link">
+                                  <i class="nav-icon fas fa-th"></i>
+                                  <p>Займы</p>
+                              </a>
+                          </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('admin.incomes.index')}}" class="nav-link">
