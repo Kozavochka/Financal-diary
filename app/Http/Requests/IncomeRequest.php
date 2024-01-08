@@ -31,6 +31,11 @@ class IncomeRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'cash_id' => [
+                'integer',
+                'required',
+                'exists:cashes,id'
+            ]
         ];
     }
 }

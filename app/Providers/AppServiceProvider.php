@@ -11,6 +11,7 @@ use App\Services\Statistic\TotalStatisticServiceContract;
 use App\Services\Telegram\Contracts\TelegramBotServiceContract;
 use App\Services\Telegram\TelegramBotService;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -40,5 +41,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(TotalStatisticServiceContract::class, TotalStatisticService::class);
         $this->app->singleton(DataChartServiceContract::class, DataChartService::class);
 
+
+        Relation::enforceMorphMap([
+            'income' => 'App\Models\Income',
+        ]);
     }
 }

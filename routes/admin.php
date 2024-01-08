@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Admin\AdminBondController;
+use App\Http\Controllers\Admin\AdminCashController;
 use App\Http\Controllers\Admin\AdminCryptoController;
 use App\Http\Controllers\Admin\AdminDirectionController;
 use App\Http\Controllers\Admin\AdminFundController;
@@ -47,6 +48,7 @@ Route::resource('/directions', AdminDirectionController::class)->names('admin.di
 
 Route::resource('/industries', AdminIndustryController::class)->names('admin.industries');
 
+Route::resource('/cash',AdminCashController::class)->names('admin.cash');
 /* Телеграмм */
 Route::get('/set-tg',[AdminIndexController::class,'setTG'])->name('set-tg');
 

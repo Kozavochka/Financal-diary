@@ -14,6 +14,16 @@
         </div>
         <div class="form-group">
             <div class="mb-3">
+                <select class="form-select" aria-label="Default select example" id="cash_id" name="cash_id">
+                    <option selected>Выбор денежного счёта</option>
+                    @foreach($cashes as $cash)
+                        <option value="{{$cash->id}}">{{$cash->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="mb-3">
                 <label for="price" class="form-label">Сумма</label>
                 <input id="price"  name="price" class="form-control" type="number" step="0.01" placeholder="Введите число">
             </div>

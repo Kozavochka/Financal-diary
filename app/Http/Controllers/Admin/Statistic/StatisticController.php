@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Statistic;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bond;
+use App\Models\Cash;
 use App\Models\Crypto;
 use App\Models\Industry;
 use App\Models\Stock;
@@ -53,8 +54,8 @@ class StatisticController extends Controller
 
         $dataChart = $dataArray['dataChart'];
         $data = $dataArray['data'];
-
-        return view('admin.statistic.total', compact('dataChart',  'data'));
+        $cashSum = Cash::query()->sum('sum');//TODO кэш
+        return view('admin.statistic.total', compact('dataChart',  'data','cashSum'));
     }
 
     public function assetsStatistic()

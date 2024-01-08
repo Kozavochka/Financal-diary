@@ -35,6 +35,10 @@
                                 <td>{{bcdiv($data[$key] / $dataChart['total'] * 100,1,0)}}</td>
                             </tr>
                         @endforeach
+                        <tr>
+                            <td>Наличные</td>
+                            <td>{{$cashSum}}</td>
+                        </tr>
                         </tbody>
                     </table>
                     <canvas id="myChart"></canvas>
