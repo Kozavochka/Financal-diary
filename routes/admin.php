@@ -4,6 +4,7 @@
 use App\Http\Controllers\Admin\AdminBondController;
 use App\Http\Controllers\Admin\AdminCashController;
 use App\Http\Controllers\Admin\AdminCryptoController;
+use App\Http\Controllers\Admin\AdminDepositController;
 use App\Http\Controllers\Admin\AdminDirectionController;
 use App\Http\Controllers\Admin\AdminFundController;
 use App\Http\Controllers\Admin\AdminIncomeController;
@@ -44,6 +45,8 @@ Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes'
 Route::resource('/directions', AdminDirectionController::class)->names('admin.directions');
 
 Route::resource('/industries', AdminIndustryController::class)->names('admin.industries');
+
+Route::resource('/deposits',AdminDepositController::class)->names('admin.deposits');
 
 Route::resource('/cash',AdminCashController::class)->names('admin.cash');
 /* Телеграмм */

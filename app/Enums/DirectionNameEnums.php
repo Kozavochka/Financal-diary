@@ -9,6 +9,7 @@ use Spatie\Enum\Enum;
  * @method static self bonds()
  * @method static self cryptos()
  * @method static self loans()
+ * @method static self deposits()
  */
 class DirectionNameEnums extends Enum
 {
@@ -20,7 +21,7 @@ class DirectionNameEnums extends Enum
             'funds' => 'Фонды',
             'cryptos' => 'Криптовалюта',
             'loans' => 'Займы',
-
+            'deposits' => 'Вклады'
         ];
     }
 }

@@ -163,6 +163,12 @@
                                   <p>Крипта</p>
                               </a>
                           </li>
+                            <li>
+                                <a href="{{route('admin.deposits.index')}}" class="nav-link">
+                                    <i class="nav-icon fa-solid fa-vault"></i>
+                                    <p>Вклады</p>
+                                </a>
+                            </li>
                           <li>
                               <a href="{{route('admin.loans.index')}}" class="nav-link">
                                   <i class="nav-icon fas fa-th"></i>
