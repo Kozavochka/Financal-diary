@@ -16,15 +16,14 @@
         <tbody>
         @foreach($deposits as $deposit)
             <tr>
-                <th scope="row">{{$stock->id}}</th>
+                <th scope="row">{{$loop->index + 1}}</th>
                 <td>{{$deposit->bank_name}}</td>
                 <td>{{$deposit->price}}</td>
                 <td>{{$deposit->expiration_date}}</td>
-                <td><a href="{{route('admin.stocks.edit', $deposit)}}"><i class="fa-solid fa-pen"></i></a>
-                    <form action="{{ route('admin.stocks.destroy', $deposit) }}" method="POST" class="d-inline">
+                <td><a href="{{route('admin.deposits.edit', $deposit)}}"><i class="fa-solid fa-pen"></i></a>
+                    <form action="{{ route('admin.deposits.destroy', $deposit) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-
                         <button class="btn btn-danger"
                                 onclick="return confirm('Вы уверены, что хотите удалить?');"
                                 data-toggle="tooltip" data-placement="top" title="Удалить">
@@ -38,7 +37,7 @@
     </table>
 
     <div class="btn-group" role="group" aria-label="Basic example">
-        <a href="{{route('admin.stocks.create')}}" class="btn btn-success me-2">+ Добавить вклад</a>
+        <a href="{{route('admin.deposits.create')}}" class="btn btn-success me-2">+ Добавить вклад</a>
     </div>
 
 @endsection
