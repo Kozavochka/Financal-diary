@@ -62,6 +62,8 @@ class TotalStatisticService implements TotalStatisticServiceContract
 
         if ($direction->loans_sum_price != 0) return $direction->loans_sum_price;
 
+        if ($direction->deposits_sum_price !=0) return $direction->deposits_sum_price;
+
         return 0;
 
     }
@@ -93,12 +95,13 @@ class TotalStatisticService implements TotalStatisticServiceContract
     public function getAssetsInfo()//todo refactoring
     {
         $this->directions = Direction::query()
-            ->withCount(['stocks','bonds','funds','cryptos','loans'])
+            ->withCount(Direction::getDirections())
             ->withSum('stocks','total_price')
             ->withSum('bonds','price')
             ->withSum('funds','price')
             ->withSum('cryptos','price')
             ->withSum('loans','price')
+            ->withSum('deposits','price')
             ->get();
 
         return $this;
