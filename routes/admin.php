@@ -28,31 +28,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [AdminPanelController::class,'index'])->name('admin.index');
-/* Роуты на активы */
-Route::get('stocks/export', [AdminStockController::class, 'excel_export'])->name('excel_export');
-Route::resource('/stocks', AdminStockController::class)->names('admin.stocks');
 
-Route::resource('/bonds', AdminBondController::class)->names('admin.bonds');
-
-Route::resource('/funds',AdminFundController::class)->names('admin.funds');
-
-Route::resource('/loans', AdminLoanController::class)->names('admin.loans');
-
-Route::resource('/crypto', AdminCryptoController::class)->names('admin.crypto');
-
-Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes');
-
-Route::resource('/directions', AdminDirectionController::class)->names('admin.directions');
-
-Route::resource('/industries', AdminIndustryController::class)->names('admin.industries');
-
-Route::resource('/deposits',AdminDepositController::class)->names('admin.deposits');
-
-Route::resource('/cash',AdminCashController::class)->names('admin.cash');
 /* Телеграмм */
 Route::get('/set-tg',[AdminPanelController::class,'setTG'])->name('set-tg');
 
 Route::get('/', [\App\Http\Controllers\Admin\AdminPanelController::class,'index'])->name('admin.index');
 
-Route::resource('/stocks', \App\Http\Controllers\Admin\Assets\AdminStockController::class)->names('admin.stocks');
 
