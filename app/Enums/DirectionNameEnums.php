@@ -10,6 +10,7 @@ use Spatie\Enum\Enum;
  * @method static self cryptos()
  * @method static self loans()
  * @method static self deposits()
+ * @method static self currencies()
  */
 class DirectionNameEnums extends Enum
 {
