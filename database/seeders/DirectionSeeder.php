@@ -44,5 +44,10 @@ class DirectionSeeder extends Seeder
             ->create([
                 'name' => 'Вклады'
             ]);
+
+        Direction::query()
+            ->create([
+                'name' => 'Валюта'
+            ]);
     }
 }

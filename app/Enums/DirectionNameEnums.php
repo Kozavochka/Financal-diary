@@ -21,7 +21,8 @@ class DirectionNameEnums extends Enum
             'funds' => 'Фонды',
             'cryptos' => 'Криптовалюта',
             'loans' => 'Займы',
-            'deposits' => 'Вклады'
+            'deposits' => 'Вклады',
+            'currencies' => 'Валюта'
         ];
     }
 }
