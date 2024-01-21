@@ -18,19 +18,19 @@ class CurrencyTypeSeeder extends Seeder
         CurrencyType::query()
             ->create([
                 'name' => 'Доллары США',
-                'short_name' => 'USD'
+                'ticker' => 'USD'
             ]);
 
         CurrencyType::query()
             ->create([
                 'name' => 'Китайские юани',
-                'short_name' => 'CNY'
+                'ticker' => 'CNY'
             ]);
 
         CurrencyType::query()
             ->create([
                 'name' => 'Евро',
-                'short_name' => 'EUR'
+                'ticker' => 'EUR'
             ]);
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminIndustryController;
 use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\Admin\Assets\AdminBondController;
 use App\Http\Controllers\Admin\Assets\AdminCryptoController;
+use App\Http\Controllers\Admin\Assets\AdminCurrencyAccountController;
 use App\Http\Controllers\Admin\Assets\AdminDepositController;
 use App\Http\Controllers\Admin\Assets\AdminFundController;
 use App\Http\Controllers\Admin\Assets\AdminLoanController;
@@ -37,6 +38,8 @@ Route::resource('/industries', AdminIndustryController::class)->names('admin.ind
 Route::resource('/deposits',AdminDepositController::class)->names('admin.deposits');
 
 Route::resource('/cash',AdminCashController::class)->names('admin.cash');
+
+Route::resource('/currency',AdminCurrencyAccountController::class)->names('admin.currency');
 
 
 

@@ -12,6 +12,7 @@ class CurrencyAccount extends Model
 
     protected $guarded = ['id'];
 
+    protected $with = ['currency_type'];
     public function currency_type()
     {
         return $this->belongsTo(CurrencyType::class);
