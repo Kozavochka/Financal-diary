@@ -1,17 +1,17 @@
 <?php
 
 
-use App\Http\Controllers\Admin\AdminBondController;
 use App\Http\Controllers\Admin\AdminCashController;
-use App\Http\Controllers\Admin\AdminCryptoController;
-use App\Http\Controllers\Admin\AdminDepositController;
 use App\Http\Controllers\Admin\AdminDirectionController;
-use App\Http\Controllers\Admin\AdminFundController;
 use App\Http\Controllers\Admin\AdminIncomeController;
-use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\Admin\AdminIndustryController;
-use App\Http\Controllers\Admin\AdminLoanController;
-use App\Http\Controllers\Admin\AdminStockController;
+use App\Http\Controllers\Admin\AdminPanelController;
+use App\Http\Controllers\Admin\Assets\AdminBondController;
+use App\Http\Controllers\Admin\Assets\AdminCryptoController;
+use App\Http\Controllers\Admin\Assets\AdminDepositController;
+use App\Http\Controllers\Admin\Assets\AdminFundController;
+use App\Http\Controllers\Admin\Assets\AdminLoanController;
+use App\Http\Controllers\Admin\Assets\AdminStockController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -54,5 +54,5 @@ Route::get('/set-tg',[AdminPanelController::class,'setTG'])->name('set-tg');
 
 Route::get('/', [\App\Http\Controllers\Admin\AdminPanelController::class,'index'])->name('admin.index');
 
-Route::resource('/stocks', \App\Http\Controllers\Admin\AdminStockController::class)->names('admin.stocks');
+Route::resource('/stocks', \App\Http\Controllers\Admin\Assets\AdminStockController::class)->names('admin.stocks');
 
