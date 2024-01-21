@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\Assets;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CurrencyAccountRequest;
 use App\Models\CurrencyAccount;
+use App\Models\CurrencyType;
 use Illuminate\Http\Request;
 
 class AdminCurrencyAccountController extends Controller
@@ -13,19 +15,21 @@ class AdminCurrencyAccountController extends Controller
     {
         $currencies = CurrencyAccount::all();
 
-        dd($currencies);
+        return view('admin.currency.index',compact('currencies'));
     }
 
 
     public function create()
     {
-        //
+        $currencyTypes = CurrencyType::all();
+
+        return view('admin.currency.create',compact('currencyTypes'));
     }
 
 
-    public function store(Request $request)
+    public function store(CurrencyAccountRequest $request)
     {
-        //
+        dd($request->validated());
     }
 
 

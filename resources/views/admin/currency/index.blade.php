@@ -41,7 +41,7 @@
     </table>
 
     <div class="btn-group" role="group" aria-label="Basic example">
-        <a href="{{route('admin.currency.create')}}" class="btn btn-success me-2">+ Добавить акцию</a>
+        <a href="{{route('admin.currency.create')}}" class="btn btn-success me-2">+ Добавить валютный счет</a>
     </div>
 
 @endsection
