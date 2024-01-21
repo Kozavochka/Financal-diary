@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin\Assets;
 
 use App\Http\Controllers\Controller;
-use App\Models\Currency;
+use App\Models\CurrencyAccount;
 use Illuminate\Http\Request;
 
-class AdminCurrencyController extends Controller
+class AdminCurrencyAccountController extends Controller
 {
 
     public function index()
     {
-        $currencies = Currency::all();
+        $currencies = CurrencyAccount::all();
 
         dd($currencies);
     }
@@ -29,25 +29,25 @@ class AdminCurrencyController extends Controller
     }
 
 
-    public function show(Currency $currency)
+    public function show(CurrencyAccount $currency)
     {
         //
     }
 
 
-    public function edit(Currency $currency)
+    public function edit(CurrencyAccount $currency)
     {
         //
     }
 
 
-    public function update(Request $request, Currency $currency)
+    public function update(Request $request, CurrencyAccount $currency)
     {
         //
     }
 
 
-    public function destroy(Currency $currency)
+    public function destroy(CurrencyAccount $currency)
     {
         //
     }
