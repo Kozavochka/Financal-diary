@@ -12,6 +12,17 @@ class Direction extends Model
 
     protected $guarded =[];
 
+    public static function getDirections()
+    {
+        return [
+            'stocks',
+            'bonds',
+            'funds',
+            'cryptos',
+            'loans',
+            'deposits',
+        ];
+    }
     public function total_statistic_item()
     {
         return $this->hasMany(TotalStatisticItem::class);

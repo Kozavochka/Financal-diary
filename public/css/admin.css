@@ -27,3 +27,16 @@
 .industry-chart {
     max-width: 500px;
 }
+
+/** FORMS */
+.text-input{
+    max-width: 250px;
+}
+
+.numeric-input{
+    max-width: 100px;
+}
+
+.date-input{
+    max-width: 150px;
+}

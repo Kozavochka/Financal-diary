@@ -17,17 +17,26 @@
             <tr>
                 <th scope="row">{{$loop->index + 1}}</th>
                 <td>{{$direction->name}}</td>
-                @if($direction->stocks_count != 0 )
+                @switch(true)
+                    @case($direction->stocks_count != 0)
                     <td>{{$direction->stocks_count}}</td>
-                @elseif($direction->bonds_count != 0 )
+                    @break
+                    @case($direction->bonds_count != 0)
                     <td>{{$direction->bonds_count}}</td>
-                @elseif( $direction->funds_count !=0)
+                    @break
+                    @case($direction->funds_count != 0)
                     <td>{{$direction->funds_count}}</td>
-                @elseif( $direction->cryptos_count !=0)
+                    @break
+                    @case($direction->cryptos_count != 0)
                     <td>{{$direction->cryptos_count}}</td>
-                @elseif( $direction->loans_count !=0)
+                    @break
+                    @case($direction->loans_count != 0)
                     <td>{{$direction->loans_count}}</td>
-                @endif
+                    @break
+                    @case($direction->deposits_count != 0)
+                    <td>{{$direction->deposits_count}}</td>
+                    @break
+                @endswitch
                 <td>
                     <form action="{{ route('admin.directions.destroy', $direction) }}" method="POST" class="d-inline">
                         @csrf

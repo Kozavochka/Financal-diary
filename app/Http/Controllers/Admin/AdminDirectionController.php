@@ -16,7 +16,7 @@ class AdminDirectionController extends Controller
         $perPage = request('per_page', 10);
 
         $directions = Direction::query()
-            ->withCount(['stocks','bonds','funds','cryptos','loans'])
+            ->withCount(Direction::getDirections())
             ->paginate($perPage, '*', 'page', $page);
 
         return view('admin.directions.index', compact('directions'));

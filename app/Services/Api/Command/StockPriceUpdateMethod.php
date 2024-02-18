@@ -23,7 +23,7 @@ class StockPriceUpdateMethod implements UpdateAssetsPrice
                 //Получение информации по тикеру акции
                 $response = $client->get(env('MOEX_API_URL')."engines/stock/markets/shares/boards/tqbr/securities/".
                     "{$stock->ticker}.json".
-                    "?securities.columns=SECID,SHORTNAME, PREVPRICE");//Get параметры, можно убрать первые два
+                    "?securities.columns=SECID,SHORTNAME, PREVPRICE",['verify' => false]);//Get параметры, можно убрать первые два
                 //Раскодирование
                 $data = json_decode($response->getBody(), true);
                 //Обновление цены

@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Bond;
 use App\Models\Crypto;
+use App\Models\Deposit;
 use App\Models\Fund;
 use App\Models\Loan;
 use App\Models\Stock;
@@ -33,6 +34,11 @@ trait HasAsset
     public function loans()
     {
         return $this->hasMany(Loan::class);
+   }
+
+    public function deposits()
+    {
+        return $this->hasMany(Deposit::class);
    }
 
 }

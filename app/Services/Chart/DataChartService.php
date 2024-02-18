@@ -4,6 +4,7 @@ namespace App\Services\Chart;
 
 use App\Models\Bond;
 use App\Models\Crypto;
+use App\Models\Deposit;
 use App\Models\Fund;
 use App\Models\Loan;
 use App\Models\Settings;
@@ -36,6 +37,8 @@ class DataChartService implements DataChartServiceContract
             'Займы' => Loan::query()->sum('price'),
 
             'Фонды' => Fund::query()->sum('price'),
+
+            'Вклады' => Deposit::query()->sum('price'),
         ];
         return $this;
     }
