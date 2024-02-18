@@ -171,7 +171,7 @@
                             </li>
                             <li>
                                 <a href="{{route('admin.currency.index')}}" class="nav-link">
-                                    <i class="nav-icon fa-solid fa-vault"></i>
+                                    <i class="nav-icon fa-solid fa-dollar-sign"></i>
                                     <p>Валюта</p>
                                 </a>
                             </li>
