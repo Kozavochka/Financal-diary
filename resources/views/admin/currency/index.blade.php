@@ -9,7 +9,7 @@
             <th scope="col">#</th>
             <th scope="col">Название счёта</th>
             <th scope="col">Тикер валюты</th>
-            <th scope="col">Количество</th>
+            <th scope="col">Сумма</th>
             <th scope="col">Комментарий</th>
             <th scope="col">Действие</th>
         </tr>
@@ -17,7 +17,7 @@
         <tbody>
         @foreach($currencies as $currency)
             <tr>
-                <th scope="row">{{$loop->index}}</th>
+                <th scope="row">{{$loop->index + 1}}</th>
                 <td>{{$currency->name}}</td>
                 <td>{{$currency->currency_type->ticker}}</td>
                 <td>{{$currency->sum}}</td>

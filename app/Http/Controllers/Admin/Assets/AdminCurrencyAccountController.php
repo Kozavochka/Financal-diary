@@ -29,7 +29,11 @@ class AdminCurrencyAccountController extends Controller
 
     public function store(CurrencyAccountRequest $request)
     {
-        dd($request->validated());
+
+        CurrencyAccount::query()
+            ->create($request->validated());
+
+        return redirect()->route('admin.currency.index');
     }
 
 
@@ -41,18 +45,25 @@ class AdminCurrencyAccountController extends Controller
 
     public function edit(CurrencyAccount $currency)
     {
-        //
+        $currencyTypes = CurrencyType::all();
+
+        return view('admin.currency.edit',compact('currencyTypes','currency'));
     }
 
 
-    public function update(Request $request, CurrencyAccount $currency)
+    public function update(CurrencyAccountRequest $request, CurrencyAccount $currency)
     {
-        //
+
+        $currency->update($request->validated());
+
+        return redirect()->route('admin.currency.index');
     }
 
 
     public function destroy(CurrencyAccount $currency)
     {
-        //
+        $currency->delete();
+
+        return redirect()->route('admin.currency.index');
     }
 }
