@@ -10,7 +10,7 @@ class PriceCurrencyHelper
         $client = new Client();
 
         $response = $client->get(env('MOEX_API_URL')
-            ."statistics/engines/currency/markets/selt/rates.json?iss.meta=off");
+            ."statistics/engines/currency/markets/selt/rates.json?iss.meta=off",['verify' => false]);
         $data = json_decode($response->getBody(), true);
 
         return $data['cbrf']['data'][0][3];//"CBRF_USD_LAST",

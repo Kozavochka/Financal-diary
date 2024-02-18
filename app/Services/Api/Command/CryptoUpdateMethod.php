@@ -26,7 +26,7 @@ class CryptoUpdateMethod implements UpdateAssetsPrice
                 "function=CURRENCY_EXCHANGE_RATE".
                 "&from_currency={$crypto->ticker}&".
                 "to_currency=USD&".
-                "apikey={$key}");
+                "apikey={$key}",['verify' => false]);
 
             $data = json_decode($response->getBody(), true);
             $cryptoPrice = $data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
