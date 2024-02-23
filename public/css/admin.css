@@ -44,3 +44,6 @@
 .ticker-input{
     max-width: 100px;
 }
+.flex{
+    display: flex;
+}

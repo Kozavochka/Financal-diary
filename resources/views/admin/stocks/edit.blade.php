@@ -4,13 +4,13 @@
         @csrf
         @method('patch')
         <div class="form-group mb-3">
-                <div class="row justify-content-start">
-                    <div class="col-3">
+                <div class="flex">
+                    <div class="mr-2">
                         <label for="name" class="form-label">Название</label>
                         <input id="name" name="name"  class="form-control text-input" type="text" placeholder="Введите название"
                                value="{{ old('name', $stock->name) }}">
                     </div>
-                    <div class="col-3">
+                    <div class="mr-2">
                         <label for="ticker" class="form-label">Тикер</label>
                         <input id="ticker" name="ticker"  class="form-control ticker-input" type="text" placeholder="Введите название"
                                value="{{ old('ticker', $stock->ticker) }}">
@@ -19,13 +19,13 @@
         </div>
 
         <div class="form-group mb-3">
-            <div class="row justify-content-start">
-                <div class="col-2">
+            <div class="flex">
+                <div class="mr-2">
                     <label for="price" class="form-label">Цена за лот</label>
                     <input id="price"  name="price" class="form-control numeric-input" type="number" step="0.01" placeholder="Введите число"
                          value="{{ old('price', $stock->price) }}">
                     </div>
-                <div class="col-2">
+                <div class="mr-2">
                     <label for="lots" class="form-label">Количество лотов</label>
                     <input id="lots"  name="lots" class="form-control numeric-input" type="number" placeholder="Введите число"
                           value="{{ old('lots', $stock->lots) }}" >
