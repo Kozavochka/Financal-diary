@@ -19,7 +19,7 @@
                 <th scope="row">{{$loop->index + 1}}</th>
                 <td>{{$deposit->bank_name}}</td>
                 <td>{{$deposit->price}}</td>
-                <td>{{$deposit->expiration_date}}</td>
+                <td>{{$deposit->expiration_date->format('Y-m-d')}}</td>
                 <td><a href="{{route('admin.deposits.edit', $deposit)}}"><i class="fa-solid fa-pen"></i></a>
                     <form action="{{ route('admin.deposits.destroy', $deposit) }}" method="POST" class="d-inline">
                         @csrf

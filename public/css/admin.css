@@ -40,3 +40,19 @@
 .date-input{
     max-width: 150px;
 }
+
+.ticker-input{
+    max-width: 100px;
+}
+.flex{
+    display: flex;
+}
+
+/* OTHERS*/
+.href_style{
+    text-decoration: none;
+    color: black;
+}
+.href_style:hover {
+    border-bottom: 2px blue;
+}

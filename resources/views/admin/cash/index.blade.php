@@ -16,7 +16,7 @@
         @foreach($cashes as $cash)
             <tr>
                 <th scope="row">{{$loop->index + 1}}</th>
-                <td><a href="{{route('admin.cash.show', $cash)}}">{{$cash->name}}</a></td>
+                <td><a class="href_style" href="{{route('admin.cash.show', $cash)}}">{{$cash->name}}</a></td>
                 <td>{{$cash->sum}}</td>
                 <td>
                     <form action="{{ route('admin.cash.destroy', $cash) }}" method="POST" class="d-inline">

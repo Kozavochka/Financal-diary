@@ -1,4 +1,9 @@
 a{
     text-decoration: none !important;
 }
-
+.href_style{
+    color: black;
+}
+.href_style:hover {
+    border-bottom: 2px blue;
+}
