@@ -12,6 +12,9 @@ class Deposit extends Model
     use HasFactory,HasDirection;
 
     protected $guarded = ['id'];
+    protected $casts = [
+        'expiration_date' => 'date'
+    ];
 
     public static function boot() {
         parent::boot();
