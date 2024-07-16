@@ -1,0 +1,99 @@
+version: "3.8"
+
+volumes:
+  db-data: ~
+
+x-php-config:
+  &php-config
+  build:
+    context: .
+    target: php
+    args:
+      - APP_ENV=${APP_ENV}
+  volumes:
+    - ./:/var/www
+  restart: unless-stopped
+
+services:
+  #Database
+  database:
+    container_name: fin-db
+    image: postgres:15.3
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: ${DB_PG_DATA}
+    volumes:
+      - ./:/src
+      - ./db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - fin
+
+  # PgAdmin
+  pgadmin:
+    container_name: fin-pgadmin
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: ${PGADMIN_CONFIG_SERVER_MODE}
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    user: '$UID:$GID'
+    ports:
+      - "5051:80"
+    depends_on:
+      - database
+
+  # Redis Server
+  redis:
+    container_name: fin-redis
+    image: redis:alpine
+    command: redis-server --appendonly yes --requirepass  "${REDIS_PASSWORD}"
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - fin
+
+  # PHP Service
+  php:
+    container_name: fin-php
+    <<: *php-config
+    working_dir: /var/www
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+#    stdin_open: true
+ #   tty: true
+    networks:
+      - fin
+  # Nginx
+  nginx:
+    container_name: fin-nginx
+    image: "nginx:stable-alpine"
+    ports:
+      - "8101:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www
+    networks:
+      - fin
+
+  # Queue
+  queue:
+    container_name: fin-queue
+    <<: *php-config
+    command: php artisan queue:work
+    networks:
+      - fin
+    depends_on:
+      - php
+
+networks:
+  fin:
+    driver: bridge
