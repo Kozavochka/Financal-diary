@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
-
+            //todo переписать концепцию, нужно отдельно хранить информацию о компании
             $table->string('name');
             $table->double('price');
             $table->integer('count_bus');

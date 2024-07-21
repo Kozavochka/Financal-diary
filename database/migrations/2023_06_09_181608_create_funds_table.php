@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('ticker');
             $table->double('price');
+            $table->double('lots');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

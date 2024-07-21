@@ -19,3 +19,4 @@ yarn-error.log
 /db_data
 /data/redis
 /pgadmin
+/public/vendor/log-viewer

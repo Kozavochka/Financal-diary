@@ -16,13 +16,15 @@ return new class extends Migration
     {
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Direction::class);
 
-            $table->string('bank_name');
+            $table->string('bank_name');//todo model Bank
+
+            $table->string('type')->default('deposit');//todo
             $table->float('price');
             $table->float('percent');
             $table->dateTime('expiration_date')->nullable();
 
-            $table->foreignIdFor(Direction::class);
 
             $table->softDeletes();
             $table->timestamps();

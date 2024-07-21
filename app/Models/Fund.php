@@ -6,6 +6,8 @@ use App\Enums\DirectionNameEnums;
 use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 /**
  * @property string $name
  * @property string $ticker
@@ -13,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Fund extends Model
 {
-    use HasFactory, HasDirection;
+    use HasFactory, HasDirection, SoftDeletes;
 
     protected $guarded = [
         'id'
