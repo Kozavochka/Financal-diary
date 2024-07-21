@@ -13,11 +13,16 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('ticker');
+            $table->double('lots');
             $table->double('price');
-            $table->double('coupon');
-            $table->double('profit_percent');
+            $table->double('coupon')->nullable();//todo можно рассчитать
+            $table->double('profit_percent')->nullable();
 
+            $table->double('coupon_percent')->nullable();
+            $table->integer('coupon_day_period')->nullable();
+            $table->date('expiration_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

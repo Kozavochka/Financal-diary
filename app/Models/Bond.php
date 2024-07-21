@@ -7,6 +7,8 @@ use App\Enums\DirectionNameEnums;
 use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * @property string $name
@@ -18,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Bond extends Model
 {
-    use HasFactory, HasDirection;
+    use HasFactory, HasDirection, SoftDeletes;
 
     protected $guarded = [
         'id'

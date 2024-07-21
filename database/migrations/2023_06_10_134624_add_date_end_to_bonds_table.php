@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+//todo убрать
 return new class extends Migration
 {
     /**
@@ -14,9 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('bonds', function (Blueprint $table) {
-            $table->date('expiration_date')->nullable()->after('profit_percent');
-
-            $table->softDeletes();
 
         });
     }

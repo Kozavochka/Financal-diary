@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('stocks', function (Blueprint $table) {
-            $table->unsignedDouble('total_price')->after('lots')->nullable();
+            $table->unsignedDouble('total_price')->after('lots')->nullable();//todo вспомнить почему, вроде где-то для аналитики
         });
 
         $stocks = \App\Models\Stock::all();
