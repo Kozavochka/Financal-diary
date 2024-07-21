@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('lots');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

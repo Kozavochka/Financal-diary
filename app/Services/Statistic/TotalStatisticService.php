@@ -96,7 +96,7 @@ class TotalStatisticService implements TotalStatisticServiceContract
     {
         $this->directions = Direction::query()
             ->withCount(Direction::getDirections())
-            ->withSum('stocks','total_price')
+            ->withSum('stocks','total_price')//todo
             ->withSum('bonds','price')
             ->withSum('funds','price')
             ->withSum('cryptos','price')

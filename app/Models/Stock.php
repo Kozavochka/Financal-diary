@@ -6,6 +6,7 @@ use App\Enums\DirectionNameEnums;
 use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $name
@@ -17,7 +18,9 @@ use Illuminate\Database\Eloquent\Model;
 class Stock extends Model
 {
 
-    use HasFactory, HasDirection;
+    use HasFactory;
+    use HasDirection;
+    use SoftDeletes;
 
     protected $guarded = ['id'];
 

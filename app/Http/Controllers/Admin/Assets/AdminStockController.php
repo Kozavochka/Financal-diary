@@ -26,7 +26,7 @@ class AdminStockController extends Controller
             ->with('industry')
             ->allowedFilters([
                 AllowedFilter::callback('asc_price', function (Builder $query){
-                    $query->orderByRaw('total_price');
+                    $query->orderByRaw('total_price');//todo можно переписать
                 })
             ])
             ->orderByRaw('total_price desc')
@@ -51,6 +51,7 @@ class AdminStockController extends Controller
     {
         $data = $request->validated();
 
+        //todo
         $data['total_price'] = round($data['price'] * $data['lots'],2) ?? 0;
 
         Stock::query()

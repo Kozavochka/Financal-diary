@@ -61,14 +61,14 @@ class StatisticController extends Controller
     public function assetsStatistic()
     {
         $stocks = QueryBuilder::for(Stock::class)
-            ->orderByRaw('total_price desc')
+            ->orderByRaw('total_price desc')//todo
             ->get();
 
         $crypto = Crypto::query()->get();
 
         $industries = Industry::query()
             ->withCount('stocks')
-            ->withSum('stocks','total_price')
+            ->withSum('stocks','total_price')//todo
             ->get();
 
         $bonds = Bond::query()->get();

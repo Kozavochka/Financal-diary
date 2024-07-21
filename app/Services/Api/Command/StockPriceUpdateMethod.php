@@ -30,7 +30,7 @@ class StockPriceUpdateMethod implements UpdateAssetsPrice
                 $stock->update(
                     [
                         'price' => $data['securities']['data'][0][2],
-                        'total_price' => round($stock->lots * $data['securities']['data'][0][2],2)
+                        'total_price' => round($stock->lots * $data['securities']['data'][0][2],2)//todo
                     ]
                 );
                 $stock->refresh();
