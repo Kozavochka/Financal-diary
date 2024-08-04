@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $ticker
  * @property double $price
  * @property integer $lots
- * @property double $total_price
  */
 class Stock extends Model
 {
