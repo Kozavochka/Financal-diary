@@ -16,8 +16,6 @@ return new class extends Migration
     {
         Schema::table('stocks', function (Blueprint $table) {
             $table->foreignIdFor(Industry::class)->nullable();
-
-            $table->softDeletes();
         });
     }
 
