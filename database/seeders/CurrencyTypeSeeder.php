@@ -16,25 +16,25 @@ class CurrencyTypeSeeder extends Seeder
     public function run()
     {
         CurrencyType::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Рубль',
                 'ticker' => 'RUB'
             ]);
 
         CurrencyType::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Доллар США',
                 'ticker' => 'USD'
             ]);
 
         CurrencyType::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Китайский юань',
                 'ticker' => 'CNY'
             ]);
 
         CurrencyType::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Евро',
                 'ticker' => 'EUR'
             ]);

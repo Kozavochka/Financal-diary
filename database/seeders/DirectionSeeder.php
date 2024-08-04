@@ -16,37 +16,37 @@ class DirectionSeeder extends Seeder
     public function run()
     {
         Direction::query()
-            ->create([
+            ->updateOrCreate([
                'name' => 'Акции'
             ]);
 
         Direction::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Облигации'
             ]);
 
         Direction::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Фонды'
             ]);
 
         Direction::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Криптовалюта'
             ]);
 
         Direction::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Займы'
             ]);
 
         Direction::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Вклады'
             ]);
 
         Direction::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Валюта'
             ]);
     }
