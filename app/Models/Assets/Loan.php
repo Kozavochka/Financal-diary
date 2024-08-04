@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Assets;
 
 use App\Enums\DirectionNameEnums;
+use App\Models\Direction;
 use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * @property string $name
- * @property string $ticker
  * @property double $price
- * @property integer $lots
+ * @property int $count_bus
  */
-class Crypto extends Model
+class Loan extends Model
 {
     use HasFactory, HasDirection;
 
@@ -26,7 +27,7 @@ class Crypto extends Model
         static::creating(function ($model){
 
             $model->direction_id = Direction::query()
-                ->where('name', DirectionNameEnums::cryptos()->value)
+                ->where('name', DirectionNameEnums::loans()->value)
                 ->first()?->id;
         });
     }

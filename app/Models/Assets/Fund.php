@@ -1,19 +1,25 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Assets;
 
 use App\Enums\DirectionNameEnums;
+use App\Models\Direction;
 use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Deposit extends Model
+/**
+ * @property string $name
+ * @property string $ticker
+ * @property double $price
+ */
+class Fund extends Model
 {
-    use HasFactory,HasDirection;
+    use HasFactory, HasDirection, SoftDeletes;
 
-    protected $guarded = ['id'];
-    protected $casts = [
-        'expiration_date' => 'date'
+    protected $guarded = [
+        'id'
     ];
 
     public static function boot() {
@@ -22,7 +28,7 @@ class Deposit extends Model
         static::creating(function ($model){
 
             $model->direction_id = Direction::query()
-                ->where('name', DirectionNameEnums::deposits()->value)
+                ->where('name', DirectionNameEnums::funds()->value)
                 ->first()?->id;
         });
     }

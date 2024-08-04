@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Assets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FundRequest;
-use App\Models\Fund;
+use App\Models\Assets\Fund;
 
 class AdminFundController extends Controller
 {

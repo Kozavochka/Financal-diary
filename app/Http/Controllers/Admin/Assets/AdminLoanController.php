@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Assets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoanRequest;
-use App\Models\Loan;
+use App\Models\Assets\Loan;
 
 class AdminLoanController extends Controller
 {

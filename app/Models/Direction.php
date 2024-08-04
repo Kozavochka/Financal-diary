@@ -10,7 +10,7 @@ class Direction extends Model
 {
     use HasFactory, HasAsset;
 
-    protected $guarded =[];
+    protected $fillable = ['name'];
 
     public static function getDirections()
     {

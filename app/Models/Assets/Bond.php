@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Assets;
 
 
 use App\Enums\DirectionNameEnums;
+use App\Models\Direction;
 use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

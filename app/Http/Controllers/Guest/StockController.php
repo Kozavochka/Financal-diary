@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Guest;
 
 use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
+use App\Models\Assets\Stock;
 use App\Models\Industry;
 use App\Models\Settings;
-use App\Models\Stock;
 use App\Services\DTO\SettingsDTO;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;

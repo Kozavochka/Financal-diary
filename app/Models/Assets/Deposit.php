@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Assets;
 
 use App\Enums\DirectionNameEnums;
+use App\Models\Direction;
 use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-/**
- * @property string $name
- * @property double $price
- * @property int $count_bus
- */
-class Loan extends Model
-{
-    use HasFactory, HasDirection;
 
-    protected $guarded = [
-        'id'
+class Deposit extends Model
+{
+    use HasFactory,HasDirection;
+
+    protected $guarded = ['id'];
+    protected $casts = [
+        'expiration_date' => 'date'
     ];
 
     public static function boot() {
@@ -25,7 +23,7 @@ class Loan extends Model
         static::creating(function ($model){
 
             $model->direction_id = Direction::query()
-                ->where('name', DirectionNameEnums::loans()->value)
+                ->where('name', DirectionNameEnums::deposits()->value)
                 ->first()?->id;
         });
     }

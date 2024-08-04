@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\Statistic;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bond;
+use App\Models\Assets\Bond;
+use App\Models\Assets\Crypto;
+use App\Models\Assets\Stock;
 use App\Models\Cash;
-use App\Models\Crypto;
 use App\Models\Industry;
-use App\Models\Stock;
 use App\Models\TotalStatistic;
 use App\Services\Chart\DataChartService;
 use App\Services\Statistic\TotalStatisticServiceContract;

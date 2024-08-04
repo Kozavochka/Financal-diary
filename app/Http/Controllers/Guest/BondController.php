@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bond;
+use App\Models\Assets\Bond;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;

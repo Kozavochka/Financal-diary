@@ -2,18 +2,16 @@
 
 namespace App\Services\PDF;
 
-use App\Models\Bond;
+use App\Models\Assets\Bond;
+use App\Models\Assets\Crypto;
+use App\Models\Assets\Fund;
+use App\Models\Assets\Loan;
+use App\Models\Assets\Stock;
 use App\Models\Cash;
-use App\Models\Crypto;
-use App\Models\Fund;
 use App\Models\Industry;
-use App\Models\Loan;
 use App\Models\Settings;
-use App\Models\Stock;
-use App\Services\Api\Finance\PriceCurrencyHelper;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class PdfExportSerivce implements PdfExportServiceContract
 {

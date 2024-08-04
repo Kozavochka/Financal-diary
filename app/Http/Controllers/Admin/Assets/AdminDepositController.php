@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Assets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepositRequest;
-use App\Models\Deposit;
+use App\Models\Assets\Deposit;
 use function view;
 
 class AdminDepositController extends Controller

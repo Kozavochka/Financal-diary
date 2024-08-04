@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Assets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CryptoRequest;
-use App\Models\Crypto;
+use App\Models\Assets\Crypto;
 
 class AdminCryptoController extends Controller
 {

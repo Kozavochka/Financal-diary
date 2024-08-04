@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Assets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BondRequest;
-use App\Models\Bond;
+use App\Models\Assets\Bond;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\QueryBuilder\AllowedFilter;

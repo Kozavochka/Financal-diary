@@ -2,7 +2,7 @@
 
 namespace App\Services\Api\Command;
 
-use App\Models\Stock;
+use App\Models\Assets\Stock;
 use GuzzleHttp\Client;
 
 /**

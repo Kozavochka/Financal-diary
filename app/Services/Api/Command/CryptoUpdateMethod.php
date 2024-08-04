@@ -2,9 +2,8 @@
 
 namespace App\Services\Api\Command;
 
-use App\Models\Crypto;
+use App\Models\Assets\Crypto;
 use GuzzleHttp\Client;
-use PHPUnit\Exception;
 
 /**
  * Класс обновления стоимости криптоактивов
