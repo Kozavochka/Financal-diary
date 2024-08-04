@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Bank;
-use App\Models\Direction;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class BankSeeder extends Seeder

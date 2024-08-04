@@ -3,10 +3,13 @@
 namespace App\Models\Assets;
 
 use App\Enums\DirectionNameEnums;
+use App\Models\Company;
 use App\Models\Direction;
 use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $name
@@ -15,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Loan extends Model
 {
-    use HasFactory, HasDirection;
+    use HasFactory, HasDirection, SoftDeletes;
 
     protected $guarded = [
         'id'
@@ -30,5 +33,13 @@ class Loan extends Model
                 ->where('name', DirectionNameEnums::loans()->value)
                 ->first()?->id;
         });
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
     }
 }
