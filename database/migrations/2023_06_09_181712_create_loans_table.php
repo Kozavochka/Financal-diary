@@ -25,6 +25,7 @@ return new class extends Migration
             $table->double('price');
             $table->double('percent');
 
+            $table->date('expiration_date');
             $table->integer('pay_day_period')->nullable();
 
             $table->softDeletes();
