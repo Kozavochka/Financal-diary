@@ -13,17 +13,26 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property string $name
  * @property string $ticker
- * @property double $price
- * @property integer $lots
+ * @property float $price
+ * @property float $lots
+ * @property float $total_price
+ * @property integer $direction_id
+ * @property integer $industry_id
  */
 class Stock extends Model
 {
-
     use HasFactory;
     use HasDirection;
     use SoftDeletes;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'direction_id',
+        'industry_id',
+        'name',
+        'ticker',
+        'price',
+        'lots',
+    ];
 
     public static function boot() {
         parent::boot();
@@ -39,6 +48,11 @@ class Stock extends Model
     public function industry()
     {
         return $this->belongsTo(Industry::class);
+    }
+
+    public function getTotalPriceAttribute(): float
+    {
+        return round($this->price * $this->lots, 3);
     }
 
 }
