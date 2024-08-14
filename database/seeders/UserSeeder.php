@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
         User::query()
             ->create([
                 'name' => 'Admin',
-                'email' => 'planchet20123@gmail.com',
-                'password' => bcrypt('HelloWorld'),
+                'email' => env('USER_EMAIL_SEEDER'),
+                'password' => bcrypt(env('USER_PASSWORD_SEEDER')),
                 'role' => 'admin'
             ]);
     }

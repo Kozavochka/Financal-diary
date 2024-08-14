@@ -32,23 +32,17 @@ class AdminStockController extends Controller
         return StockResource::collection($stocks);
     }
 
-
-    public function create(StockRequest $request)
-    {
-
-    }
-
-
     public function store(StockRequest $request)
     {
         $data = $request->validated();
 
         $stock = Stock::query()
             ->create($data);
+
         if(isset($data['industry_id']) ){
             $stock->industry()->attach($data['industry_id']);
         }
-        return new StockResource($stock);//Сделать другой resource?
+        return new StockResource($stock);
     }
 
     /**
