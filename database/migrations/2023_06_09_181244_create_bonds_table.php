@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double('coupon_percent')->nullable();
             $table->integer('coupon_day_period')->nullable();
             $table->date('expiration_date')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });
