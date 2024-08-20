@@ -28,8 +28,11 @@ class FundRequest extends FormRequest
             'price' => [
                 'numeric',
                 'required',
-                'regex:/^\d+(\.\d{1,2})?$/',
             ],
+            'lots' => [
+                'numeric',
+                'required'
+            ]
         ];
     }
 }

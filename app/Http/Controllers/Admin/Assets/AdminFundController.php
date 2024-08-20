@@ -5,23 +5,27 @@ namespace App\Http\Controllers\Admin\Assets;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FundRequest;
 use App\Models\Assets\Fund;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminFundController extends Controller
 {
-
     public function index()
     {
         $page = request('page', 1);
         $perPage = request('per_page', 10);
 
-        $funds = Fund::query()->paginate($perPage, '*', 'page', $page);
+        $funds = QueryBuilder::for(Fund::class)
+            ->allowedSorts([
+                'name',
+                'ticker',
+            ])
+            ->paginate($perPage, '*', 'page', $page);
 
         return view('admin.funds.funds', compact('funds'));
     }
 
     public function create()
     {
-
         return view('admin.funds.create');
     }
 

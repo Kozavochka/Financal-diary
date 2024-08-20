@@ -13,13 +13,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $ticker
  * @property double $price
+ * @property double $lots
+ * @property double $total_price
  */
 class Fund extends Model
 {
     use HasFactory, HasDirection, SoftDeletes;
 
-    protected $guarded = [
-        'id'
+    protected $fillable = [
+        'name',
+        'ticker',
+        'lots',
+        'price'
     ];
 
     public static function boot() {
@@ -31,5 +36,10 @@ class Fund extends Model
                 ->where('name', DirectionNameEnums::funds()->value)
                 ->first()?->id;
         });
+    }
+
+    public function getTotalPriceAttribute(): float
+    {
+        return round($this->price * $this->lots, 3);
     }
 }
