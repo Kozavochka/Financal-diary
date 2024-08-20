@@ -18,13 +18,16 @@ class CryptoRequest extends FormRequest
                 'string',
             ],
             'ticker' => [
+                'required',
                 'string',
             ],
             'price' => [
+                'numeric',
                 'required',
             ],
             'lots' => [
-                'nullable'
+                'numeric',
+                'required'
             ],
         ];
     }

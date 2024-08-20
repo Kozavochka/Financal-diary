@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Assets;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BondRequest;
 use App\Models\Assets\Bond;
-use App\Services\Filters\Bond\BondNameContainsFilter;
+use App\Services\Filters\Bond\BondSearchFilter;
 use App\Services\Sorts\Bond\BondCouponSort;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +13,6 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
-;
 
 class AdminBondController extends Controller
 {
@@ -36,7 +35,7 @@ class AdminBondController extends Controller
                 AllowedSort::custom('coupon', new BondCouponSort()),
             ])
             ->allowedFilters([
-                AllowedFilter::custom('search', new BondNameContainsFilter()),
+                AllowedFilter::custom('search', new BondSearchFilter()),
             ])
             ->defaultSort('coupon_percent')
             ->paginate($perPage, '*', 'page', $page);

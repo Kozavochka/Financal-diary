@@ -7,19 +7,24 @@ use App\Models\Direction;
 use App\Traits\HasDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $name
  * @property string $ticker
  * @property double $price
- * @property integer $lots
+ * @property double $lots
+ * @property double $total_price
  */
 class Crypto extends Model
 {
-    use HasFactory, HasDirection;
+    use HasFactory, HasDirection, SoftDeletes;
 
-    protected $guarded = [
-        'id'
+    protected $fillable = [
+        'name',
+        'ticker',
+        'lots',
+        'price'
     ];
 
     public static function boot() {
@@ -31,5 +36,10 @@ class Crypto extends Model
                 ->where('name', DirectionNameEnums::cryptos()->value)
                 ->first()?->id;
         });
+    }
+
+    public function getTotalPriceAttribute(): float
+    {
+        return round($this->price * $this->lots, 3);
     }
 }
