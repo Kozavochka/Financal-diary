@@ -3,8 +3,10 @@
 namespace App\Enums;
 
 use Spatie\Enum\Enum;
+
 /**
  * @method static self deposit()
+ * @method static self saving_account()
  */
 class DepositTypeEnum extends Enum
 {

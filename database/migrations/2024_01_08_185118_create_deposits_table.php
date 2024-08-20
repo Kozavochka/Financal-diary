@@ -23,8 +23,8 @@ return new class extends Migration
             $table->foreignIdFor(Bank::class);
 
             $table->string('type')->default(DepositTypeEnum::deposit()->value);
-            $table->float('price');
-            $table->float('percent');
+            $table->double('price');
+            $table->double('percent');
             $table->dateTime('expiration_date')->nullable();
 
 

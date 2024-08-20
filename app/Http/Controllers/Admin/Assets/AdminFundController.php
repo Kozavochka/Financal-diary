@@ -58,7 +58,6 @@ class AdminFundController extends Controller
         $data = $request->validated();
 
         $fund->update($data);
-        $fund->refresh();
 
         return redirect(route('admin.funds.index'));
     }

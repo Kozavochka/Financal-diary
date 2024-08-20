@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\DepositTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DepositRequest extends FormRequest
 {
@@ -10,9 +12,15 @@ class DepositRequest extends FormRequest
     public function rules()
     {
         return [
-            'bank_name' => [
-                'string',
+            'bank_id' => [
+                'integer',
                 'required',
+                'exists:banks,id'
+            ],
+            'type' => [
+              'string',
+              'required',
+              Rule::in(DepositTypeEnum::toLabels())
             ],
             'price' => [
                 'numeric',

@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property float $total_price
  * @property integer $direction_id
  * @property integer $industry_id
+ * @property Direction $direction
  */
 class Stock extends Model
 {

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property double $price
  * @property double $lots
  * @property double $total_price
+ * @property Direction $direction
  */
 class Crypto extends Model
 {
@@ -24,7 +25,8 @@ class Crypto extends Model
         'name',
         'ticker',
         'lots',
-        'price'
+        'price',
+        'direction_id'
     ];
 
     public static function boot() {

@@ -22,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property double $coupon_percent
  * @property Carbon $expiration_date
  * @property integer $coupon_day_period
+ * @property Direction $direction
  */
 class Bond extends Model
 {
@@ -37,6 +38,7 @@ class Bond extends Model
         'coupon_percent',
         'expiration_date',
         'coupon_day_period',
+        'direction_id'
     ];
 
     public static function boot() {
