@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Admin\AdminBankController;
 use App\Http\Controllers\Admin\AdminCashController;
+use App\Http\Controllers\Admin\AdminCompanyController;
 use App\Http\Controllers\Admin\AdminDirectionController;
 use App\Http\Controllers\Admin\AdminIncomeController;
 use App\Http\Controllers\Admin\AdminIndustryController;
@@ -43,6 +44,8 @@ Route::resource('/cash',AdminCashController::class)->names('admin.cash');
 Route::resource('/currency',AdminCurrencyAccountController::class)->names('admin.currency');
 
 Route::resource('/banks',AdminBankController::class)->names('admin.bank');
+
+Route::resource('/companies',AdminCompanyController::class)->names('admin.company');
 
 
 
