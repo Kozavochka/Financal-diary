@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\LoanPaymentTypeEnum;
+use App\Enums\LoanRepaymentScheduleTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class LoanRequest extends FormRequest
 {
-
 
     /**
      * Get the validation rules that apply to the request.
@@ -17,6 +18,11 @@ class LoanRequest extends FormRequest
     public function rules()
     {
         return [
+            'company_id' => [
+                'required',
+                'integer',
+                'exists:companies,id'
+            ],
             'name' => [
                 'required',
                 'string',
@@ -24,11 +30,29 @@ class LoanRequest extends FormRequest
             'price' => [
                 'numeric',
                 'required',
-                'regex:/^\d+(\.\d{1,2})?$/',
             ],
-            'count_bus' => [
+            'percent' => [
                 'numeric',
+                'required',
+            ],
+            'repayment_schedule_type' => [
+                'required',
+                'string',
+                Rule::in(LoanRepaymentScheduleTypeEnum::toLabels())
+            ],
+            'payment_type' => [
+                'required',
+                'string',
+                Rule::in(LoanPaymentTypeEnum::toLabels())
+            ],
+            'expiration_date' => [
+                'required',
+                'date',
+                'after_or_equal:now'
+            ],
+            'payment_day' => [
                 'nullable',
+                'integer'
             ],
         ];
     }

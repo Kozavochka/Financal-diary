@@ -33,7 +33,6 @@ class StockPriceUpdateMethod implements UpdateAssetsPrice
                         'total_price' => round($stock->lots * $data['securities']['data'][0][2],2)//todo
                     ]
                 );
-                $stock->refresh();
             }
         }
         catch (\Throwable $e){

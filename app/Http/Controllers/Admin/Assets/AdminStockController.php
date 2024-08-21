@@ -80,6 +80,7 @@ class AdminStockController extends Controller
         $data = $request->validated();
 
         $stock->update($data);
+
         return redirect(route('admin.stocks.index'));
     }
 

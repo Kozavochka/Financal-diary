@@ -22,11 +22,15 @@ return new class extends Migration
             $table->foreignIdFor(Company::class);
 
             $table->string('name');
-            $table->double('price');
-            $table->double('percent');
+            $table->float('price');
+            $table->float('percent');
 
+
+            $table->string('repayment_schedule_type');
+            $table->string('payment_type');
+            $table->smallInteger('payment_day')->nullable();
             $table->date('expiration_date');
-            $table->integer('pay_day_period')->nullable();
+
 
             $table->softDeletes();
             $table->timestamps();

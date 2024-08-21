@@ -77,7 +77,6 @@ class AdminBondController extends Controller
         $data = $request->validated();
 
         $bond->update($data);
-        $bond->refresh();
 
         return redirect(route('admin.bonds.index'));
     }
