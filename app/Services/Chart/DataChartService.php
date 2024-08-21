@@ -2,13 +2,12 @@
 
 namespace App\Services\Chart;
 
-use App\Models\Bond;
-use App\Models\Crypto;
-use App\Models\Deposit;
-use App\Models\Fund;
-use App\Models\Loan;
+use App\Models\Assets\Bond;
+use App\Models\Assets\Crypto;
+use App\Models\Assets\Deposit;
+use App\Models\Assets\Fund;
+use App\Models\Assets\Loan;
 use App\Models\Settings;
-use App\Services\Api\Finance\PriceCurrencyHelper;
 use Illuminate\Support\Facades\DB;
 
 class DataChartService implements DataChartServiceContract

@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\DepositTypeEnum;
+use App\Models\Bank;
 use App\Models\Direction;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,13 +18,15 @@ return new class extends Migration
     {
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Direction::class);
 
-            $table->string('bank_name');
-            $table->float('price');
-            $table->float('percent');
+            $table->foreignIdFor(Bank::class);
+
+            $table->string('type')->default(DepositTypeEnum::deposit()->value);
+            $table->double('price');
+            $table->double('percent');
             $table->dateTime('expiration_date')->nullable();
 
-            $table->foreignIdFor(Direction::class);
 
             $table->softDeletes();
             $table->timestamps();

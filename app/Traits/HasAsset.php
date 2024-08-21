@@ -2,12 +2,12 @@
 
 namespace App\Traits;
 
-use App\Models\Bond;
-use App\Models\Crypto;
-use App\Models\Deposit;
-use App\Models\Fund;
-use App\Models\Loan;
-use App\Models\Stock;
+use App\Models\Assets\Bond;
+use App\Models\Assets\Crypto;
+use App\Models\Assets\Deposit;
+use App\Models\Assets\Fund;
+use App\Models\Assets\Loan;
+use App\Models\Assets\Stock;
 
 trait HasAsset
 {

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\Statistic;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bond;
+use App\Models\Assets\Bond;
+use App\Models\Assets\Crypto;
+use App\Models\Assets\Stock;
 use App\Models\Cash;
-use App\Models\Crypto;
 use App\Models\Industry;
-use App\Models\Stock;
 use App\Models\TotalStatistic;
 use App\Services\Chart\DataChartService;
 use App\Services\Statistic\TotalStatisticServiceContract;
@@ -61,14 +61,14 @@ class StatisticController extends Controller
     public function assetsStatistic()
     {
         $stocks = QueryBuilder::for(Stock::class)
-            ->orderByRaw('total_price desc')
+            ->orderByRaw('total_price desc')//todo
             ->get();
 
         $crypto = Crypto::query()->get();
 
         $industries = Industry::query()
             ->withCount('stocks')
-            ->withSum('stocks','total_price')
+            ->withSum('stocks','total_price')//todo
             ->get();
 
         $bonds = Bond::query()->get();

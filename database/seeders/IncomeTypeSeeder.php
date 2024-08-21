@@ -16,17 +16,17 @@ class IncomeTypeSeeder extends Seeder
     public function run()
     {
         IncomeType::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Пополнение'
             ]);
 
         IncomeType::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Дивиденды'
             ]);
 
         IncomeType::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Перевод'
             ]);
     }

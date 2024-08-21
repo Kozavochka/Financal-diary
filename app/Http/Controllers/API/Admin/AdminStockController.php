@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
 use App\Http\Resources\StockResource;
-use App\Models\Stock;
+use App\Models\Assets\Stock;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -32,23 +32,17 @@ class AdminStockController extends Controller
         return StockResource::collection($stocks);
     }
 
-
-    public function create(StockRequest $request)
-    {
-
-    }
-
-
     public function store(StockRequest $request)
     {
         $data = $request->validated();
 
         $stock = Stock::query()
             ->create($data);
+
         if(isset($data['industry_id']) ){
             $stock->industry()->attach($data['industry_id']);
         }
-        return new StockResource($stock);//Сделать другой resource?
+        return new StockResource($stock);
     }
 
     /**

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin\Assets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoanRequest;
-use App\Models\Loan;
+use App\Models\Assets\Loan;
+use App\Services\Filters\Loan\LoanSearchFilter;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminLoanController extends Controller
 {
@@ -14,7 +17,18 @@ class AdminLoanController extends Controller
         $page = request('page', 1);
         $perPage = request('per_page', 10);
 
-        $loans = Loan::query()->paginate($perPage, '*', 'page', $page);
+        $loans = QueryBuilder::for(Loan::class)
+            ->allowedSorts([
+                'price',
+                'repayment_schedule_type',
+                'payment_type'
+            ])
+            ->allowedFilters([
+                AllowedFilter::custom('search', new LoanSearchFilter()),
+                'repayment_schedule_type',
+                'payment_type'
+            ])
+            ->paginate($perPage, '*', 'page', $page);
 
         return view('admin.loans.loans', compact('loans'));
     }
@@ -28,10 +42,8 @@ class AdminLoanController extends Controller
 
     public function store(LoanRequest $request)
     {
-        $data = $request->validated();
-
         Loan::query()
-            ->create($data);
+            ->create($request->validated());
 
         return redirect(route('admin.loans.index'));
     }
@@ -44,10 +56,7 @@ class AdminLoanController extends Controller
 
     public function update(LoanRequest $request, Loan $loan)
     {
-        $data = $request->validated();
-
-        $loan->update($data);
-        $loan->refresh();
+        $loan->update($request->validated());
 
         return redirect(route('admin.loans.index'));
     }

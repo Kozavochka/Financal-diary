@@ -3,12 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-
 class CryptoRequest extends FormRequest
 {
-
-
 
     public function rules()
     {
@@ -18,13 +14,16 @@ class CryptoRequest extends FormRequest
                 'string',
             ],
             'ticker' => [
+                'required',
                 'string',
             ],
             'price' => [
+                'numeric',
                 'required',
             ],
             'lots' => [
-                'nullable'
+                'numeric',
+                'required'
             ],
         ];
     }

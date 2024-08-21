@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('bonds', function (Blueprint $table) {
-            $table->date('expiration_date')->nullable()->after('profit_percent');
+        Schema::create('banks', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('name')->unique();
 
             $table->softDeletes();
-
+            $table->timestamps();
         });
     }
 
@@ -28,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('bonds', function (Blueprint $table) {
-            $table->dropColumn('expiration_date');
-        });
+        Schema::dropIfExists('banks');
     }
 };

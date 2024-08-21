@@ -16,6 +16,7 @@
         "laravel/ui": "^4.2",
         "livewire/livewire": "^2.12",
         "maatwebsite/excel": "^3.1.48",
+        "opcodesio/log-viewer": "^3.10",
         "php-open-source-saver/jwt-auth": "^2.1",
         "spatie/enum": "^3.13",
         "spatie/laravel-query-builder": "^5.2"

@@ -2,7 +2,7 @@
 
 namespace App\Services\Api\Command;
 
-use App\Models\Stock;
+use App\Models\Assets\Stock;
 use GuzzleHttp\Client;
 
 /**
@@ -30,10 +30,9 @@ class StockPriceUpdateMethod implements UpdateAssetsPrice
                 $stock->update(
                     [
                         'price' => $data['securities']['data'][0][2],
-                        'total_price' => round($stock->lots * $data['securities']['data'][0][2],2)
+                        'total_price' => round($stock->lots * $data['securities']['data'][0][2],2)//todo
                     ]
                 );
-                $stock->refresh();
             }
         }
         catch (\Throwable $e){

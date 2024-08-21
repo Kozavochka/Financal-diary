@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Industry;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,10 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('stocks', function (Blueprint $table) {
-            $table->foreignIdFor(Industry::class)->nullable();
+        Schema::create('companies', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('name');
+            $table->string('inn', 14)->nullable();
+            $table->string('ogrn')->nullable();
 
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -28,8 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('stocks', function (Blueprint $table) {
-            $table->dropColumn('industry_id');
-        });
+        Schema::dropIfExists('companies');
     }
 };

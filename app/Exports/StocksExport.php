@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Stock;
+use App\Models\Assets\Stock;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 

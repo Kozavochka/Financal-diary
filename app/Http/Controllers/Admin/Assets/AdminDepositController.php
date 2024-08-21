@@ -4,15 +4,31 @@ namespace App\Http\Controllers\Admin\Assets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepositRequest;
-use App\Models\Deposit;
+use App\Models\Assets\Deposit;
+use App\Services\Filters\Deposit\DepositSearchFilter;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 use function view;
 
 class AdminDepositController extends Controller
 {
-
     public function index()
     {
-        $deposits = Deposit::all();
+        $page = request('page', 1);
+        $perPage = request('per_page', 10);
+
+        $deposits = QueryBuilder::for(Deposit::class)
+            ->with('bank')
+            ->allowedSorts([
+                'type',
+                'price',
+                'percent',
+                'expiration_date'
+            ])
+            ->allowedFilters([
+                AllowedFilter::custom('search', new DepositSearchFilter()),
+            ])
+            ->paginate($perPage, '*', 'page', $page);
 
         return view('admin.deposit.index',compact('deposits'));
     }

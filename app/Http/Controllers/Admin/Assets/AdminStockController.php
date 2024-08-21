@@ -6,11 +6,14 @@ namespace App\Http\Controllers\Admin\Assets;
 use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
+use App\Models\Assets\Stock;
 use App\Models\Industry;
-use App\Models\Stock;
+use App\Services\Filters\Stock\StockNameContainsFilter;
+use App\Services\Sorts\Stock\StockPriceSort;
 use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 
@@ -24,12 +27,14 @@ class AdminStockController extends Controller
 
         $stocks = QueryBuilder::for(Stock::class)
             ->with('industry')
-            ->allowedFilters([
-                AllowedFilter::callback('asc_price', function (Builder $query){
-                    $query->orderByRaw('total_price');
-                })
+            ->allowedSorts([
+                'name',
+                'ticker',
+                AllowedSort::custom('price', new StockPriceSort()),
             ])
-            ->orderByRaw('total_price desc')
+            ->allowedFilters([
+                AllowedFilter::custom('search', new StockNameContainsFilter()),
+            ])
             ->paginate($perPage, '*', 'page', $page);
 
         return view('admin.stocks.stocks', compact('stocks'));
@@ -50,8 +55,6 @@ class AdminStockController extends Controller
     public function store(StockRequest $request)
     {
         $data = $request->validated();
-
-        $data['total_price'] = round($data['price'] * $data['lots'],2) ?? 0;
 
         Stock::query()
             ->create($data);
@@ -77,7 +80,6 @@ class AdminStockController extends Controller
         $data = $request->validated();
 
         $stock->update($data);
-        $stock->refresh();
 
         return redirect(route('admin.stocks.index'));
     }

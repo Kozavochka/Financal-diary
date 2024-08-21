@@ -16,37 +16,37 @@ class IndustrySeeder extends Seeder
     public function run()
     {
         Industry::query()
-            ->create([
+            ->updateOrCreate([
                'name' => 'Финансы'
             ]);
 
         Industry::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Нефть и газ'
             ]);
 
         Industry::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Сырьё'
             ]);
 
         Industry::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Химпром'
             ]);
 
         Industry::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Продовольствие'
             ]);
 
         Industry::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'Транспортный'
             ]);
 
         Industry::query()
-            ->create([
+            ->updateOrCreate([
                 'name' => 'IT'
             ]);
     }

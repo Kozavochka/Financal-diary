@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Stock;
 use App\Services\Api\Command\StockPriceUpdateMethod;
-use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 
 class UpdateStockPrice extends Command

@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Assets;
-;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CryptoRequest;
-use App\Models\Crypto;
+use App\Models\Assets\Crypto;
+use App\Services\Filters\Crypto\CryptoSearchFilter;
+use App\Services\Sorts\Crypto\CryptoPriceSort;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminCryptoController extends Controller
 {
@@ -15,7 +19,16 @@ class AdminCryptoController extends Controller
         $page = request('page', 1);
         $perPage = request('per_page', 10);
 
-        $crypto = Crypto::query()->paginate($perPage, '*', 'page', $page);
+        $crypto = QueryBuilder::for(Crypto::class)
+            ->allowedSorts([
+                'name',
+                'ticker',
+                AllowedSort::custom('price', new CryptoPriceSort()),
+            ])
+            ->allowedFilters([
+                AllowedFilter::custom('search', new CryptoSearchFilter()),
+            ])
+            ->paginate($perPage, '*', 'page', $page);
 
 
         return view('admin.crypto.index', compact('crypto'));
@@ -55,7 +68,6 @@ class AdminCryptoController extends Controller
         $data = $request->validated();
 
         $crypto->update($data);
-        $crypto->refresh();
 
         return redirect(route('admin.crypto.index'));
     }

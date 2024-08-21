@@ -17,24 +17,29 @@ class BondRequest extends FormRequest
             ],
             'ticker' => [
                 'string',
-                'nullable',
+                'required',
             ],
             'price' => [
                 'numeric',
                 'required',
-                'regex:/^\d+(\.\d{1,2})?$/',
             ],
             'coupon' => [
                 'numeric',
                 'required',
-                'regex:/^\d+(\.\d{1,2})?$/'
+            ],
+            'coupon_percent' => [
+                'numeric',
+                'nullable',
             ],
             'profit_percent' => [
                 'numeric',
-                'required',
-                'regex:/^\d+(\.\d{1,2})?$/',
+                'nullable',
             ],
             'expiration_date' => [
+                'date_format:Y-m-d',
+                'nullable',
+            ],
+            'coupon_day_period' => [
                 'date_format:Y-m-d',
                 'nullable',
             ],

@@ -4,9 +4,8 @@ namespace App\Http\Controllers\API\Guest;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\StockResource;
-use App\Models\Stock;
+use App\Models\Assets\Stock;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
