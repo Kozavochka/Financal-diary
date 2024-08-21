@@ -22,9 +22,7 @@ class AdminBondController extends Controller
         $page = request('page', 1);
         $perPage = request('per_page', 10);
 
-        if (Bond::query()->where('expiration_date','<', Carbon::now())->exists()){
-            Bond::query()->where('expiration_date','<', Carbon::now())->delete();
-        }
+        Bond::query()->where('expiration_date','<', Carbon::now())->delete();
 
         $bonds = QueryBuilder::for(Bond::class)
             ->allowedSorts([
