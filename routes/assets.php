@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Admin\AdminBankController;
 use App\Http\Controllers\Admin\AdminCashController;
 use App\Http\Controllers\Admin\AdminDirectionController;
 use App\Http\Controllers\Admin\AdminIncomeController;
@@ -40,6 +41,8 @@ Route::resource('/deposits',AdminDepositController::class)->names('admin.deposit
 Route::resource('/cash',AdminCashController::class)->names('admin.cash');
 
 Route::resource('/currency',AdminCurrencyAccountController::class)->names('admin.currency');
+
+Route::resource('/banks',AdminBankController::class)->names('admin.bank');
 
 
 
