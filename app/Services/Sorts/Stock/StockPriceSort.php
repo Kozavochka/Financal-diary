@@ -11,6 +11,7 @@ class StockPriceSort implements Sort
     {
         $direction = $descending ? 'DESC' : 'ASC';
 
-        $query->orderByRaw("ABS(`lots*price`) $direction");
+        $query
+            ->orderByRaw("lots*price $direction");
     }
 }
