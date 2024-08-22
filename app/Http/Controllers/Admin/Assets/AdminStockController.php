@@ -34,6 +34,7 @@ class AdminStockController extends Controller
             ])
             ->allowedFilters([
                 AllowedFilter::custom('search', new StockNameContainsFilter()),
+                'industry_id'
             ])
             ->paginate($perPage, '*', 'page', $page);
 
@@ -65,7 +66,7 @@ class AdminStockController extends Controller
 
     public function edit(Stock $stock)
     {
-        $stock->loadMissing(['industry', 'direction']);
+        $stock->loadMissing(['industry']);
 
         $industries = Industry::query()
             ->distinct()

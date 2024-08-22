@@ -15,15 +15,16 @@ class StockRequest extends FormRequest
             'name' => [
                 'string',
                 'required',
-                Rule::unique('stocks')->ignore($this->route('stock')),
+                Rule::unique('stocks','name')->ignore($this->route('stock'))->withoutTrashed(),
             ],
             'ticker' => [
-                'string'
+                'required',
+                'string',
+                Rule::unique('stocks','ticker')->ignore($this->route('stock'))->withoutTrashed(),
             ],
             'price' => [
                 'required',
                 'numeric',
-                'regex:/^\d+(\.\d{1,2})?$/'
             ],
             'industry_id' => [
                 'integer',
