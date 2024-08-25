@@ -69,7 +69,7 @@ class AdminStockController extends Controller
         $stock->loadMissing(['industry']);
 
         $industries = Industry::query()
-            ->distinct()
+            ->whereNot('id', $stock->industry_id)
             ->get();
 
         return view('admin.stocks.edit', compact('stock', 'industries'));
