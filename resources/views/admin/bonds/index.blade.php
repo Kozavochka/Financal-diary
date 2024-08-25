@@ -19,7 +19,11 @@
         <th scope="col">Название</th>
         <th scope="col">Тикер</th>
         <th scope="col">Количество</th>
-        <th scope="col">Стоимость, RUB</th>
+        <th scope="col">
+            Стоимость, RUB
+            <a class="active link-secondary" href="{{ url()->current() }}?sort=price"><i>▲</i></a>
+            <a class="active link-secondary" href="{{ url()->current() }}?sort=-price"><i>▼</i></a>
+        </th>
         <th scope="col">
             Купон,%
             <a class="active link-secondary" href="{{ url()->current() }}?sort=coupon_percent"><i>▲</i></a>
