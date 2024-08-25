@@ -143,7 +143,7 @@
         </table>
     </div>
     <div class="col-md-8 mb-5">
-        <p class="mb-3 h_text"><b>Крипта</b></p>
+        <p class="mb-3 h_text"><b>Криптовалюта</b></p>
         <table class="table">
             <thead>
             <tr>

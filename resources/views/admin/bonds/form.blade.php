@@ -17,18 +17,18 @@
     <div class="flex">
         <div class="mr-2">
             <label for="price" class="form-label">Цена</label>
-            <input id="price"  name="price" class="form-control numeric-input" type="number" step="0.01"
+            <input id="price"  name="price" class="form-control numeric-input" type="number" step="0.01" min="0"
            value="{{$bond->price ?? null}}" required>
         </div>
         <div class="mr-2">
             <label for="lots" class="form-label">Количество</label>
-            <input id="lots"  name="lots" class="form-control numeric-input" type="number" step="1"
+            <input id="lots"  name="lots" class="form-control numeric-input" type="number" step="1" min="0"
             value="{{$bond->lots ?? null}}" required>
         </div>
         <div class="mr-2">
             <label for="profit_percent" class="form-label">Доходность, %</label>
             <input id="profit_percent"  name="profit_percent" class="form-control numeric-input" type="number" step="0.01"
-                   value="{{$bond->profit_percent ?? null}}">
+                   value="{{$bond->profit_percent ?? null}}" min="0">
         </div>
     </div>
 </div>
@@ -38,12 +38,12 @@
         <div class="mr-2">
             <label for="coupon_percent" class="form-label">Купон, % годовых</label>
             <input id="coupon_percent"  name="coupon_percent" class="form-control numeric-input" type="number" step="0.01"
-                   value="{{$bond->coupon_percent ?? null}}">
+                   value="{{$bond->coupon_percent ?? null}}" min="0">
         </div>
         <div class="mr-2">
             <label for="coupon_day_period" class="form-label">Купонный период, дни</label>
             <input id="coupon_day_period"  name="coupon_day_period" class="form-control numeric-input" type="number" step="1"
-                   value="{{$bond->coupon_day_period ?? null}}">
+                   value="{{$bond->coupon_day_period ?? null}}" min="0">
         </div>
         <div class="mr-2">
             <label for="expiration_date" class="form-label">Дата окончания</label>

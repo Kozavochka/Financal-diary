@@ -12,7 +12,7 @@
     </form>
 </div>
 
-<table class="table">
+<table class="table mt-2 mb-2">
     <thead>
     <tr>
         <th scope="col">№</th>
@@ -66,11 +66,11 @@
     </tbody>
 </table>
 {{$bonds->withQueryString()->links('pagination::bootstrap-5')}}
-<div>
+<div class="mt-2">
     <span><b>Средний % купона:</b>{{bcdiv($bonds->avg('coupon_percent'), 1, 2)}} </span>
     <span><b>Средний купон:</b> {{bcdiv($bonds->avg('coupon'), 1, 2)}} RUB</span>
 </div>
-<div class="btn-group" role="group">
+<div class="btn-group mt-2" role="group">
     <a href="{{route('admin.bonds.create')}}" class="btn btn-default me-2">+ Добавить облигацию</a>
 </div>
 

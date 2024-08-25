@@ -40,6 +40,7 @@ class BondRequest extends FormRequest
             'expiration_date' => [
                 'date_format:Y-m-d',
                 'nullable',
+                'after_or_equal:now'
             ],
             'coupon_day_period' => [
                 'integer',

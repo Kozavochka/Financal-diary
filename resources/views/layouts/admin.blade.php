@@ -109,7 +109,7 @@
                           <li>
                               <a href="{{route('admin.crypto.index')}}" class="nav-link">
                                   <i class="nav-icon fa-brands fa-bitcoin"></i>
-                                  <p>Крипта</p>
+                                  <p>Криптовалюта</p>
                               </a>
                           </li>
                             <li>

@@ -64,7 +64,7 @@ class PdfExportSerivce implements PdfExportServiceContract
 
             'Облигации' => $data['bonds']->sum('price'),
 
-            'Крипта' => $data['crypto']->sum('price') * $usdPrice,
+            'Криптовалюта' => $data['crypto']->sum('price') * $usdPrice,
 
             'Займы' => $data['loans']->sum('price'),
 

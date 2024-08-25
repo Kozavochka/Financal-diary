@@ -19,10 +19,11 @@ class AdminCryptoController extends Controller
         $page = request('page', 1);
         $perPage = request('per_page', 10);
 
-        $crypto = QueryBuilder::for(Crypto::class)
+        $cryptos = QueryBuilder::for(Crypto::class)
             ->allowedSorts([
                 'name',
                 'ticker',
+                'lots',
                 AllowedSort::custom('price', new CryptoPriceSort()),
             ])
             ->allowedFilters([
@@ -31,7 +32,7 @@ class AdminCryptoController extends Controller
             ->paginate($perPage, '*', 'page', $page);
 
 
-        return view('admin.crypto.index', compact('crypto'));
+        return view('admin.crypto.index', compact('cryptos'));
     }
 
 

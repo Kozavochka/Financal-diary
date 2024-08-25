@@ -31,7 +31,7 @@ class DataChartService implements DataChartServiceContract
 
             'Облигации' => Bond::query()->sum('price'),
 
-            'Крипта' => round(Crypto::query()->sum('price') * $usdPrice,2),
+            'Криптовалюта' => round(Crypto::query()->sum('price') * $usdPrice,2),
 
             'Займы' => Loan::query()->sum('price'),
 
