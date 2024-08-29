@@ -1,7 +1,11 @@
 @extends('layouts.admin')
 @section('content')
 
-    <h1 class="mb-3">Вклады</h1>
+    <h1 class="mb-1">Вклады</h1>
+
+    <div class="mb-2">
+        <a href="{{route('admin.bank.index')}}" class="btn btn-link">Перейти к банкам</a>
+    </div>
 
     <table class="table">
         <thead>

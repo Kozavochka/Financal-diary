@@ -24,12 +24,12 @@ class AdminBankController extends Controller
             ])
             ->paginate($perPage, '*', 'page', $page);
 
-        return view('admin.bank.index', compact('banks'));
+        return view('admin.deposit.bank.index', compact('banks'));
     }
 
     public function create()
     {
-        return view('admin.bank.create');
+        return view('admin.deposit.bank.create');
     }
 
     public function store(BankRequest $request)
@@ -43,7 +43,7 @@ class AdminBankController extends Controller
 
     public function edit(Bank $bank)
     {
-        return view('admin.bank.edit', compact('bank'));
+        return view('admin.deposit.bank.edit', compact('bank'));
     }
 
 
@@ -63,6 +63,6 @@ class AdminBankController extends Controller
 
     public function show(Bank $bank)
     {
-        return view('admin.bank.show',compact('bank'));
+        return view('admin.deposit.bank.show',compact('bank'));
     }
 }
