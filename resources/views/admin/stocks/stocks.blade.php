@@ -24,7 +24,7 @@
             <th scope="col">Тикер</th>
             <th scope="col">Отрасль</th>
             <th scope="col">
-                Стоимость
+                Стоимость, RUB
                 <a class="active link-secondary" href="{{ url()->current() }}?sort=price"><i>▲</i></a>
                 <a class="active link-secondary" href="{{ url()->current() }}?sort=-price"><i>▼</i></a>
             </th>
@@ -38,7 +38,7 @@
                 <td>{{$stock->name}}</td>
                 <td>{{$stock->ticker}}</td>
                 <td>{{$stock->industry->name}}</td>
-                <td>{{$stock->total_price}} RUB</td>
+                <td>{{$stock->total_price}}</td>
 
                 <td><a href="{{route('admin.stocks.edit', $stock)}}"><i class="fa-solid fa-pen"></i></a>
                     <form action="{{ route('admin.stocks.destroy', $stock) }}" method="POST" class="d-inline">

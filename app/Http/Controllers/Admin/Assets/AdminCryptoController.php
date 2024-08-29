@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CryptoRequest;
 use App\Models\Assets\Crypto;
 use App\Services\Filters\Crypto\CryptoSearchFilter;
-use App\Services\Sorts\Crypto\CryptoPriceSort;
+use App\Services\Sorts\TotalPriceSort;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -24,7 +24,7 @@ class AdminCryptoController extends Controller
                 'name',
                 'ticker',
                 'lots',
-                AllowedSort::custom('price', new CryptoPriceSort()),
+                AllowedSort::custom('price', new TotalPriceSort()),
             ])
             ->allowedFilters([
                 AllowedFilter::custom('search', new CryptoSearchFilter()),

@@ -9,8 +9,7 @@ use App\Http\Requests\StockRequest;
 use App\Models\Assets\Stock;
 use App\Models\Industry;
 use App\Services\Filters\Stock\StockNameContainsFilter;
-use App\Services\Sorts\Stock\StockPriceSort;
-use Illuminate\Database\Eloquent\Builder;
+use App\Services\Sorts\TotalPriceSort;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
@@ -30,7 +29,7 @@ class AdminStockController extends Controller
             ->allowedSorts([
                 'name',
                 'ticker',
-                AllowedSort::custom('price', new StockPriceSort()),
+                AllowedSort::custom('price', new TotalPriceSort()),
             ])
             ->allowedFilters([
                 AllowedFilter::custom('search', new StockNameContainsFilter()),
