@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BankRequest;
+use App\Models\Assets\Deposit;
 use App\Models\Bank;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -56,6 +57,10 @@ class AdminBankController extends Controller
 
     public function destroy(Bank $bank)
     {
+        Deposit::query()
+            ->where('bank_id', $bank->id)
+            ->delete();
+
         $bank->delete();
 
         return redirect(route('admin.bank.index'));

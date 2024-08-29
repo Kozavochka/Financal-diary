@@ -3,6 +3,10 @@
 
     <h1 class="mb-3">Банки</h1>
 
+    <div class="mb-2">
+        <a href="{{route('admin.deposits.index')}}" class="btn btn-link">Перейти к вкладам</a>
+    </div>
+
     <div class="btn-group mt-2" role="group">
         <form action="{{ route('admin.bank.index') }}" method="get" class="form-inline">
             <div class="form-group mr-1">
@@ -18,6 +22,8 @@
         <tr>
             <th scope="col">№</th>
             <th scope="col">Наименование</th>
+            <th scope="col">Количество вкладов</th>
+            <th scope="col">Сумма вкладов</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -26,6 +32,8 @@
             <tr>
                 <th scope="row">{{$bank->id}}</th>
                 <td>{{$bank->name}}</td>
+                <td>{{$bank->deposits_count}}</td>
+                <td>{{$bank->deposits_sum_price}}</td>
                 <td><a href="{{route('admin.bank.edit', $bank)}}"><i class="fa-solid fa-pen"></i></a>
                     <form action="{{ route('admin.bank.destroy', $bank) }}" method="POST" class="d-inline">
                         @csrf

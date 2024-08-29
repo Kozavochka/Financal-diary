@@ -39,7 +39,7 @@
             <div>
                 <label for="expiration_date">Дата окончания</label>
                 <input id="expiration_date"  name="expiration_date" class="form-control date-input" type="date" placeholder="Введите дату"
-                       required value="{{$deposit->expiration_date ?? null}}">
+                       value="{{$deposit->expiration_date ?? null}}">
             </div>
         </div>
     </div>
