@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('type')->default(DepositTypeEnum::deposit()->value);
             $table->double('price');
             $table->double('percent');
-            $table->dateTime('expiration_date')->nullable();
+            $table->date('expiration_date')->nullable();
 
 
             $table->softDeletes();

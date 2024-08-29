@@ -33,7 +33,7 @@
 <div class="form-group">
     <div class="mb-3">
         <label for="industry_id" class="form-label">Выбор отрасли</label>
-        <select class="form-select text-input" aria-label="Default select example" id="industry_id" name="industry_id">
+        <select class="form-select text-input" aria-label="Default select example" id="industry_id" name="industry_id" required>
             <option value="{{ old('industry_id', $stock?->industry_id ?? null) }}">{{$stock?->industry->name ?? null}}</option>
             @foreach($industries as $industry)
                 <option value="{{$industry->id}}">{{$industry->name}}</option>

@@ -16,7 +16,6 @@ class DepositSearchFilter implements Filter
         return $query
             ->where(function (Builder $query) use($value) {
                 $query
-                    ->where('type',"ilike", "%$value%")
                     ->orWhereHas('band', function (Builder $query) use($value) {
                         $query->where('name',"ilike", "%$value%");
                     });
