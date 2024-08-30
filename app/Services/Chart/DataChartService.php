@@ -7,64 +7,66 @@ use App\Models\Assets\Crypto;
 use App\Models\Assets\Deposit;
 use App\Models\Assets\Fund;
 use App\Models\Assets\Loan;
+use App\Models\Assets\Stock;
 use App\Models\Settings;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class DataChartService implements DataChartServiceContract
 {
-    private $data = [];
 
     /**
      * Заполнение данных по активам
      * @return $this
      */
-    public function setAssetsData()
+    public function getAssetsData(): array
     {
         $usdPrice =  Settings::query()
             ->where('key','usd_price')
             ->first()->value['price'];
         //Получение стоимости активов (актив => стоимость)
-        $this->data = [
-            'Акции' =>  DB::table('stocks')
+        return [
+            'Акции' =>  Stock::query()
                 ->selectRaw('SUM(price * lots) as total')
-                ->value('total'),
+                ->value('total') ?? 0,
 
-            'Облигации' => Bond::query()->sum('price'),
+            'Облигации' => Bond::query()
+                ->selectRaw('SUM(price * lots) as total')
+                ->value('total') ?? 0,
 
-            'Криптовалюта' => round(Crypto::query()->sum('price') * $usdPrice,2),
+            'Криптовалюта' => round(Crypto::query()
+                    ->selectRaw('SUM(price * lots) as total')
+                    ->value('total') * $usdPrice,2) ?? 0,
 
-            'Займы' => Loan::query()->sum('price'),
+            'Займы' => Loan::query()->sum('price') ?? 0,
 
-            'Фонды' => Fund::query()->sum('price'),
+            'Фонды' => Fund::query()
+                ->selectRaw('SUM(price * lots) as total')
+                ->value('total') ?? 0,
 
-            'Вклады' => Deposit::query()->sum('price'),
+            'Вклады' => Deposit::query()->sum('price') ?? 0,
         ];
-        return $this;
     }
 
     /**
      * Получение и возврат данных для графиков
      * @return array
      */
-    public function getChartData()
+    public function getChartData(): array
     {
-        $newData = [];//Массив значений стоимости (стоимость)
-
-        foreach ($this->data as $key => $value) {
-            $newData[] = $value;
-        }
+        $assetsData = $this->getAssetsData();
 
         $dataChart = [
-            'labels' => array_keys($this->data),//Получение названий (актив),
-            'numeric' => $newData,
-            'total' =>  array_sum($this->data),//Расчёт общей стоимости
+            'labels' => array_keys($assetsData),//Получение названий (актив),
+            'numeric' => Arr::flatten($assetsData),
+            'total' =>  array_sum($assetsData),//Расчёт общей стоимости
         ];
 
-        $dataChart['total'] =  $dataChart['total'] == 0 ? 1:$dataChart['total'];
+        $dataChart['total'] =  $dataChart['total'] == 0 ? 0:$dataChart['total'];
 
         return [
-           'dataChart' => $dataChart,
-            'data' =>$this->data
+            'dataChart' => $dataChart,
+            'assetsData' => $assetsData
         ];
     }
 }

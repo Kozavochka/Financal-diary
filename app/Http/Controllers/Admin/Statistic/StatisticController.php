@@ -49,13 +49,12 @@ class StatisticController extends Controller
     public function totalStatistic()
     {
         $dataArray = $this->chartSerive
-            ->setAssetsData()
             ->getChartData();
 
         $dataChart = $dataArray['dataChart'];
-        $data = $dataArray['data'];
-        $cashSum = Cash::query()->sum('sum');//TODO кэш
-        return view('admin.statistic.total', compact('dataChart',  'data','cashSum'));
+        $data = $dataArray['assetsData'];
+
+        return view('admin.statistic.total', compact('dataChart',  'data'));
     }
 
     public function assetsStatistic()
