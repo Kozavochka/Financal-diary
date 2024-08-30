@@ -19,6 +19,7 @@ class AdminLoanController extends Controller
         $perPage = request('per_page', 10);
 
         $loans = QueryBuilder::for(Loan::class)
+            ->with('company')
             ->allowedSorts([
                 'price',
                 'repayment_schedule_type',
@@ -53,7 +54,9 @@ class AdminLoanController extends Controller
 
     public function edit(Loan $loan)
     {
-        return view('admin.loans.edit', compact('loan'));
+        $companies = Company::all();
+
+        return view('admin.loans.edit', compact('loan', 'companies'));
     }
 
 

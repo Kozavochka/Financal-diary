@@ -6,12 +6,26 @@
         <a href="{{route('admin.company.index')}}" class="btn btn-link">Перейти к Юр лицам</a>
     </div>
 
+    <div class="btn-group mt-2" role="group">
+        <form action="{{ route('admin.loans.index') }}" method="get" class="form-inline">
+            <div class="form-group mr-1">
+                <input type="search" name="filter[search]" placeholder="" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-blue-gray mr-1 ">Поиск</button>
+            <a href="{{ route('admin.loans.index') }}" class="btn mr-1">Сбросить</a>
+        </form>
+    </div>
+
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Название</th>
-            <th scope="col">Стоимость, RUB</th>
+            <th scope="col">№</th>
+            <th scope="col">Компания</th>
+            <th scope="col">
+                Стоимость, RUB
+                <a class="active link-secondary" href="{{ url()->current() }}?sort=price"><i>▲</i></a>
+                <a class="active link-secondary" href="{{ url()->current() }}?sort=-price"><i>▼</i></a>
+            </th>
             <th scope="col">% годовых</th>
             <th scope="col">Тип погашения</th>
             <th scope="col">Тип платежа</th>
@@ -24,7 +38,7 @@
         @foreach($loans as $loan)
             <tr>
                 <th scope="row">{{$loan->id}}</th>
-                <td>{{$loan->name}}</td>
+                <th>{{$loan->company->name}}</th>
                 <td>{{$loan->price}}</td>
                 <td>{{$loan->percent}}</td>
                 <td>{{\App\Enums\LoanRepaymentScheduleTypeEnum::getTranslate($loan->repayment_schedule_type)}}</td>
