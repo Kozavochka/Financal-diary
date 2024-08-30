@@ -17,6 +17,7 @@ class AdminBankController extends Controller
 
         $banks = QueryBuilder::for(Bank::class)
             ->withCount('deposits')
+            ->withSum('deposits','price')
             ->allowedSorts([
                 'name',
             ])
