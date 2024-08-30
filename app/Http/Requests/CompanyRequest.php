@@ -18,12 +18,14 @@ class CompanyRequest extends FormRequest
             'inn' => [
                 'nullable',
                 'string',
-                'max:14'
+                'max:14',
+                Rule::unique('companies','inn')->ignore($this->route('company'))
             ],
             'ogrn' => [
                 'nullable',
                 'string',
-                'max:256'
+                'max:256',
+                Rule::unique('companies','ogrn')->ignore($this->route('company'))
             ]
         ];
     }

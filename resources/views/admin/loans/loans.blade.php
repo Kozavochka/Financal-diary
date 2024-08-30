@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 @section('content')
-    <h1 class="mb-3">Займы</h1>
+    <h1 class="mb-1">Займы</h1>
+
+    <div class="mb-2">
+        <a href="{{route('admin.company.index')}}" class="btn btn-link">Перейти к Юр лицам</a>
+    </div>
 
     <table class="table">
         <thead>
