@@ -40,7 +40,7 @@
             labels: {!! json_encode($industries->pluck('name')) !!},
             datasets: [{
                 label: 'Стоимость',
-                data: {!! json_encode($industries->pluck('stocks_sum_total_price')) !!},
+                data: {!! json_encode($industries->pluck('total_price')) !!},
                 backgroundColor: this.colors
             }],
         },

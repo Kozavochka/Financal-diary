@@ -10,14 +10,15 @@ use App\Models\Assets\Loan;
 use App\Models\Assets\Stock;
 use App\Models\Settings;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class DataChartService implements DataChartServiceContract
 {
-
     /**
      * Заполнение данных по активам
-     * @return $this
+     * @return array
      */
     public function getAssetsData(): array
     {
@@ -68,5 +69,29 @@ class DataChartService implements DataChartServiceContract
             'dataChart' => $dataChart,
             'assetsData' => $assetsData
         ];
+    }
+
+    /**
+     * Get all stocks data for assets statistic chart
+     * @return Collection|array
+     */
+    public function getStocksData(): Collection|array
+    {
+        $stocksData = collect();
+
+        QueryBuilder::for(Stock::class)
+            ->select(['name','price','lots'])
+            ->orderByRaw('(lots*price) desc')
+            ->chunk(self::CHUNK_SIZE, function (Collection $stocks) use (&$stocksData) {
+                $stocksData->push($stocks);
+            });
+
+        return $stocksData->flatten();
+    }
+
+    public function getCryptoData()
+    {
+        return Crypto::query()
+            ->get();
     }
 }

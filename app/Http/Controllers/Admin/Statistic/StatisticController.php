@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Assets\Bond;
 use App\Models\Assets\Crypto;
 use App\Models\Assets\Stock;
-use App\Models\Cash;
 use App\Models\Industry;
 use App\Models\TotalStatistic;
 use App\Services\Chart\DataChartService;
 use App\Services\Statistic\TotalStatisticServiceContract;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class StatisticController extends Controller
@@ -59,15 +59,18 @@ class StatisticController extends Controller
 
     public function assetsStatistic()
     {
-        $stocks = QueryBuilder::for(Stock::class)
-            ->orderByRaw('total_price desc')//todo
-            ->get();
+        $stocks = $this->chartSerive->getStocksData();
 
         $crypto = Crypto::query()->get();
 
         $industries = Industry::query()
             ->withCount('stocks')
-            ->withSum('stocks','total_price')//todo
+            ->leftJoin('stocks', function($query) {
+                $query
+                    ->on('stocks.id', 'industries.id')
+                    ->whereNull('stocks.deleted_at');
+            })
+            ->addSelect(DB::raw('stocks.lots * stocks.price as total_price'))
             ->get();
 
         $bonds = Bond::query()->get();
