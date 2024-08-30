@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Assets;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepositRequest;
 use App\Models\Assets\Deposit;
+use App\Models\Bank;
 use App\Services\Filters\Deposit\DepositSearchFilter;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -36,7 +37,9 @@ class AdminDepositController extends Controller
 
     public function create()
     {
-        return view('admin.deposit.create');
+        $banks = Bank::all();
+
+        return view('admin.deposit.create', compact('banks'));
     }
 
     public function store(DepositRequest $request)
@@ -50,7 +53,9 @@ class AdminDepositController extends Controller
 
     public function edit(Deposit $deposit)
     {
-        return view('admin.deposit.edit',compact('deposit'));
+        $banks = Bank::all();
+
+        return view('admin.deposit.edit',compact('deposit', 'banks'));
     }
 
 

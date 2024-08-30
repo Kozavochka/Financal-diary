@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Direction;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,10 +17,12 @@ return new class extends Migration
         Schema::create('cryptos', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignIdFor(Direction::class);
+
             $table->string('name');
             $table->string('ticker');
-            $table->double('price');
-            $table->double('lots');
+            $table->float('price');
+            $table->float('lots');
 
             $table->timestamps();
             $table->softDeletes();

@@ -109,7 +109,7 @@
                           <li>
                               <a href="{{route('admin.crypto.index')}}" class="nav-link">
                                   <i class="nav-icon fa-brands fa-bitcoin"></i>
-                                  <p>Крипта</p>
+                                  <p>Криптовалюта</p>
                               </a>
                           </li>
                             <li>
@@ -118,12 +118,12 @@
                                     <p>Вклады</p>
                                 </a>
                             </li>
-                            <li>
-                                <a href="{{route('admin.currency.index')}}" class="nav-link">
-                                    <i class="nav-icon fa-solid fa-dollar-sign"></i>
-                                    <p>Валюта</p>
-                                </a>
-                            </li>
+{{--                            <li>--}}
+{{--                                <a href="{{route('admin.currency.index')}}" class="nav-link">--}}
+{{--                                    <i class="nav-icon fa-solid fa-dollar-sign"></i>--}}
+{{--                                    <p>Валюта</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
                           <li>
                               <a href="{{route('admin.loans.index')}}" class="nav-link">
                                   <i class="nav-icon fas fa-th"></i>

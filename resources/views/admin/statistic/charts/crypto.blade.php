@@ -1,4 +1,4 @@
-<h1 class="mb-3">Крипта</h1>
+<h1 class="mb-3">Криптовалюта</h1>
 <canvas class="default-chart-size" id="myCryptoChart"></canvas>
 <script>
     colors=[];
@@ -11,7 +11,7 @@
         data: {
             labels: {!! json_encode($crypto->pluck('name')) !!},
             datasets: [{
-                label: 'Крипта $',
+                label: 'Криптовалюта $',
                 data: {!! json_encode($crypto->pluck('price')) !!},
                 backgroundColor: this.colors
             }],

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BankRequest;
+use App\Models\Assets\Deposit;
 use App\Models\Bank;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -16,6 +17,7 @@ class AdminBankController extends Controller
 
         $banks = QueryBuilder::for(Bank::class)
             ->withCount('deposits')
+            ->withSum('deposits','price')
             ->allowedSorts([
                 'name',
             ])
@@ -24,12 +26,12 @@ class AdminBankController extends Controller
             ])
             ->paginate($perPage, '*', 'page', $page);
 
-        return view('admin.bank.index', compact('banks'));
+        return view('admin.deposit.bank.index', compact('banks'));
     }
 
     public function create()
     {
-        return view('admin.bank.create');
+        return view('admin.deposit.bank.create');
     }
 
     public function store(BankRequest $request)
@@ -43,7 +45,7 @@ class AdminBankController extends Controller
 
     public function edit(Bank $bank)
     {
-        return view('admin.bank.edit', compact('bank'));
+        return view('admin.deposit.bank.edit', compact('bank'));
     }
 
 
@@ -56,6 +58,10 @@ class AdminBankController extends Controller
 
     public function destroy(Bank $bank)
     {
+        Deposit::query()
+            ->where('bank_id', $bank->id)
+            ->delete();
+
         $bank->delete();
 
         return redirect(route('admin.bank.index'));
@@ -63,6 +69,6 @@ class AdminBankController extends Controller
 
     public function show(Bank $bank)
     {
-        return view('admin.bank.show',compact('bank'));
+        return view('admin.deposit.bank.show',compact('bank'));
     }
 }

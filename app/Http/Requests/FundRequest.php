@@ -20,10 +20,12 @@ class FundRequest extends FormRequest
             'name' => [
                 'string',
                 'required',
+                Rule::unique('funds','name')->ignore($this->route('fund'))->withoutTrashed()
             ],
             'ticker' => [
                 'string',
                 'required',
+                Rule::unique('funds','ticker')->ignore($this->route('fund'))->withoutTrashed()
             ],
             'price' => [
                 'numeric',

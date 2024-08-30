@@ -14,17 +14,19 @@ class BondRequest extends FormRequest
             'name' => [
                 'string',
                 'required',
+                Rule::unique('bonds','name')->ignore($this->route('bond'))->withoutTrashed()
             ],
             'ticker' => [
                 'string',
                 'required',
+                Rule::unique('bonds','ticker')->ignore($this->route('bond'))->withoutTrashed()
             ],
             'price' => [
                 'numeric',
                 'required',
             ],
-            'coupon' => [
-                'numeric',
+            'lots' => [
+                'integer',
                 'required',
             ],
             'coupon_percent' => [
@@ -38,9 +40,10 @@ class BondRequest extends FormRequest
             'expiration_date' => [
                 'date_format:Y-m-d',
                 'nullable',
+                'after_or_equal:now'
             ],
             'coupon_day_period' => [
-                'date_format:Y-m-d',
+                'integer',
                 'nullable',
             ],
         ];

@@ -2,9 +2,18 @@
 
 namespace App\Services\Filters\Stock;
 
-use App\Services\Filters\BaseContainsFilter;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\QueryBuilder\Filters\Filter;
 
-class StockNameContainsFilter extends BaseContainsFilter
+class StockNameContainsFilter implements Filter
 {
-    protected $column = "name";
+    public function __invoke(Builder $query, $value, string $property)
+    {
+        if (is_array($value)){
+            $value = implode($value);
+        }
+
+        return $query->where('name',"ilike", "%$value%")
+            ->orWhere('ticker',"ilike", "%$value%");
+    }
 }

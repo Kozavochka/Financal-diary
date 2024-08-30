@@ -17,4 +17,8 @@ class LoanPaymentTypeEnum extends Enum
             'coupon' => 'Купонный',
         ];
     }
+    public static function getTranslate($type): string
+    {
+        return self::values()[$type];
+    }
 }

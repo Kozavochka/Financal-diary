@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Filters\Deposit;
+namespace App\Services\Filters\Fund;
 
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\QueryBuilder\Filters\Filter;
 
-class DepositSearchFilter implements Filter
+class FundSearchFilter implements Filter
 {
     public function __invoke(Builder $query, $value, string $property)
     {
@@ -16,9 +16,8 @@ class DepositSearchFilter implements Filter
         return $query
             ->where(function (Builder $query) use($value) {
                 $query
-                    ->whereHas('bank', function (Builder $query) use($value) {
-                        $query->where('name',"ilike", "%$value%");
-                    });
+                    ->where('name',"ilike", "%$value%")
+                    ->orWhere('ticker',"ilike", "%$value%");
             });
     }
 }

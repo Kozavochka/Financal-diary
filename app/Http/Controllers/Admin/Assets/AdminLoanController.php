@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Assets;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoanRequest;
 use App\Models\Assets\Loan;
+use App\Models\Company;
 use App\Services\Filters\Loan\LoanSearchFilter;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -18,6 +19,7 @@ class AdminLoanController extends Controller
         $perPage = request('per_page', 10);
 
         $loans = QueryBuilder::for(Loan::class)
+            ->with('company')
             ->allowedSorts([
                 'price',
                 'repayment_schedule_type',
@@ -36,7 +38,9 @@ class AdminLoanController extends Controller
 
     public function create()
     {
-        return view('admin.loans.create');
+        $companies = Company::all();
+
+        return view('admin.loans.create', compact('companies'));
     }
 
 
@@ -50,7 +54,9 @@ class AdminLoanController extends Controller
 
     public function edit(Loan $loan)
     {
-        return view('admin.loans.edit', compact('loan'));
+        $companies = Company::all();
+
+        return view('admin.loans.edit', compact('loan', 'companies'));
     }
 
 

@@ -56,4 +56,13 @@ class Bond extends Model
     {
         return round($this->price * $this->lots, 3);
     }
+
+    public function getCouponAttribute(): float
+    {
+        // 12 - 1 year/12 months
+        return (float) bcdiv(
+            round($this->total_price * bcdiv($this->coupon_percent, 100, 2), 2),
+            12,
+            2);
+    }
 }

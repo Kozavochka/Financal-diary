@@ -27,12 +27,12 @@ class Loan extends Model
 {
     use HasFactory, HasDirection, SoftDeletes;
 
-    protected $guarded = [
+    protected $fillable = [
         'direction_id',
         'company_id',
         'price',
         'percent',
-        'repayment_schedule',
+        'repayment_schedule_type',
         'payment_type',
         'payment_day',
         'expiration_date'

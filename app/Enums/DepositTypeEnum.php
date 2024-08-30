@@ -17,4 +17,9 @@ class DepositTypeEnum extends Enum
             'saving_account' => 'Накопительный',
         ];
     }
+
+    public static function getTranslate($type)
+    {
+        return self::values()[$type];
+    }
 }

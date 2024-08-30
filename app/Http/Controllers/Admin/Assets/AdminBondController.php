@@ -6,9 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BondRequest;
 use App\Models\Assets\Bond;
 use App\Services\Filters\Bond\BondSearchFilter;
-use App\Services\Sorts\Bond\BondCouponSort;
+use App\Services\Sorts\TotalPriceSort;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -30,7 +29,7 @@ class AdminBondController extends Controller
                 'ticker',
                 'expiration_date',
                 'coupon_percent',
-                AllowedSort::custom('coupon', new BondCouponSort()),
+                AllowedSort::custom('price', new TotalPriceSort()),
             ])
             ->allowedFilters([
                 AllowedFilter::custom('search', new BondSearchFilter()),

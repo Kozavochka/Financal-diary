@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CryptoRequest;
 use App\Models\Assets\Crypto;
 use App\Services\Filters\Crypto\CryptoSearchFilter;
-use App\Services\Sorts\Crypto\CryptoPriceSort;
+use App\Services\Sorts\TotalPriceSort;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -19,11 +19,12 @@ class AdminCryptoController extends Controller
         $page = request('page', 1);
         $perPage = request('per_page', 10);
 
-        $crypto = QueryBuilder::for(Crypto::class)
+        $cryptos = QueryBuilder::for(Crypto::class)
             ->allowedSorts([
                 'name',
                 'ticker',
-                AllowedSort::custom('price', new CryptoPriceSort()),
+                'lots',
+                AllowedSort::custom('price', new TotalPriceSort()),
             ])
             ->allowedFilters([
                 AllowedFilter::custom('search', new CryptoSearchFilter()),
@@ -31,7 +32,7 @@ class AdminCryptoController extends Controller
             ->paginate($perPage, '*', 'page', $page);
 
 
-        return view('admin.crypto.index', compact('crypto'));
+        return view('admin.crypto.index', compact('cryptos'));
     }
 
 
