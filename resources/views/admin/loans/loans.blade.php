@@ -11,8 +11,12 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Название</th>
-            <th scope="col">Стоимость</th>
-            <th scope="col">Количество компаний</th>
+            <th scope="col">Стоимость, RUB</th>
+            <th scope="col">% годовых</th>
+            <th scope="col">Тип погашения</th>
+            <th scope="col">Тип платежа</th>
+            <th scope="col">Число платежа</th>
+            <th scope="col">Дата окончания</th>
             <th scope="col">Действие</th>
         </tr>
         </thead>
@@ -21,8 +25,12 @@
             <tr>
                 <th scope="row">{{$loan->id}}</th>
                 <td>{{$loan->name}}</td>
-                <td>{{$loan->price}} RUB</td>
-                <td>{{$loan->count_bus}}</td>
+                <td>{{$loan->price}}</td>
+                <td>{{$loan->percent}}</td>
+                <td>{{\App\Enums\LoanRepaymentScheduleTypeEnum::getTranslate($loan->repayment_schedule_type)}}</td>
+                <td>{{\App\Enums\LoanPaymentTypeEnum::getTranslate($loan->payment_type)}}</td>
+                <td>{{$loan->payment_day}}</td>
+                <td>{{$loan->expiration_date}}</td>
                 <td><a href="{{route('admin.loans.edit', $loan)}}"><i class="fa-solid fa-pen"></i></a>
                     <form action="{{ route('admin.loans.destroy', $loan) }}" method="POST" class="d-inline">
                         @csrf

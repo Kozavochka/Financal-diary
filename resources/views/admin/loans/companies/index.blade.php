@@ -3,6 +3,10 @@
 
     <h1 class="mb-3">Юр лица</h1>
 
+    <div class="mb-2">
+        <a href="{{route('admin.loans.index')}}" class="btn btn-link">Перейти к займам</a>
+    </div>
+
     <div class="btn-group mt-2" role="group">
         <form action="{{ route('admin.company.index') }}" method="get" class="form-inline">
             <div class="form-group mr-1">

@@ -23,10 +23,6 @@ class LoanRequest extends FormRequest
                 'integer',
                 'exists:companies,id'
             ],
-            'name' => [
-                'required',
-                'string',
-            ],
             'price' => [
                 'numeric',
                 'required',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Assets;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoanRequest;
 use App\Models\Assets\Loan;
+use App\Models\Company;
 use App\Services\Filters\Loan\LoanSearchFilter;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -36,7 +37,9 @@ class AdminLoanController extends Controller
 
     public function create()
     {
-        return view('admin.loans.create');
+        $companies = Company::all();
+
+        return view('admin.loans.create', compact('companies'));
     }
 
 

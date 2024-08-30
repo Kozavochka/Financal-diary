@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreignIdFor(Direction::class);
             $table->foreignIdFor(Company::class);
 
-            $table->string('name');
             $table->float('price');
             $table->float('percent');
 

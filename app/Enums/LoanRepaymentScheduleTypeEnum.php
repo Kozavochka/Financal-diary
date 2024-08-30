@@ -17,4 +17,10 @@ class LoanRepaymentScheduleTypeEnum extends Enum
             'monthly' => 'Ежемесячно',
         ];
     }
+
+    public static function getTranslate($type): string
+    {
+        return self::values()[$type];
+    }
+
 }
