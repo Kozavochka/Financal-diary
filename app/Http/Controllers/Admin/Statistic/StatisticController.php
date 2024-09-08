@@ -46,6 +46,10 @@ class StatisticController extends Controller
 
         return view('admin.statistic.wait');
     }
+
+    /**
+     * Total statistic pie diagram
+     */
     public function totalStatistic()
     {
         $dataArray = $this->chartSerive
@@ -57,27 +61,16 @@ class StatisticController extends Controller
         return view('admin.statistic.total', compact('dataChart',  'data'));
     }
 
+    /**
+     * Asset statistic bar diagram
+     */
     public function assetsStatistic()
     {
-        $stocks = $this->chartSerive->getStocksData();
-
-        $crypto = Crypto::query()->get();
-
-        $industries = Industry::query()
-            ->withCount('stocks')
-            ->leftJoin('stocks', function($query) {
-                $query
-                    ->on('stocks.id', 'industries.id')
-                    ->whereNull('stocks.deleted_at');
-            })
-            ->addSelect(DB::raw('stocks.lots * stocks.price as total_price'))
-            ->get();
-
-        $bonds = Bond::query()->get();
+        $assetsDataCollection = $this->chartSerive->getAssetStatisticData();
 
         return view(
             'admin.statistic.assets',
-            compact('stocks','crypto','industries','bonds')
+            compact('assetsDataCollection')
         );
     }
 }

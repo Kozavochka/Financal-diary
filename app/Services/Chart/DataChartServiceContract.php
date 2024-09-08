@@ -6,8 +6,8 @@ interface DataChartServiceContract
 {
     const CHUNK_SIZE = 20;
 
-    public function getAssetsData();
-
     public function getChartData();
+
+    public function getAssetStatisticData();
 
 }

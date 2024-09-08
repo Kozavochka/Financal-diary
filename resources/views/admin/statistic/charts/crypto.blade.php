@@ -2,17 +2,17 @@
 <canvas class="default-chart-size" id="myCryptoChart"></canvas>
 <script>
     colors=[];
-    for(let i=0;i<{{$crypto->pluck('name')->count()}};i++){
+    for(let i=0;i<{{$assetsDataCollection['cryptos']->count()}};i++){
         this.colors.push('#'+Math.floor(Math.random()*16777215).toString(16));
     }
     var ctx = document.getElementById('myCryptoChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: {!! json_encode($crypto->pluck('name')) !!},
+            labels: {!! json_encode($assetsDataCollection['cryptos']->pluck('name')) !!},
             datasets: [{
                 label: 'Криптовалюта $',
-                data: {!! json_encode($crypto->pluck('price')) !!},
+                data: {!! json_encode($assetsDataCollection['cryptos']->pluck('total_price')) !!},
                 backgroundColor: this.colors
             }],
         },
