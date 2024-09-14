@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Settings;
 use App\Services\Api\Finance\PriceCurrencyHelper;
+use App\Services\Assets\AssetsServiceContract;
 use App\Services\DTO\SettingsDTO;
-use App\Services\Statistic\TotalStatisticServiceContract;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 
 class SettingsController extends Controller
 {
-    protected $stastisticSerivce;
+    protected $assetsService;
 
-    public function __construct(TotalStatisticServiceContract $statisticService)
+    public function __construct(AssetsServiceContract $assetsService)
     {
-        $this->stastisticSerivce = $statisticService;
+        $this->assetsService = $assetsService;
     }
 
     public function index()
@@ -34,6 +34,10 @@ class SettingsController extends Controller
     {
         DB::beginTransaction();
         try {
+
+            Cache::tags(['usd'])
+                ->flush();
+
             Settings::query()
                 ->where('key','usd_price')
                 ->update([
@@ -53,10 +57,13 @@ class SettingsController extends Controller
     {
         DB::beginTransaction();
         try {
+
+            Cache::delete('total_price');
+
             Settings::query()
                 ->where('key','total_price')
                 ->update([
-                    'value' => ['price' => $this->stastisticSerivce->getTotalPriceForSetting()]
+                    'value' => ['price' => $this->assetsService->getAssetsTotalPrice()]
                 ]);
         }
         catch (\Exception $exception){

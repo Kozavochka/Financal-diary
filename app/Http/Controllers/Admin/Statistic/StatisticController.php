@@ -3,17 +3,10 @@
 namespace App\Http\Controllers\Admin\Statistic;
 
 use App\Http\Controllers\Controller;
-use App\Models\Assets\Bond;
-use App\Models\Assets\Crypto;
-use App\Models\Assets\Stock;
-use App\Models\Industry;
 use App\Models\TotalStatistic;
 use App\Services\Chart\DataChartService;
 use App\Services\Statistic\TotalStatisticServiceContract;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Spatie\QueryBuilder\QueryBuilder;
-
 class StatisticController extends Controller
 {
     protected $service;
@@ -37,10 +30,12 @@ class StatisticController extends Controller
     }
     public function createDynamicStatistic()
     {
-        $statistic = TotalStatistic::query()->first();
+        $statistic = TotalStatistic::query()
+            ->orderByDesc('created_at')
+            ->first();
 
-        if ($statistic && Carbon::now()->diffInWeeks($statistic->created_at) < 1){
-            return back()->withError("Период записи меньше недели")->withInput();
+        if ($statistic && Carbon::now()->diffInDays($statistic->created_at) < 1){
+            return back()->withError("Период записи меньше суток")->withInput();
         }
         $this->service->calculate();
 
