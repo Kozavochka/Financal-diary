@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    {{-- NEED REFACTORING --}}
+
     <h1 class="mb-3">Статистика</h1>
     <form method="post" action="{{ route('statistic.dynamic.create') }}" >
         @csrf
@@ -12,35 +12,21 @@
     <table class="table table-bordered">
     <thead>
     <tr>
-        <th style="width: 10px">№</th>
-        <th>Дата</th>
-        <th>Общая сумма</th>
+        <th class="width-10">№</th>
+        <th class="max-width-100">Дата</th>
+        <th class="max-width-300">Общая сумма  RUB</th>
     </tr>
     </thead>
-    </table>
+        <tbody>
         @foreach($statistics as $statistic)
-        <table class="table table-bordered">
-            <tbody>
-            <tr data-toggle="collapse" data-target="#row{{$statistic->id}}" class="clickable">
-                <td style="width: 10px">{{$statistic->id}}</td>
-                <td>{{$statistic->created_at}}</td>
-                <td>{{$statistic->total_sum}} RUB</td>
+            <tr>
+                <td class="width-10">{{$statistic->id}}</td>
+                <td class="max-width-100">{{$statistic->created_at}}</td>
+                <td class="max-width-300">{{$statistic->total_sum}}</td>
             </tr>
-            @foreach($statistic->items as $item)
-            <tr id="row{{$statistic->id}}" class="collapse">
-                <td>
-                        <div >{{$item->direction->name}}</div>
-                </td>
-                <td>
-                    <div class="container" style="display: flex; justify-content: space-around">
-                        <div>{{$item->sum}} RUB</div>
-                        <div>N: {{$item->count}}</div>
-                    </div>
-                </td>
-            </tr>
-            @endforeach
-            </tbody>
-        </table>
         @endforeach
+        </tbody>
+    </table>
+
     @include('admin.statistic.charts.dynamic')
 @endsection

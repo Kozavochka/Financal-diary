@@ -2,11 +2,11 @@
 
 namespace App\Services\Statistic;
 
-use App\Models\Direction;
 use App\Models\Settings;
 use App\Models\TotalStatistic;
-use App\Models\TotalStatisticItem;
 use App\Services\Api\Finance\PriceCurrencyHelper;
+use App\Services\Assets\AssetsServiceContract;
+use Illuminate\Support\Facades\Cache;
 
 class TotalStatisticService implements TotalStatisticServiceContract
 {
@@ -17,92 +17,41 @@ class TotalStatisticService implements TotalStatisticServiceContract
     protected $totalSum = 0;
 
     protected $usdPrice = 90;
+
+    protected $userId;
+    private $assetsService;
+    public function __construct(
+        AssetsServiceContract $assetsService
+    )
+    {
+        $this->assetsService = $assetsService;
+    }
+
+    public function setUserId(int $userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
     /**
-     * Создание модельки статистики
+     * Create statistic model
      */
     public function createStatistic()
     {
-       $this->statistic = TotalStatistic::query()->create();
+       $this->statistic = TotalStatistic::query()->create([
+           'user_id' => $this->userId
+       ]);
 
        return $this;
     }
 
     /**
-     * Создание item'а статистики
-     * @return void
-     */
-    public function createItems()
-    {
-        foreach ($this->directions as $direction){
-            TotalStatisticItem::query()
-                ->create([
-                    'total_statistic_id' => $this->statistic->id,
-                    'direction_id' => $direction->id,
-                    'sum' =>   $this->getSumInfo($direction),
-                    'count' =>   $this->getCountInfo($direction),
-                ]);
-            $this->totalSum = bcadd($this->totalSum,$this->getSumInfo($direction),2);
-        }
-    }
-
-    /**
-     * Получение информации о сумме активов направления
-     * @param $direction
-     * @return int
-     */
-    public function getSumInfo($direction)//todo refactoring
-    {
-        if ($direction->stocks_sum_total_price != 0) return $direction->stocks_sum_total_price;
-
-        if ($direction->bonds_sum_price != 0) return $direction->bonds_sum_price;
-
-        if ($direction->funds_sum_price != 0) return $direction->funds_sum_price;
-
-        if ($direction->cryptos_sum_price != 0) return $direction->cryptos_sum_price * $this->usdPrice;
-
-        if ($direction->loans_sum_price != 0) return $direction->loans_sum_price;
-
-        if ($direction->deposits_sum_price !=0) return $direction->deposits_sum_price;
-
-        return 0;
-
-    }
-
-    /**
-     * Получение информации о количестве активов направления
-     * @param $direction
-     * @return int
-     */
-    public function getCountInfo($direction)//todo refactoring
-    {
-        if ($direction->stocks_count != 0) return $direction->stocks_count;
-
-        if ($direction->bonds_count != 0) return $direction->bonds_count;
-
-        if ($direction->funds_count != 0) return $direction->funds_count;
-
-        if ($direction->cryptos_count != 0) return $direction->cryptos_count;
-
-        if ($direction->loans_count != 0) return $direction->loans_count;
-
-        return 0;
-    }
-
-    /**
-     * Получение направлений
+     * Set total sum calculated by directions
      * @return $this
      */
-    public function getAssetsInfo()//todo refactoring
+    public function setTotalSum()
     {
-        $this->directions = Direction::query()
-            ->withCount(Direction::getDirections())
-            ->withSum('stocks','total_price')//todo
-            ->withSum('bonds','price')
-            ->withSum('funds','price')
-            ->withSum('cryptos','price')
-            ->withSum('loans','price')
-            ->withSum('deposits','price')
-            ->get();
+        $this->totalSum = $this->assetsService->getAssetsTotalPrice();
 
         return $this;
     }
@@ -113,14 +62,13 @@ class TotalStatisticService implements TotalStatisticServiceContract
      */
     public function calculate()
     {
-        $this->usdPrice =  PriceCurrencyHelper::getUSDPrice();
+        $this->usdPrice = PriceCurrencyHelper::getUSDPrice();
 
         $this->totalSum = 0;
 
         $this
             ->createStatistic()
-            ->getAssetsInfo()
-            ->createItems();
+            ->setTotalSum();
 
         $this->setTotalPriceForSetting();
 
@@ -129,30 +77,13 @@ class TotalStatisticService implements TotalStatisticServiceContract
     }
 
     /**
-     * Расчёт общей суммы для заполнения настройки
-     * @return double
-     */
-    public function getTotalPriceForSetting()
-    {
-        $this->usdPrice =  PriceCurrencyHelper::getUSDPrice();
-
-        $this->totalSum = 0;
-
-        $this->getAssetsInfo();
-
-        foreach ($this->directions as $direction){
-            $this->totalSum = bcadd($this->totalSum,$this->getSumInfo($direction),2);
-        }
-        if ($this->totalSum == 0 ) return 1;// для обработки деления на ноль
-
-        return $this->totalSum;
-    }
-    /**
-     * Обновление общей суммы в настройке после расчёта статистики
+     * Update USD price setting
      * @return $this
      */
     public function setTotalPriceForSetting()
     {
+        Cache::delete('total_price');
+
         Settings::query()
             ->where('key','total_price')
             ->update([

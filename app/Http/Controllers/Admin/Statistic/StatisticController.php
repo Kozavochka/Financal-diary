@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\Admin\Statistic;
 
 use App\Http\Controllers\Controller;
-use App\Models\Assets\Bond;
-use App\Models\Assets\Crypto;
-use App\Models\Assets\Stock;
-use App\Models\Cash;
-use App\Models\Industry;
+use App\Jobs\Statistic\CalculateDynamicStatisticJob;
 use App\Models\TotalStatistic;
 use App\Services\Chart\DataChartService;
 use App\Services\Statistic\TotalStatisticServiceContract;
 use Carbon\Carbon;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class StatisticController extends Controller
 {
@@ -31,51 +26,51 @@ class StatisticController extends Controller
 
     public function dynamicStatistic()
     {
-        $statistics = TotalStatistic::query()->paginate(10);
+        $statistics = TotalStatistic::query()
+            ->orderBy('created_at')
+            ->paginate(10);
 
         return view('admin.statistic.dynamic', compact('statistics'));
     }
     public function createDynamicStatistic()
     {
-        $statistic = TotalStatistic::query()->first();
+        $statistic = TotalStatistic::query()
+            ->orderByDesc('created_at')
+            ->first();
 
-        if ($statistic && Carbon::now()->diffInWeeks($statistic->created_at) < 1){
-            return back()->withError("Период записи меньше недели")->withInput();
+        if ($statistic && Carbon::now()->diffInDays($statistic->created_at) < 1){
+            return back()->withError("Период записи меньше суток")->withInput();
         }
-        $this->service->calculate();
+
+        CalculateDynamicStatisticJob::dispatch(auth()->user()->id);
 
         return view('admin.statistic.wait');
     }
+
+    /**
+     * Total statistic pie diagram
+     */
     public function totalStatistic()
     {
         $dataArray = $this->chartSerive
-            ->setAssetsData()
             ->getChartData();
 
         $dataChart = $dataArray['dataChart'];
-        $data = $dataArray['data'];
-        $cashSum = Cash::query()->sum('sum');//TODO кэш
-        return view('admin.statistic.total', compact('dataChart',  'data','cashSum'));
+        $data = $dataArray['assetsData'];
+
+        return view('admin.statistic.total', compact('dataChart',  'data'));
     }
 
+    /**
+     * Asset statistic bar diagram
+     */
     public function assetsStatistic()
     {
-        $stocks = QueryBuilder::for(Stock::class)
-            ->orderByRaw('total_price desc')//todo
-            ->get();
-
-        $crypto = Crypto::query()->get();
-
-        $industries = Industry::query()
-            ->withCount('stocks')
-            ->withSum('stocks','total_price')//todo
-            ->get();
-
-        $bonds = Bond::query()->get();
+        $assetsDataCollection = $this->chartSerive->getAssetStatisticData();
 
         return view(
             'admin.statistic.assets',
-            compact('stocks','crypto','industries','bonds')
+            compact('assetsDataCollection')
         );
     }
 }

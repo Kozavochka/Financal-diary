@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Assets\AssetsService;
+use App\Services\Assets\AssetsServiceContract;
 use App\Services\Chart\DataChartService;
 use App\Services\Chart\DataChartServiceContract;
 use App\Services\PDF\PdfExportSerivce;
@@ -40,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(PdfExportServiceContract::class, PdfExportSerivce::class);
         $this->app->singleton(TotalStatisticServiceContract::class, TotalStatisticService::class);
         $this->app->singleton(DataChartServiceContract::class, DataChartService::class);
+        $this->app->singleton(AssetsServiceContract::class, AssetsService::class);
 
 
         Relation::enforceMorphMap([

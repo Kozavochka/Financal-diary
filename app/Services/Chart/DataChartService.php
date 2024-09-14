@@ -2,69 +2,51 @@
 
 namespace App\Services\Chart;
 
-use App\Models\Assets\Bond;
-use App\Models\Assets\Crypto;
-use App\Models\Assets\Deposit;
-use App\Models\Assets\Fund;
-use App\Models\Assets\Loan;
-use App\Models\Settings;
-use Illuminate\Support\Facades\DB;
+use App\Services\Assets\AssetsServiceContract;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class DataChartService implements DataChartServiceContract
 {
-    private $data = [];
-
-    /**
-     * Заполнение данных по активам
-     * @return $this
-     */
-    public function setAssetsData()
+    private $assetsService;
+    public function __construct(AssetsServiceContract $assetsService)
     {
-        $usdPrice =  Settings::query()
-            ->where('key','usd_price')
-            ->first()->value['price'];
-        //Получение стоимости активов (актив => стоимость)
-        $this->data = [
-            'Акции' =>  DB::table('stocks')
-                ->selectRaw('SUM(price * lots) as total')
-                ->value('total'),
-
-            'Облигации' => Bond::query()->sum('price'),
-
-            'Криптовалюта' => round(Crypto::query()->sum('price') * $usdPrice,2),
-
-            'Займы' => Loan::query()->sum('price'),
-
-            'Фонды' => Fund::query()->sum('price'),
-
-            'Вклады' => Deposit::query()->sum('price'),
-        ];
-        return $this;
+            $this->assetsService = $assetsService;
     }
 
     /**
-     * Получение и возврат данных для графиков
+     * Get data for total statistic
      * @return array
      */
-    public function getChartData()
+    public function getChartData(): array
     {
-        $newData = [];//Массив значений стоимости (стоимость)
-
-        foreach ($this->data as $key => $value) {
-            $newData[] = $value;
-        }
+        $assetsData = $this->getAssetsData();
 
         $dataChart = [
-            'labels' => array_keys($this->data),//Получение названий (актив),
-            'numeric' => $newData,
-            'total' =>  array_sum($this->data),//Расчёт общей стоимости
+            'labels' => array_keys($assetsData),
+            'numeric' => Arr::flatten($assetsData),
+            'total' =>  array_sum($assetsData),
         ];
 
-        $dataChart['total'] =  $dataChart['total'] == 0 ? 1:$dataChart['total'];
+        $dataChart['total'] =  $dataChart['total'] == 0 ? 0:$dataChart['total'];
 
         return [
-           'dataChart' => $dataChart,
-            'data' =>$this->data
+            'dataChart' => $dataChart,
+            'assetsData' => $assetsData
         ];
+    }
+    /**
+     * @return array
+     */
+    private function getAssetsData(): array
+    {
+        return $this->assetsService
+            ->getDirectionsWithTotalPrice();
+    }
+
+    public function getAssetStatisticData(): Collection
+    {
+        return $this->assetsService
+            ->getAssetsWithPriceCollection();
     }
 }

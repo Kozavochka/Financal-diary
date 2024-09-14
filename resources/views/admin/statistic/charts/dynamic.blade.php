@@ -1,5 +1,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-<canvas class="default-chart-size" id="myDynamicChart"></canvas>
+<canvas id="myDynamicChart"></canvas>
 <script>
     colors=[];
     for(let i=0;i<{{$statistics->pluck('created_at')->count()}};i++){

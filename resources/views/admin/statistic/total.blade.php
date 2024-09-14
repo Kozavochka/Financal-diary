@@ -15,14 +15,13 @@
         @foreach($data as $key => $value)
             <tr>
                 <td>{{$key}}</td>
-                <td>{{$data[$key]}}</td>
-                <td>{{bcdiv($data[$key] / $dataChart['total'] * 100,1,0)}}</td>
+                <td>{{$value}}</td>
+                <td>
+                    @if($dataChart['total'] == 0) 0
+                    @else {{round($value / $dataChart['total'] * 100, 2)}} @endif
+                </td>
             </tr>
         @endforeach
-        <tr>
-            <td>Наличные</td>
-            <td>{{$cashSum}}</td>
-        </tr>
         </tbody>
     </table>
 

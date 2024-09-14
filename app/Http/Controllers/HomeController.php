@@ -26,14 +26,12 @@ class HomeController extends Controller
     public function index()
     {
         $dataArray = $this->chartSerive
-            ->setAssetsData()
             ->getChartData();
 
         $dataChart = $dataArray['dataChart'];
-        $data = $dataArray['data'];
-        $cashSum = Cash::query()->sum('sum');
+        $data = $dataArray['assetsData'];
 
-        return view('home', compact('data', 'dataChart','cashSum'));
+        return view('home', compact('data', 'dataChart'));
     }
 
     public function pdf_export()
