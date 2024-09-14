@@ -18,6 +18,7 @@ class TotalStatisticService implements TotalStatisticServiceContract
 
     protected $usdPrice = 90;
 
+    protected $userId;
     private $assetsService;
     public function __construct(
         AssetsServiceContract $assetsService
@@ -26,12 +27,20 @@ class TotalStatisticService implements TotalStatisticServiceContract
         $this->assetsService = $assetsService;
     }
 
+    public function setUserId(int $userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
     /**
      * Create statistic model
      */
     public function createStatistic()
     {
-       $this->statistic = TotalStatistic::query()->create();
+       $this->statistic = TotalStatistic::query()->create([
+           'user_id' => $this->userId
+       ]);
 
        return $this;
     }

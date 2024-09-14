@@ -4,6 +4,8 @@ namespace App\Services\Statistic;
 
 interface TotalStatisticServiceContract
 {
+    public function setUserId(int $userId);
+
     public function createStatistic();
 
     public function setTotalSum();

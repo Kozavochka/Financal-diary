@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin\Statistic;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Statistic\CalculateDynamicStatisticJob;
 use App\Models\TotalStatistic;
 use App\Services\Chart\DataChartService;
 use App\Services\Statistic\TotalStatisticServiceContract;
 use Carbon\Carbon;
+
 class StatisticController extends Controller
 {
     protected $service;
@@ -37,7 +39,8 @@ class StatisticController extends Controller
         if ($statistic && Carbon::now()->diffInDays($statistic->created_at) < 1){
             return back()->withError("Период записи меньше суток")->withInput();
         }
-        $this->service->calculate();
+
+        CalculateDynamicStatisticJob::dispatch(auth()->user()->id);
 
         return view('admin.statistic.wait');
     }
