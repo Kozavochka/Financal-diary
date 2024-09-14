@@ -27,7 +27,7 @@ class StatisticController extends Controller
     public function dynamicStatistic()
     {
         $statistics = TotalStatistic::query()
-            ->orderByDesc('created_at')
+            ->orderBy('created_at')
             ->paginate(10);
 
         return view('admin.statistic.dynamic', compact('statistics'));
