@@ -2,15 +2,9 @@
 
 namespace App\Services\Chart;
 
-use App\Models\Assets\Bond;
-use App\Models\Assets\Crypto;
-use App\Models\Assets\Deposit;
-use App\Models\Assets\Fund;
-use App\Models\Assets\Loan;
-use App\Models\Assets\Stock;
-use App\Models\Settings;
 use App\Services\Assets\AssetsServiceContract;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class DataChartService implements DataChartServiceContract
 {
@@ -50,8 +44,7 @@ class DataChartService implements DataChartServiceContract
             ->getDirectionsWithTotalPrice();
     }
 
-
-    public function getAssetStatisticData()
+    public function getAssetStatisticData(): Collection
     {
         return $this->assetsService
             ->getAssetsWithPriceCollection();

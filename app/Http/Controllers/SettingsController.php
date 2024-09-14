@@ -23,11 +23,11 @@ class SettingsController extends Controller
     {
         $settings = collect();
 
-        foreach (Settings::all() as $setting){
+        foreach (Settings::query()->orderBy('id')->get() as $setting) {
                 $settings->push(new SettingsDTO($setting));
         }
 
-        return view('settings.index',compact('settings'));
+        return view('settings.index', compact('settings'));
     }
 
     public function updateUsdPrice()
