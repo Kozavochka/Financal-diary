@@ -27,7 +27,8 @@ Route::resource('/bonds', AdminBondController::class)->names('admin.bonds');
 
 Route::resource('/funds',AdminFundController::class)->names('admin.funds');
 
-Route::resource('/loans', AdminLoanController::class)->names('admin.loans');
+Route::resource('/loans', AdminLoanController::class)->names('admin.loans')->except('show');
+Route::get('/loans/frontiers', [AdminLoanController::class, 'getFrontiers'])->name('admin.loans.frontiers');
 
 Route::resource('/crypto', AdminCryptoController::class)->names('admin.crypto');
 

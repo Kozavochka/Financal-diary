@@ -38,3 +38,4 @@ Route::get('/', [\App\Http\Controllers\Admin\AdminPanelController::class,'index'
 Route::post('/settings/update', [SettingsController::class,'updateSettings'])->name('settings.update');
 
 
+

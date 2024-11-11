@@ -7,11 +7,18 @@ use App\Http\Requests\LoanRequest;
 use App\Models\Assets\Loan;
 use App\Models\Company;
 use App\Services\Filters\Loan\LoanSearchFilter;
+use App\Services\Integrations\Frontiers\FrontiersIntegrationServiceContract;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminLoanController extends Controller
 {
+
+    private $frontiersIntegrationService;
+    public function __construct(FrontiersIntegrationServiceContract $frontiersIntegrationService)
+    {
+        $this->frontiersIntegrationService = $frontiersIntegrationService;
+    }
 
     public function index()
     {
@@ -73,5 +80,13 @@ class AdminLoanController extends Controller
         $loan->delete();
 
         return redirect(route('admin.loans.index'));
+    }
+
+    public function getFrontiers()
+    {
+        $frontiersData = $this->frontiersIntegrationService->getBalanceInfo();
+
+
+        return view('frontiers.index', compact('frontiersData'));
     }
 }
