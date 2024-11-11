@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Settings\UpdateSettingsRequest;
 use App\Models\Settings;
 use App\Services\Api\Finance\PriceCurrencyHelper;
 use App\Services\Assets\AssetsServiceContract;
@@ -22,8 +23,8 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = collect();
-
-        foreach (Settings::query()->orderBy('id')->get() as $setting) {
+        //todo зарефачить
+        foreach (Settings::query()->orderBy('id')->take(2)->get() as $setting) {
                 $settings->push(new SettingsDTO($setting));
         }
 
@@ -71,6 +72,22 @@ class SettingsController extends Controller
             abort(500);
         }
         DB::commit();
+
+        return redirect()->back();
+    }
+
+    public function updateSettings(UpdateSettingsRequest $request)
+    {
+//        dd($request->all());
+        foreach ($request->settings as $settingData) {
+            Settings::query()
+                ->updateOrCreate([
+                    'key' => $settingData['key']
+                ],
+                    [
+                        'value' => ['value' => $settingData['value']]
+                    ]);
+        }
 
         return redirect()->back();
     }
