@@ -6,6 +6,8 @@ use App\Services\Assets\AssetsService;
 use App\Services\Assets\AssetsServiceContract;
 use App\Services\Chart\DataChartService;
 use App\Services\Chart\DataChartServiceContract;
+use App\Services\Integrations\Frontiers\FrontiersIntegrationService;
+use App\Services\Integrations\Frontiers\FrontiersIntegrationServiceContract;
 use App\Services\PDF\PdfExportSerivce;
 use App\Services\PDF\PdfExportServiceContract;
 use App\Services\Statistic\TotalStatisticService;
@@ -43,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(TotalStatisticServiceContract::class, TotalStatisticService::class);
         $this->app->singleton(DataChartServiceContract::class, DataChartService::class);
         $this->app->singleton(AssetsServiceContract::class, AssetsService::class);
+        $this->app->singleton(FrontiersIntegrationServiceContract::class, FrontiersIntegrationService::class);
 
 
         Relation::enforceMorphMap([
