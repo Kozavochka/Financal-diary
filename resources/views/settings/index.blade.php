@@ -38,4 +38,25 @@
             </button>
         </form>
     </div>
+
+    <div class="mt-4">
+        <form method="post" action="{{ route('settings.update') }}" >
+            @csrf
+            <button class="btn btn-success me-2">
+                Обновить настройки FRONTIERS
+            </button>
+            <div class="flex">
+                <div class="mr-2">
+                    <label for="login" class="form-label">Логин</label>
+                    <input id="login"  name="settings[0][key]" class="form-control numeric-input" type="hidden" value="frontiers_login">
+                    <input id="login"  name="settings[0][value]" class="form-control numeric-input" type="text" required>
+                </div>
+                <div class="mr-2">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input id="login"  name="settings[1][key]" class="form-control numeric-input" type="hidden" value="frontiers_password">
+                    <input id="password"  name="settings[1][value]" class="form-control numeric-input" type="text" required>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection

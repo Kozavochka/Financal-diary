@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $repayment_schedule_type
  * @property string $payment_type
  * @property int $payment_day
+ * @property ?string $frontiers_uuid
  * @property Carbon $expiration_date
  * @property Company $company
  */
@@ -35,7 +36,8 @@ class Loan extends Model
         'repayment_schedule_type',
         'payment_type',
         'payment_day',
-        'expiration_date'
+        'expiration_date',
+        'frontiers_uuid'
     ];
 
     public static function boot() {

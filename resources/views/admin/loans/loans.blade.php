@@ -4,6 +4,7 @@
 
     <div class="mb-2">
         <a href="{{route('admin.company.index')}}" class="btn btn-link">Перейти к Юр лицам</a>
+        <a href="{{route('admin.loans.frontiers')}}" class="btn btn-link">Перейти к данным Frontiers</a>
     </div>
 
     <div class="btn-group mt-2" role="group">

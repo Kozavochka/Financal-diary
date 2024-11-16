@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Assets\AdminDepositController;
 use App\Http\Controllers\Admin\Assets\AdminFundController;
 use App\Http\Controllers\Admin\Assets\AdminLoanController;
 use App\Http\Controllers\Admin\Assets\AdminStockController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,5 +34,8 @@ Route::get('/', [AdminPanelController::class,'index'])->name('admin.index');
 Route::get('/set-tg',[AdminPanelController::class,'setTG'])->name('set-tg');
 
 Route::get('/', [\App\Http\Controllers\Admin\AdminPanelController::class,'index'])->name('admin.index');
+
+Route::post('/settings/update', [SettingsController::class,'updateSettings'])->name('settings.update');
+
 
 
