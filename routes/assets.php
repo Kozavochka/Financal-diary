@@ -29,6 +29,8 @@ Route::resource('/funds',AdminFundController::class)->names('admin.funds');
 
 Route::resource('/loans', AdminLoanController::class)->names('admin.loans')->except('show');
 Route::get('/loans/frontiers', [AdminLoanController::class, 'getFrontiers'])->name('admin.loans.frontiers');
+Route::post('/loans/frontiers/sync', [AdminLoanController::class, 'syncFrontiersLoans'])->name('admin.loans.frontiers_sync');
+
 
 Route::resource('/crypto', AdminCryptoController::class)->names('admin.crypto');
 

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $inn
  * @property string $ogrn
+ * @property ?string $frontiers_uuid
  */
 class Company extends Model
 {
@@ -22,6 +23,7 @@ class Company extends Model
         'name',
         'inn',
         'ogrn',
+        'frontiers_uuid'
     ];
 
     /**
