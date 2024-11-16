@@ -2,13 +2,22 @@
 
 namespace App\Services\Integrations\Frontiers;
 
+use App\Enums\LoanPaymentTypeEnum;
+use App\Enums\LoanRepaymentScheduleTypeEnum;
+use App\Models\Assets\Loan;
+use App\Models\Company;
 use App\Models\Settings;
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 final class FrontiersIntegrationService implements FrontiersIntegrationServiceContract
 {
-    const TOKEN_CACHE_TIME = 60 * 60;
+    const TOKEN_CACHE_TIME = 3 * 60;
+
+    CONST CURRENT_PAYED_STATUS = '40ce4cd6-518f-4fdf-baba-46e925243baf';
 
     private string $url;
 
@@ -46,7 +55,7 @@ final class FrontiersIntegrationService implements FrontiersIntegrationServiceCo
         };
 
         return Cache::tags(['integration','frontiers'])
-        ->remember('token', self::TOKEN_CACHE_TIME, $callback);
+        ->remember('token', self::TOKEN_CACHE_TIME + random_int(1, 10), $callback);
 
     }
 
@@ -71,5 +80,102 @@ final class FrontiersIntegrationService implements FrontiersIntegrationServiceCo
               2
           )
         ];
+    }
+
+    public function syncLoans(): void
+    {
+        //Принудительный сброс кэша
+        Cache::tags('frontiers')->flush();
+
+        $token = $this->getToken();
+        $companyId = $this->getCompanyId();
+
+        $investmentsResponse =  Http::withToken($token)
+            ->get($this->url . 'api/projects/my/investments', [
+                'companyId' => $companyId,
+                'statusId' => self::CURRENT_PAYED_STATUS,
+
+            ]);
+
+        if ($investmentsResponse->status() != '200') {
+            dd('error');
+        }
+        $data = $investmentsResponse->json();
+
+        $companies =  $this->syncCompanies(Arr::pluck($data,'borrower'));
+
+        $this->syncLoansData($data, $companies);
+    }
+
+    private function getCompanyId(): string
+    {
+        $token = $this->getToken();
+        $url = $this->url;
+
+        $callback = static function () use ($token, $url) {
+            $response = Http::withToken($token)
+                ->get($url . 'api/companies/documents');
+
+            if ($response->status() != '200') {
+                dd('error');
+            }
+
+
+            return $response->json()[0]['companyId'];
+        };
+
+        return Cache::tags(['integration','frontiers'])
+            ->remember('company_uuid', self::TOKEN_CACHE_TIME + random_int(1, 10), $callback);
+    }
+
+    private function syncCompanies(array $companiesData): Collection
+    {
+        $companiesCollection = collect();
+        foreach ($companiesData as $companyData) {
+            $companiesCollection->push(
+                Company::query()
+                    ->updateOrCreate(
+                        [
+                            'frontiers_uuid' => $companyData['id']
+                        ],
+                        [
+                            'name' => $companyData['shortName']
+                        ]
+                    )
+            )
+            ;
+        }
+
+        return $companiesCollection;
+    }
+
+    private function syncLoansData(array $frontiersLoansData, Collection $companies): void
+    {
+        foreach ($frontiersLoansData as $frontiersLoanData) {
+
+           Loan::query()
+                ->updateOrCreate(
+                    [
+                        'frontiers_uuid' => $frontiersLoanData['id']
+                    ],
+                    [
+                        'company_id' => $companies
+                            ->where('frontiers_uuid', $frontiersLoanData['borrower']['id'])->first()?->id,
+                        'price' => $frontiersLoanData['myInvestmentAmount'],
+
+                        'percent' => round((float)$frontiersLoanData['loanRate'] * 100, 2),
+
+                        'repayment_schedule_type' => $frontiersLoanData['scheduleType'] == 'MONTH' ?
+                            LoanRepaymentScheduleTypeEnum::monthly()->label : LoanRepaymentScheduleTypeEnum::quarterly()->label,
+
+                        'payment_type' => $frontiersLoanData['paymentType'] == 'COUPON' ?
+                            LoanPaymentTypeEnum::coupon()->label : LoanPaymentTypeEnum::annuity()->label,
+
+                        'payment_day' => Carbon::parse($frontiersLoanData['loanFundedAt'])?->day,
+
+                        'expiration_date' => Carbon::parse($frontiersLoanData['loanDue'])
+                    ]
+                );
+        }
     }
 }
