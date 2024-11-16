@@ -78,7 +78,6 @@ class SettingsController extends Controller
 
     public function updateSettings(UpdateSettingsRequest $request)
     {
-//        dd($request->all());
         foreach ($request->settings as $settingData) {
             Settings::query()
                 ->updateOrCreate([
