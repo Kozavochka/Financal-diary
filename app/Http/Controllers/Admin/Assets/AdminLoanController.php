@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Assets;
 
-use App\Enums\LoanRepaymentScheduleTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoanRequest;
 use App\Jobs\Frontiers\SyncFrontiersLoansJob;
@@ -95,7 +94,7 @@ class AdminLoanController extends Controller
 
     public function syncFrontiersLoans()
     {
-        SyncFrontiersLoansJob::dispatchSync();//todo
+        SyncFrontiersLoansJob::dispatch();
 
         return redirect()->back();
     }
