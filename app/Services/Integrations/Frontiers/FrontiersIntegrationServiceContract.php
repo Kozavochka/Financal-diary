@@ -9,4 +9,6 @@ interface FrontiersIntegrationServiceContract
     public function getBalanceInfo(): array;
 
     public function syncLoans();
+
+    public function syncReturnedLoans();
 }

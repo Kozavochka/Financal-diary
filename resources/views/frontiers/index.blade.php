@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 @section('content')
     <h1 class="mb-5">FRONTIERS</h1>
+    <div class="mb-2">
+        <a href="{{route('admin.loans.index')}}" class="btn btn-link">Перейти к займам</a>
+    </div>
 
     <div>
        <p>Всего на платформе: {{$frontiersData['total']}}</p>

@@ -19,6 +19,8 @@ final class FrontiersIntegrationService implements FrontiersIntegrationServiceCo
 
     CONST CURRENT_PAYED_STATUS = '40ce4cd6-518f-4fdf-baba-46e925243baf';
 
+    CONST RETURNED_STATUS = 'f739d9ff-a5d5-402a-b0c9-21c781db910c';
+
     private string $url;
 
     public function __construct()
@@ -47,10 +49,6 @@ final class FrontiersIntegrationService implements FrontiersIntegrationServiceCo
                 $loginData
             );
 
-            if($response->status() != '200') {
-                dd('error');
-            }
-
             return $response->json('token');
         };
 
@@ -65,10 +63,6 @@ final class FrontiersIntegrationService implements FrontiersIntegrationServiceCo
 
         $response = Http::withToken($token)
             ->get($this->url . 'api/users/me/balance');
-
-        if ($response->status() != '200') {
-            dd('error');
-        }
 
         return [
           'total' => (float)$response->json('investor.totalInvestmentAmount'),
@@ -97,12 +91,9 @@ final class FrontiersIntegrationService implements FrontiersIntegrationServiceCo
 
             ]);
 
-        if ($investmentsResponse->status() != '200') {
-            dd('error');
-        }
         $data = $investmentsResponse->json();
 
-        $companies =  $this->syncCompanies(Arr::pluck($data,'borrower'));
+        $companies = $this->syncCompanies(Arr::pluck($data,'borrower'));
 
         $this->syncLoansData($data, $companies);
     }
@@ -115,11 +106,6 @@ final class FrontiersIntegrationService implements FrontiersIntegrationServiceCo
         $callback = static function () use ($token, $url) {
             $response = Http::withToken($token)
                 ->get($url . 'api/companies/documents');
-
-            if ($response->status() != '200') {
-                dd('error');
-            }
-
 
             return $response->json()[0]['companyId'];
         };
@@ -177,5 +163,27 @@ final class FrontiersIntegrationService implements FrontiersIntegrationServiceCo
                     ]
                 );
         }
+    }
+
+    public function syncReturnedLoans(): void
+    {
+        $token = $this->getToken();
+        $companyId = $this->getCompanyId();
+
+        $investmentsResponse =  Http::withToken($token)
+            ->get($this->url . 'api/projects/my/investments', [
+                'companyId' => $companyId,
+                'statusId' => self::RETURNED_STATUS,
+
+            ]);
+
+        $this->syncReturnedLoansData($investmentsResponse->json());
+    }
+
+    private function syncReturnedLoansData(array $returnedLoansData): void
+    {
+        Loan::query()
+            ->whereIn('frontiers_uuid', Arr::pluck($returnedLoansData, 'id'))
+            ->delete();
     }
 }

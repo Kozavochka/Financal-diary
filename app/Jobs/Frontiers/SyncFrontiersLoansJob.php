@@ -30,10 +30,12 @@ class SyncFrontiersLoansJob implements ShouldQueue
 
         try {
             $frontiersIntegrationService->syncLoans();
+
+            $frontiersIntegrationService->syncReturnedLoans();
         }
         catch (\Throwable $exception) {
             DB::rollBack();
-            dump(123);
+
             throw $exception;
         }
 
