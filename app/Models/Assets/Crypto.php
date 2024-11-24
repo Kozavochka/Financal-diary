@@ -42,6 +42,6 @@ class Crypto extends Model
 
     public function getTotalPriceAttribute(): float
     {
-        return round($this->price * $this->lots, 3);
+        return $this->lots == 0 ? 0 : bcmul($this->price, $this->lots, 3);
     }
 }

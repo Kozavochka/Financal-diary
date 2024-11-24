@@ -29,9 +29,8 @@ class CryptoUpdateMethod implements UpdateAssetsPrice
 
             $data = json_decode($response->getBody(), true);
             $cryptoPrice = $data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
-            /*     dump($crypto->ticker ,$cryptoPrice);*/
 
-            $crypto->update(['price' => bcdiv($crypto->lots * $cryptoPrice,1,2)]);
+            $crypto->update(['price' => round($cryptoPrice, 3)]);
         }
     }
 
