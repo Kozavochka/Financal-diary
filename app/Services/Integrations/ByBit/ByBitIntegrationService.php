@@ -11,12 +11,12 @@ class ByBitIntegrationService implements ByBitIntegrationServiceContract
 {
     protected string $key;
 
-
     protected string $secret;
 
     protected BybitV5 $bybitClient;
 
     protected $cryptoUpdateService;
+
     const ACCOUNT_TYPE = 'UNIFIED';
 
     const USD_TICKER = 'USDT';
@@ -25,11 +25,9 @@ class ByBitIntegrationService implements ByBitIntegrationServiceContract
 
     const TICKER_CATEGORY = 'spot';
 
-
     public function __construct(
         CryptoUpdateMethod $cryptoUpdateService
-    )
-    {
+    ) {
         $this->key = config('services.integrations.bybit.key');
         $this->secret = config('services.integrations.bybit.secret');
         $this->bybitClient = new BybitV5($this->key, $this->secret);
