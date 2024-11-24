@@ -3,6 +3,7 @@
 namespace App\Services\Integrations\ByBit;
 
 use App\Models\Assets\Crypto;
+use App\Services\Api\Command\CryptoUpdateMethod;
 use Illuminate\Support\Arr;
 use Lin\Bybit\BybitV5;
 
@@ -15,12 +16,24 @@ class ByBitIntegrationService implements ByBitIntegrationServiceContract
 
     protected BybitV5 $bybitClient;
 
+    protected $cryptoUpdateService;
     const ACCOUNT_TYPE = 'UNIFIED';
-    public function __construct()
+
+    const USD_TICKER = 'USDT';
+
+    const DEFAULT_USDT_PRICE = 1;
+
+    const TICKER_CATEGORY = 'spot';
+
+
+    public function __construct(
+        CryptoUpdateMethod $cryptoUpdateService
+    )
     {
         $this->key = config('services.integrations.bybit.key');
         $this->secret = config('services.integrations.bybit.secret');
         $this->bybitClient = new BybitV5($this->key, $this->secret);
+        $this->cryptoUpdateService = $cryptoUpdateService;
     }
 
     public function getWalletInfo() {
@@ -30,6 +43,7 @@ class ByBitIntegrationService implements ByBitIntegrationServiceContract
         ]);
 
         if ($walletData['retMsg'] != 'OK' ) {
+
             abort(500, $walletData['retCode']);
         }
 
@@ -37,11 +51,24 @@ class ByBitIntegrationService implements ByBitIntegrationServiceContract
 
     }
 
-    public function syncCoins() {
+    public function syncCoins(): void
+    {
         $walletData = $this->getWalletInfo();
         $coinsData = Arr::first($walletData['result']['list'])['coin'];
 
         foreach ($coinsData as $coinData) {
+
+            $coinPriceData = $this->bybitClient->market()->getTickers([
+                'category' => self::TICKER_CATEGORY,
+                'symbol' => $coinData['coin'] . self::USD_TICKER
+            ]);
+
+
+            $price = $coinPriceData['retCode'] != 0 ? 0 :
+                round(Arr::first($coinPriceData['result']['list'])['lastPrice'], 4);
+
+            $price = $coinData['coin'] == self::USD_TICKER ? self::DEFAULT_USDT_PRICE : $price;
+
             Crypto::query()
                 ->updateOrCreate(
                     [
@@ -49,8 +76,8 @@ class ByBitIntegrationService implements ByBitIntegrationServiceContract
                     ],
                     [
                         'name' => $coinData['coin'],
-                        'lots' => $coinData['walletBalance'],
-                        'price' => 0
+                        'lots' => round($coinData['walletBalance'], 4),
+                        'price' => $price
                     ]
                 );
         }

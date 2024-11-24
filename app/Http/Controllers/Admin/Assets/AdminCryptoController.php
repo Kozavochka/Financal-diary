@@ -90,7 +90,7 @@ class AdminCryptoController extends Controller
 
     public function syncByBit()
     {
-        dd($this->bybitIntegrationService->syncCoins());
+        $this->bybitIntegrationService->syncCoins();
 
         return redirect()->back();
     }
