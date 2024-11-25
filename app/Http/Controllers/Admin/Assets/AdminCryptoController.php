@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CryptoRequest;
 use App\Models\Assets\Crypto;
 use App\Services\Filters\Crypto\CryptoSearchFilter;
+use App\Services\Integrations\ByBit\ByBitIntegrationServiceContract;
 use App\Services\Sorts\TotalPriceSort;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
@@ -13,6 +14,12 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminCryptoController extends Controller
 {
+
+    protected $bybitIntegrationService;
+    public function __construct(ByBitIntegrationServiceContract $bitIntegrationService) {
+        $this->bybitIntegrationService = $bitIntegrationService;
+    }
+
 
     public function index()
     {
@@ -79,5 +86,12 @@ class AdminCryptoController extends Controller
         $crypto->delete();
 
         return redirect(route('admin.crypto.index'));
+    }
+
+    public function syncByBit()
+    {
+        $this->bybitIntegrationService->syncCoins();
+
+        return redirect()->back();
     }
 }

@@ -33,6 +33,7 @@ Route::post('/loans/frontiers/sync', [AdminLoanController::class, 'syncFrontiers
 
 
 Route::resource('/crypto', AdminCryptoController::class)->names('admin.crypto');
+Route::post('/crypto/bybit/sync', [AdminCryptoController::class, 'syncByBit'])->name('admin.crypto.bybit_sync');
 
 Route::resource('/incomes', AdminIncomeController::class)->names('admin.incomes');
 

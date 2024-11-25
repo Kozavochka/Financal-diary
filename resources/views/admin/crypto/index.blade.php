@@ -2,6 +2,15 @@
 @section('content')
     <h1 class="mb-3">Криптовалюта</h1>
 
+    <div class="mb-2">
+        <form method="post" action="{{ route('admin.crypto.bybit_sync') }}" >
+            @csrf
+            <input id="ticker" name="sync" class="form-control ticker-input" type="hidden">
+            <button type="submit" class="btn btn-light"><i class="fa-solid fa-file-pdf">
+                </i> Синхронизировать ByBit</button>
+        </form>
+    </div>
+
     <div class="btn-group mt-2" role="group">
         <form action="{{ route('admin.crypto.index') }}" method="get" class="form-inline">
             <div class="form-group mr-1">

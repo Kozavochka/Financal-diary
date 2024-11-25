@@ -28,10 +28,12 @@ class CryptoUpdateMethod implements UpdateAssetsPrice
                 "apikey={$key}",['verify' => false]);
 
             $data = json_decode($response->getBody(), true);
-            $cryptoPrice = $data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
-            /*     dump($crypto->ticker ,$cryptoPrice);*/
 
-            $crypto->update(['price' => bcdiv($crypto->lots * $cryptoPrice,1,2)]);
+            $cryptoPrice = $data['Realtime Currency Exchange Rate']['5. Exchange Rate'] ?? '';
+
+            if (!empty($cryptoPrice)) {
+                $crypto->update(['price' => round($cryptoPrice, 3)]);
+            }
         }
     }
 
