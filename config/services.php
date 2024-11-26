@@ -33,11 +33,14 @@ return [
 
     'integrations' => [
         'frontiers' => [
-            'url' => env('FRONTIERS_URL'),
+            'url' => env('FRONTIERS_URL', ''),
         ],
         'bybit' => [
             'key' => env('BYBIT_API_KEY', ''),
             'secret' => env('BYBIT_SECRET', ''),
-        ]
+        ],
+        'moex' => [
+            'url' => env('MOEX_API_URL', '')
+        ],
     ]
 ];
