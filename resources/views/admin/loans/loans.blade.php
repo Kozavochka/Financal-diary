@@ -65,4 +65,37 @@
 
     {{$loans->withQueryString()->links('pagination::bootstrap-5')}}
     <div><a href="{{route('admin.loans.create')}}" class="btn btn-success">+ Добавить займ</a></div>
+
+    <h3 class="mt-2">Календарь выплат на {{ $month }}/{{ $year }}</h3>
+    <table class="loans_calendar_table">
+        <tr>
+            <th>Пн</th>
+            <th>Вт</th>
+            <th>Ср</th>
+            <th>Чт</th>
+            <th>Пт</th>
+            <th>Сб</th>
+            <th>Вс</th>
+        </tr>
+        @php
+            $daysInMonth = \Illuminate\Support\Carbon::createFromDate($year, $month)->daysInMonth;
+            $firstDayOfMonth = \Illuminate\Support\Carbon::createFromDate($year, $month)->startOfMonth()->dayOfWeekIso;
+        @endphp
+        @for ($i = 1; $i <= $daysInMonth + $firstDayOfMonth - 1; $i++)
+            @if ($i % 7 == 1)
+                <tr>
+                    @endif
+                    @if ($i < $firstDayOfMonth)
+                        <td></td>
+                    @else
+                        @php
+                            $day = $i - $firstDayOfMonth + 1;
+                        @endphp
+                        <td class="{{ in_array($day, $days) ? 'highlight' : '' }}">{{ $day }}</td>
+                    @endif
+                    @if ($i % 7 == 0)
+                </tr>
+            @endif
+        @endfor
+    </table>
 @endsection

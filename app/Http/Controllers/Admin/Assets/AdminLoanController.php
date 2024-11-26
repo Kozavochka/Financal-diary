@@ -9,6 +9,7 @@ use App\Models\Assets\Loan;
 use App\Models\Company;
 use App\Services\Filters\Loan\LoanSearchFilter;
 use App\Services\Integrations\Frontiers\FrontiersIntegrationServiceContract;
+use Illuminate\Support\Carbon;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -41,7 +42,12 @@ class AdminLoanController extends Controller
             ->defaultSorts('id')
             ->paginate($perPage, '*', 'page', $page);
 
-        return view('admin.loans.loans', compact('loans'));
+        $month = Carbon::now()->month;
+        $year = Carbon::now()->year;
+
+        $days = Loan::query()->pluck('payment_day')->unique()->toArray();
+
+        return view('admin.loans.loans', compact('loans', 'month', 'year', 'days'));
     }
 
 
