@@ -3,7 +3,7 @@
 namespace App\Services\Integrations\ByBit;
 
 use App\Models\Assets\Crypto;
-use App\Services\Api\Command\CryptoUpdateMethod;
+use App\Services\Api\Command\CryptoPriceUpdateService;
 use Illuminate\Support\Arr;
 use Lin\Bybit\BybitV5;
 
@@ -26,7 +26,7 @@ class ByBitIntegrationService implements ByBitIntegrationServiceContract
     const TICKER_CATEGORY = 'spot';
 
     public function __construct(
-        CryptoUpdateMethod $cryptoUpdateService
+        CryptoPriceUpdateService $cryptoUpdateService
     ) {
         $this->key = config('services.integrations.bybit.key');
         $this->secret = config('services.integrations.bybit.secret');

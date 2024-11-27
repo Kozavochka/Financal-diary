@@ -42,5 +42,9 @@ return [
         'moex' => [
             'url' => env('MOEX_API_URL', '')
         ],
+        'alphavantage' => [
+            'url' => env('MY_ALPHAVANTAGE_API_URL', ''),
+            'key' => env('MY_ALPHAVANTAGE_API_KEY', ''),
+        ]
     ]
 ];

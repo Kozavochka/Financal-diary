@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Api\Command\CryptoUpdateMethod;
+use App\Services\Api\Command\CryptoPriceUpdateService;
 use Illuminate\Console\Command;
 
 class UpdateCryptoPrice extends Command
@@ -14,7 +14,7 @@ class UpdateCryptoPrice extends Command
     protected $description = 'Update crypto price by using API';
 
     protected $service;
-    public function __construct(CryptoUpdateMethod $service)
+    public function __construct(CryptoPriceUpdateService $service)
     {
         parent::__construct();
 
@@ -24,6 +24,6 @@ class UpdateCryptoPrice extends Command
     {
         $this->service->update();
 
-       dd('Update success');
+        return Command::SUCCESS;
     }
 }

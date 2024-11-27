@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Api\Command\StockPriceUpdateMethod;
+use App\Services\Api\Command\StockPriceUpdateService;
 use Illuminate\Console\Command;
 
 class UpdateStockPrice extends Command
@@ -13,7 +13,7 @@ class UpdateStockPrice extends Command
     protected $description = 'Update stock price by MOEX API';
 
     protected $service;
-    public function __construct(StockPriceUpdateMethod $service)
+    public function __construct(StockPriceUpdateService $service)
     {
         parent::__construct();
 
@@ -25,6 +25,6 @@ class UpdateStockPrice extends Command
 
         $this->service->update();
 
-        dd('Update success');
+        return Command::SUCCESS;
     }
 }
