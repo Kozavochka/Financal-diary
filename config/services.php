@@ -33,11 +33,18 @@ return [
 
     'integrations' => [
         'frontiers' => [
-            'url' => env('FRONTIERS_URL'),
+            'url' => env('FRONTIERS_URL', ''),
         ],
         'bybit' => [
             'key' => env('BYBIT_API_KEY', ''),
             'secret' => env('BYBIT_SECRET', ''),
+        ],
+        'moex' => [
+            'url' => env('MOEX_API_URL', '')
+        ],
+        'alphavantage' => [
+            'url' => env('MY_ALPHAVANTAGE_API_URL', ''),
+            'key' => env('MY_ALPHAVANTAGE_API_KEY', ''),
         ]
     ]
 ];
