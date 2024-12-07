@@ -5,10 +5,11 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.2",
         "doctrine/dbal": "^3.6",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.7",
+        "illuminate/support": "^8.77|^9.27",
         "irazasyed/telegram-bot-sdk": "^3.13",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
@@ -19,6 +20,7 @@
         "maatwebsite/excel": "^3.1.48",
         "opcodesio/log-viewer": "^3.10",
         "php-open-source-saver/jwt-auth": "^2.1",
+        "phpoffice/phpspreadsheet": "*",
         "spatie/enum": "^3.13",
         "spatie/laravel-query-builder": "^5.2"
     },
