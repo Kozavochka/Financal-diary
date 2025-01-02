@@ -66,10 +66,8 @@ services:
     <<: *php-config
     working_dir: /var/www
     ports:
-      - "8000:8000"
+#      - "8000:8000"
       - "9000:9000"
-#    stdin_open: true
- #   tty: true
     networks:
       - fin
   # Nginx
@@ -94,6 +92,15 @@ services:
     depends_on:
       - php
 
+  buggregator:
+      image: ghcr.io/buggregator/server:dev
+      ports:
+          - "127.0.0.1:8000:8000"
+          - "127.0.0.1:1025:1025"
+          - "127.0.0.1:9912:9912"
+          - "127.0.0.1:9913:9913"
+      networks:
+          - fin
 networks:
   fin:
     driver: bridge
