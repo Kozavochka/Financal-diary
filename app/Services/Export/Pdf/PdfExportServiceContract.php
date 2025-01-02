@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\PDF;
+namespace App\Services\Export\Pdf;
 
 interface PdfExportServiceContract
 {

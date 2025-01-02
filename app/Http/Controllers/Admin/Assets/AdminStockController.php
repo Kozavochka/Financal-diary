@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
 use App\Models\Assets\Stock;
 use App\Models\Industry;
+use App\Services\Export\Pdf\Stock\StockPdfExportService;
 use App\Services\Filters\Stock\StockNameContainsFilter;
 use App\Services\Sorts\TotalPriceSort;
 use Maatwebsite\Excel\Facades\Excel;
@@ -92,8 +93,21 @@ class AdminStockController extends Controller
         return redirect(route('admin.stocks.index'));
     }
 
+    public function show(Stock $stock)
+    {
+
+    }
     public function excel_export()
     {
         return Excel::download(new StocksExport, 'stocks.xlsx');
+    }
+
+    public function pdf_export()
+    {
+        /** @var StockPdfExportService $pdfService */
+        $pdfService = resolve(StockPdfExportService::class);
+        $pdfService->export();
+
+        return redirect(route('admin.stocks.index'));
     }
 }

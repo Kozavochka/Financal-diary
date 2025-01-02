@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\PDF;
+namespace App\Services\Export\Pdf;
 
 use App\Models\Assets\Bond;
 use App\Models\Assets\Crypto;
@@ -95,7 +95,7 @@ class PdfExportSerivce implements PdfExportServiceContract
         $options->setIsRemoteEnabled(true);//подключение библиотек по ссылкам
 
         $this->pdf = new Dompdf($options);
-        $this->pdf->set_base_path(public_path('css/pdf'));//Где искать css файлы
+        $this->pdf->setBasePath(public_path('css/pdf'));//Где искать css файлы
 
 
         $this->loadHtml();
