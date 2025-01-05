@@ -66,12 +66,14 @@ services:
     <<: *php-config
     working_dir: /var/www
     ports:
-      - "8000:8000"
+#      - "8000:8000"
       - "9000:9000"
-#    stdin_open: true
- #   tty: true
     networks:
       - fin
+    depends_on:
+        - database
+        - nginx
+
   # Nginx
   nginx:
     container_name: fin-nginx
@@ -93,6 +95,30 @@ services:
       - fin
     depends_on:
       - php
+
+  # Horizon
+  horizon:
+    container_name: fin-horizon
+    <<: *php-config
+    command: php artisan horizon
+    networks:
+        - fin
+    depends_on:
+        - php
+
+  # Buggregator
+  buggregator:
+      container_name: fin-buggregator
+      image: ghcr.io/buggregator/server:dev
+      ports:
+          - "127.0.0.1:8000:8000"
+          - "127.0.0.1:1025:1025"
+          - "127.0.0.1:9912:9912"
+          - "127.0.0.1:9913:9913"
+      networks:
+          - fin
+      depends_on:
+          - php
 
 networks:
   fin:
