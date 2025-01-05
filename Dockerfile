@@ -22,6 +22,9 @@ RUN apt update && \
     apt -y --no-install-recommends install libonig-dev libxml2-dev zlib1g-dev libzip-dev libcurl4-openssl-dev && \
     docker-php-ext-install mysqli bcmath mbstring xml ctype zip pdo_mysql curl filter && \
     docker-php-ext-install pdo_pgsql
+
+RUN docker-php-ext-install pcntl
+
 #Redis
 RUN pecl install -o -f redis \
     && rm -rf /tmp/pear \
