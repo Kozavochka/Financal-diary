@@ -6,8 +6,10 @@ namespace App\Http\Controllers\Admin\Assets;
 use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
+use App\Jobs\Export\Pdf\StockPdfExportJob;
 use App\Models\Assets\Stock;
 use App\Models\Industry;
+use App\Services\Export\Pdf\AbstractPdfExportService;
 use App\Services\Filters\Stock\StockNameContainsFilter;
 use App\Services\Sorts\TotalPriceSort;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,6 +20,12 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminStockController extends Controller
 {
+
+    private $pdfExportService;
+    public function __construct(AbstractPdfExportService $pdfExportService)
+    {
+        $this->pdfExportService = $pdfExportService;
+    }
 
     public function index()
     {
@@ -37,7 +45,10 @@ class AdminStockController extends Controller
             ])
             ->paginate($perPage, '*', 'page', $page);
 
-        return view('admin.stocks.stocks', compact('stocks'));
+        $isPdfExportExist = $this->pdfExportService
+            ->checkExport();
+
+        return view('admin.stocks.stocks', compact('stocks','isPdfExportExist'));
 
     }
 
@@ -92,8 +103,25 @@ class AdminStockController extends Controller
         return redirect(route('admin.stocks.index'));
     }
 
+    public function show(Stock $stock)
+    {
+
+    }
     public function excel_export()
     {
         return Excel::download(new StocksExport, 'stocks.xlsx');
+    }
+
+    public function pdf_export()
+    {
+        StockPdfExportJob::dispatch();
+
+        return redirect(route('admin.stocks.index'));
+    }
+
+    public function downloadPdfExport()
+    {
+        return $this->pdfExportService
+            ->downloadExport();
     }
 }

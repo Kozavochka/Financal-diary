@@ -8,6 +8,7 @@
         "php": "^8.2",
         "ext-pcntl": "*",
         "ext-posix": "*",
+        "barryvdh/laravel-dompdf": "^2.2",
         "doctrine/dbal": "^3.6",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.7",

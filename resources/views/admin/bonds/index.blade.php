@@ -72,6 +72,14 @@
 </div>
 <div class="btn-group mt-2" role="group">
     <a href="{{route('admin.bonds.create')}}" class="btn btn-default me-2">+ Добавить облигацию</a>
+    <form method="post" action="{{ route('bond_pdf_export') }}" >
+        @csrf
+        <button class="btn btn-link me-2">Создать файл экспорта PDF</button>
+        <input id="action"  name="action" class="form-control numeric-input" type="hidden" value="">
+    </form>
+    @if($isPdfExportExist)
+        <a href="{{route('download_bond_pdf_export')}}" class="btn btn-success me-2">Скачать PDF экспорт</a>
+    @endif
 </div>
 
 @endsection

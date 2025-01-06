@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin\Assets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BondRequest;
+use App\Jobs\Export\Pdf\BondPdfExportJob;
 use App\Models\Assets\Bond;
+use App\Services\Export\Pdf\AbstractPdfExportService;
 use App\Services\Filters\Bond\BondSearchFilter;
 use App\Services\Sorts\TotalPriceSort;
 use Carbon\Carbon;
@@ -15,6 +17,12 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminBondController extends Controller
 {
+
+    private $pdfExportService;
+    public function __construct(AbstractPdfExportService $pdfExportService)
+    {
+        $this->pdfExportService = $pdfExportService;
+    }
 
     public function index()
     {
@@ -37,7 +45,11 @@ class AdminBondController extends Controller
             ->defaultSort('coupon_percent')
             ->paginate($perPage, '*', 'page', $page);
 
-        return view('admin.bonds.index', compact('bonds'));
+
+        $isPdfExportExist = $this->pdfExportService
+            ->checkExport();
+
+        return view('admin.bonds.index', compact('bonds','isPdfExportExist'));
     }
 
 
@@ -83,5 +95,18 @@ class AdminBondController extends Controller
         $bond->delete();
 
         return redirect(route('admin.bonds.index'));
+    }
+
+    public function pdf_export()
+    {
+        BondPdfExportJob::dispatch();
+
+        return redirect(route('admin.bonds.index'));
+    }
+
+    public function downloadPdfExport()
+    {
+        return $this->pdfExportService
+            ->downloadExport();
     }
 }

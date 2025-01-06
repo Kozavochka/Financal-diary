@@ -86,16 +86,6 @@ services:
     networks:
       - fin
 
-  # Queue
-  queue:
-    container_name: fin-queue
-    <<: *php-config
-    command: php artisan queue:work
-    networks:
-      - fin
-    depends_on:
-      - php
-
   # Horizon
   horizon:
     container_name: fin-horizon
@@ -120,6 +110,15 @@ services:
       depends_on:
           - php
 
+  # Scheduler
+  scheduler:
+      container_name: fin-scheduler
+      <<: *php-config
+      command: php artisan schedule:work
+      depends_on:
+          - php
+      networks:
+          - fin
 networks:
   fin:
     driver: bridge

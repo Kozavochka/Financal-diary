@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/stocks', AdminStockController::class)->names('admin.stocks');
 Route::get('stocks/export', [AdminStockController::class, 'excel_export'])->name('excel_export');
 
+
 Route::resource('/bonds', AdminBondController::class)->names('admin.bonds');
 
 Route::resource('/funds',AdminFundController::class)->names('admin.funds');
