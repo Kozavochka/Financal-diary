@@ -3,6 +3,7 @@
 namespace App\Services\Export\Pdf;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 abstract class AbstractPdfExportService
@@ -18,10 +19,18 @@ abstract class AbstractPdfExportService
         $this->pdf = new Pdf();
     }
 
+    public function checkExport(): bool
+    {
+        return Storage::exists($this->getFilePath());
+    }
+
+    public function downloadExport(): StreamedResponse
+    {
+        return Storage::download($this->getFilePath());
+    }
+
     abstract public function export(): void;
 
-    abstract public function checkExport(): bool;
-
-    abstract public function downloadExport(): StreamedResponse;
+    abstract protected function getFilePath();
 
 }

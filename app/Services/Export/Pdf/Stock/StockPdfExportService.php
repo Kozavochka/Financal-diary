@@ -4,7 +4,7 @@ namespace App\Services\Export\Pdf\Stock;
 
 
 use App\Models\Assets\Stock;
-use App\Services\DTO\StockDTO;
+use App\Services\DTO\Assets\StockDTO;
 use App\Services\Export\Pdf\AbstractPdfExportService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -23,17 +23,7 @@ class StockPdfExportService extends AbstractPdfExportService
         $this->exportData();
     }
 
-    public function checkExport(): bool
-    {
-       return Storage::exists($this->getFilePath());
-    }
-
-    public function downloadExport(): StreamedResponse
-    {
-        return Storage::download($this->getFilePath());
-    }
-
-    private function getFilePath(): string
+    protected function getFilePath(): string
     {
         return self::STORAGE_DIRECTORY_NAME . self::SUB_DIRECTORY. self::FILE_NAME . '.pdf';
     }

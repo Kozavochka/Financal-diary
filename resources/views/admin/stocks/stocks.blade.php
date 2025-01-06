@@ -61,13 +61,13 @@
     <div class="btn-group" role="group">
         <a href="{{route('admin.stocks.create')}}" class="btn btn-default me-2">+ Добавить акцию</a>
         <a href="{{route('excel_export')}}" class="btn btn-success me-2">Excel</a>
-        <form method="post" action="{{ route('pdf_export') }}" >
+        <form method="post" action="{{ route('stock_pdf_export') }}" >
             @csrf
             <button class="btn btn-link me-2">Создать файл экспорта PDF</button>
             <input id="action"  name="action" class="form-control numeric-input" type="hidden" value="">
         </form>
         @if($isPdfExportExist)
-            <a href="{{route('download__stock_pdf_export')}}" class="btn btn-success me-2">Скачать PDF экспорт</a>
+            <a href="{{route('download_stock_pdf_export')}}" class="btn btn-success me-2">Скачать PDF экспорт</a>
         @endif
     </div>
 

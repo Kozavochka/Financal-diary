@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\DTO;
+namespace App\Services\DTO\Assets;
 
 use App\Models\Assets\Stock;
 
