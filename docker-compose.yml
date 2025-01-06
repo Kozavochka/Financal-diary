@@ -110,11 +110,15 @@ services:
       depends_on:
           - php
 
+  # Scheduler
   scheduler:
+      container_name: fin-scheduler
       <<: *php-config
       command: php artisan schedule:work
       depends_on:
           - php
+      networks:
+          - fin
 networks:
   fin:
     driver: bridge
