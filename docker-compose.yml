@@ -110,6 +110,11 @@ services:
       depends_on:
           - php
 
+  scheduler:
+      <<: *php-config
+      command: php artisan schedule:work
+      depends_on:
+          - php
 networks:
   fin:
     driver: bridge
