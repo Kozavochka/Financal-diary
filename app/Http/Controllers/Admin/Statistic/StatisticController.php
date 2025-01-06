@@ -54,7 +54,7 @@ class StatisticController extends Controller
 
         CalculateDynamicStatisticJob::dispatch(auth()->user()->id);
 
-        return view('admin.statistic.wait');
+        return redirect()->back();
     }
 
     /**
