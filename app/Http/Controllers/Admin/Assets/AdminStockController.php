@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin\Assets;
 use App\Exports\StocksExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
+use App\Jobs\Export\Pdf\StockPdfExportJob;
 use App\Models\Assets\Stock;
 use App\Models\Industry;
 use App\Services\Export\Pdf\AbstractPdfExportService;
@@ -113,8 +114,7 @@ class AdminStockController extends Controller
 
     public function pdf_export()
     {
-        $this->pdfExportService
-            ->export();
+        StockPdfExportJob::dispatch();
 
         return redirect(route('admin.stocks.index'));
     }
