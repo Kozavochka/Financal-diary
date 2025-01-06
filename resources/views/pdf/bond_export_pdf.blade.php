@@ -58,7 +58,7 @@
                     <tr>
                         <th scope="row">{{$loop->index + 1}}</th>
                         <td>{{$bondTO->getName()}}</td>
-                        <td>{{$bondTO->getStockTicker()}}</td>
+                        <td>{{$bondTO->getTicker()}}</td>
                         <td>{{$bondTO->getLots()}}</td>
                         <td>{{$bondTO->getTotalPrice()}}</td>
                         <td>{{$bondTO->getCouponPercent()}}</td>

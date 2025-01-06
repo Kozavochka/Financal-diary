@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\Controllers\Admin\Assets\AdminBondController;
 use App\Http\Controllers\Admin\Assets\AdminStockController;
+use App\Http\Controllers\Admin\Statistic\StatisticController;
 use App\Services\Assets\AssetsService;
 use App\Services\Assets\AssetsServiceContract;
 use App\Services\Chart\DataChartService;
@@ -12,6 +13,7 @@ use App\Services\Export\Pdf\AbstractPdfExportService;
 use App\Services\Export\Pdf\Bond\BondPdfExportService;
 use App\Services\Export\Pdf\PdfExportSerivce;
 use App\Services\Export\Pdf\PdfExportServiceContract;
+use App\Services\Export\Pdf\Statistic\StatisticAssetPdfExportService;
 use App\Services\Export\Pdf\Stock\StockPdfExportService;
 use App\Services\Integrations\Akphavantage\AlphavantageIntegrationService;
 use App\Services\Integrations\Akphavantage\AplhavantageIntegrationServiceContract;
@@ -66,6 +68,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->when(AdminBondController::class)
             ->needs(AbstractPdfExportService::class)
             ->give(BondPdfExportService::class);
+
+        $this->app->when(StatisticController::class)
+            ->needs(AbstractPdfExportService::class)
+            ->give(StatisticAssetPdfExportService::class);
 
         Relation::enforceMorphMap([
             'income' => 'App\Models\Income',

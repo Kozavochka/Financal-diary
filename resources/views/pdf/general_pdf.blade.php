@@ -14,7 +14,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
     <link type="text/css"  rel="stylesheet" href="pdf.css">
-
+    <style>
+        @font-face {
+            font-family: "DejaVu Sans";
+            font-style: normal;
+            font-weight: 400;
+            src: url("/fonts/dejavu-sans/DejaVuSans.ttf");
+            /* IE9 Compat Modes */
+            src:
+                local("DejaVu Sans"),
+                local("DejaVu Sans"),
+                url("/fonts/dejavu-sans/DejaVuSans.ttf") format("truetype");
+        }
+        body {
+            font-family: "DejaVu Sans";
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -37,7 +53,7 @@
                     <tr>
                         <td>{{$key}}</td>
                         <td>{{$dataSum[$key]}}</td>
-                        <td>{{bcdiv($dataSum[$key] / $total * 100,1,0)}}</td>
+                        <td>{{bcdiv($dataSum[$key] / ($total == 0 ? 1 : $total) * 100,2)}}</td>
                     </tr>
                 @endforeach
                 <tr>
@@ -57,17 +73,19 @@
                 <th scope="col">Название</th>
                 <th scope="col">Тикер</th>
                 <th scope="col">Отрасль</th>
+                <th scope="col">Лоты</th>
                 <th scope="col">Стоимость</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($data['stocks'] as $stock)
+            @foreach($data['stocks'] as $stockDTO)
                 <tr>
                     <th scope="row">{{$loop->index + 1}}</th>
-                    <td>{{$stock->name}}</td>
-                    <td>{{$stock->ticker}}</td>
-                    <td>{{$stock->industry->name}}</td>
-                    <td>{{$stock->total_price}} RUB</td>
+                    <td>{{$stockDTO->getStockName()}}</td>
+                    <td>{{$stockDTO->getStockTicker()}}</td>
+                    <td>{{$stockDTO->getStockIndustryName()}}</td>
+                    <td>{{$stockDTO->getStockLots()}}</td>
+                    <td>{{$stockDTO->getStockTotalPrice()}}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -100,20 +118,22 @@
                 <th scope="col">#</th>
                 <th scope="col">Название</th>
                 <th scope="col">Тикер</th>
-                <th scope="col">Купон <br> RUB</th>
-                <th scope="col">%</th>
+                <th scope="col">Лотов</th>
+                <th scope="col">Стоимость <br> RUB</th>
+                <th scope="col">Купон %</th>
                 <th scope="col">Дата погашения</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($data['bonds'] as $bond)
+            @foreach($data['bonds'] as $bondDTO)
                 <tr>
                     <th scope="row">{{$loop->index +1}}</th>
-                    <td>{{$bond->name}}</td>
-                    <td>{{$bond->ticker}}</td>
-                    <td>{{$bond->coupon}}</td>
-                    <td>{{$bond->profit_percent}}</td>
-                    <td>{{$bond->expiration_date}}</td>
+                    <td>{{$bondDTO->getName()}}</td>
+                    <td>{{$bondDTO->getTicker()}}</td>
+                    <td>{{$bondDTO->getLots()}}</td>
+                    <td>{{$bondDTO->getTotalPrice()}}</td>
+                    <td>{{$bondDTO->getCouponPercent()}}</td>
+                    <td>{{$bondDTO->getExpirationDate()}}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -131,12 +151,12 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($data['funds'] as $fund)
+            @foreach($data['funds'] as $fundDTO)
                 <tr>
                     <th scope="row">{{$loop->index +1}}</th>
-                    <td>{{$fund->name}}</td>
-                    <td>{{$fund->ticker}}</td>
-                    <td>{{$fund->price}}</td>
+                    <td>{{$fundDTO->getName()}}</td>
+                    <td>{{$fundDTO->getTicker()}}</td>
+                    <td>{{$fundDTO->getTotalPrice()}}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -151,15 +171,17 @@
                 <th scope="col">Название</th>
                 <th scope="col">Тикер</th>
                 <th scope="col">Стоимость <br> USD</th>
+                <th scope="col">Лоты</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($data['crypto'] as $crypto)
+            @foreach($data['crypto'] as $cryptoDTO)
                 <tr>
                     <th scope="row">{{$loop->index +1}}</th>
-                    <td>{{$crypto->name}}</td>
-                    <td>{{$crypto->ticker}}</td>
-                    <td>{{$crypto->price}}</td>
+                    <td>{{$cryptoDTO->getName()}}</td>
+                    <td>{{$cryptoDTO->getTicker()}}</td>
+                    <td>{{$cryptoDTO->getTotalPrice()}}</td>
+                    <td>{{$cryptoDTO->getLots()}}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -171,18 +193,18 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Название</th>
+                <th scope="col">Компания</th>
                 <th scope="col">Стоимость</th>
-                <th scope="col">Количество компаний</th>
+                <th scope="col">% годовых</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($data['loans'] as $loan)
+            @foreach($data['loans'] as $loanDTO)
                 <tr>
                     <th scope="row">{{$loop->index +1}}</th>
-                    <td>{{$loan->name}}</td>
-                    <td>{{$loan->price}}</td>
-                    <td>{{$loan->count_bus}}</td>
+                    <td>{{$loanDTO->getCompanyName()}}</td>
+                    <td>{{$loanDTO->getPrice()}}</td>
+                    <td>{{$loanDTO->getPercent()}}</td>
                 </tr>
             @endforeach
             </tbody>

@@ -25,7 +25,7 @@ class BondDTO
     /**
      * @return string
      */
-    public function getStockTicker(): string
+    public function getTicker(): string
     {
        return $this->bond->ticker;
     }
