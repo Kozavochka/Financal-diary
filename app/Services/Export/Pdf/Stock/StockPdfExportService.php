@@ -3,7 +3,10 @@
 namespace App\Services\Export\Pdf\Stock;
 
 
+use App\Models\Assets\Stock;
+use App\Services\DTO\StockDTO;
 use App\Services\Export\Pdf\AbstractPdfExportService;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -17,7 +20,7 @@ class StockPdfExportService extends AbstractPdfExportService
     {
         Storage::deleteDirectory(self::STORAGE_DIRECTORY_NAME . self::SUB_DIRECTORY);
 
-        Storage::put($this->getFilePath(), $this->pdf::loadView('welcome')->output());
+        $this->exportData();
     }
 
     public function checkExport(): bool
@@ -33,5 +36,30 @@ class StockPdfExportService extends AbstractPdfExportService
     private function getFilePath(): string
     {
         return self::STORAGE_DIRECTORY_NAME . self::SUB_DIRECTORY. self::FILE_NAME . '.pdf';
+    }
+
+    private function exportData()
+    {
+        $stocksDataCollection = collect();
+
+        $totalStockSum = 0;
+
+        Stock::query()
+            ->with('industry')
+            ->chunkById(self::CHUNK_SIZE, function (Collection $stocks) use (&$stocksDataCollection, &$totalStockSum) {
+                /** @var Stock $stock */
+                foreach ($stocks as $stock) {
+                    $stocksDataCollection->push(
+                        new StockDTO($stock)
+                    );
+                    $totalStockSum = bcadd($totalStockSum, $stock->total_price, 2);
+                }
+            });
+
+        Storage::put($this->getFilePath(), $this->pdf::loadView(
+            'pdf.stock_export_pdf',
+            compact('totalStockSum', 'stocksDataCollection')
+        )
+            ->output());
     }
 }

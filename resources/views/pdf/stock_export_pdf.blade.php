@@ -14,14 +14,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
     <link type="text/css"  rel="stylesheet" href="pdf.css">
-
+    <style>
+        @font-face {
+            font-family: "DejaVu Sans";
+            font-style: normal;
+            font-weight: 400;
+            src: url("/fonts/dejavu-sans/DejaVuSans.ttf");
+            /* IE9 Compat Modes */
+            src:
+                local("DejaVu Sans"),
+                local("DejaVu Sans"),
+                url("/fonts/dejavu-sans/DejaVuSans.ttf") format("truetype");
+        }
+        body {
+            font-family: "DejaVu Sans";
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <div class="col-md-8 mb-5">
         <div class="card-header">
             <p class="mb-3 h_text"><b>Акции</b></p>
-            <p class="text-success">Общая стоимость: {{$totalStockSum}} RUB</p>
+            <p class="text-bold">Общая стоимость: {{$totalStockSum}} RUB</p>
         </div>
         <div class="card">
             <table class="table" style="max-width: 500px">
@@ -31,17 +47,19 @@
                     <th scope="col">Название</th>
                     <th scope="col">Тикер</th>
                     <th scope="col">Отрасль</th>
+                    <th scope="col">Лоты</th>
                     <th scope="col">Стоимость, RUB</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($stocks as $stock)
+                @foreach($stocksDataCollection as $stockDTO)
                     <tr>
-                        <th scope="row">{{$stock->id}}</th>
-                        <td>{{$stock->name}}</td>
-                        <td>{{$stock->ticker}}</td>
-                        <td>{{$stock->industry->name}}</td>
-                        <td>{{$stock->total_price}}</td>
+                        <th scope="row">{{$loop->index + 1}}</th>
+                        <td>{{$stockDTO->getStockName()}}</td>
+                        <td>{{$stockDTO->getStockTicker()}}</td>
+                        <td>{{$stockDTO->getStockIndustryName()}}</td>
+                        <td>{{$stockDTO->getStockLots()}}</td>
+                        <td>{{$stockDTO->getStockTotalPrice()}}</td>
                     </tr>
                 @endforeach
 

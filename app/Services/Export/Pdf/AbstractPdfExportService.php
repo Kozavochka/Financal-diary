@@ -9,6 +9,8 @@ abstract class AbstractPdfExportService
 {
     const STORAGE_DIRECTORY_NAME = 'export/pdf/';
 
+    const CHUNK_SIZE = 20;
+
     protected Pdf $pdf;
 
     public function __construct()

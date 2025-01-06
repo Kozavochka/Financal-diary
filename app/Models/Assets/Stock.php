@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $direction_id
  * @property integer $industry_id
  * @property Direction $direction
+ * @property Industry $industry
  */
 class Stock extends Model
 {
