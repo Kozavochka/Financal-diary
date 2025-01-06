@@ -56,10 +56,12 @@ class StockPdfExportService extends AbstractPdfExportService
                 }
             });
 
-        Storage::put($this->getFilePath(), $this->pdf::loadView(
-            'pdf.stock_export_pdf',
-            compact('totalStockSum', 'stocksDataCollection')
-        )
-            ->output());
+        if ($stocksDataCollection->isNotEmpty()) {
+            Storage::put($this->getFilePath(), $this->pdf::loadView(
+                'pdf.stock_export_pdf',
+                compact('totalStockSum', 'stocksDataCollection')
+            )
+                ->output());
+        }
     }
 }
