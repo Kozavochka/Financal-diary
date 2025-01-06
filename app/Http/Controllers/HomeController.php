@@ -3,18 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Services\Chart\DataChartService;
-use App\Services\Export\Pdf\PdfExportServiceContract;
 
 
 class HomeController extends Controller
 {
-
-    private $pdfSerice;
     private $chartSerive;
-    public function __construct(PdfExportServiceContract $pdfServ, DataChartService $service)
+    public function __construct(DataChartService $service)
     {
-        $this->pdfSerice = $pdfServ;
-
         $this->chartSerive = $service;
 
         $this->middleware('auth');
@@ -30,12 +25,5 @@ class HomeController extends Controller
         $data = $dataArray['assetsData'];
 
         return view('home', compact('data', 'dataChart'));
-    }
-
-    public function pdf_export()
-    {
-
-        $this->pdfSerice->export();
-
     }
 }

@@ -52,7 +52,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->singleton(TelegramBotServiceContract::class, TelegramBotService::class);
-        $this->app->singleton(PdfExportServiceContract::class, PdfExportSerivce::class);
         $this->app->singleton(TotalStatisticServiceContract::class, TotalStatisticService::class);
         $this->app->singleton(DataChartServiceContract::class, DataChartService::class);
         $this->app->singleton(AssetsServiceContract::class, AssetsService::class);

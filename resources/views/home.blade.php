@@ -82,10 +82,6 @@
                     });
                 </script>
             </div>
-            <div class="col-md-8">
-                <button type="button" class="btn btn-light"><a href="{{route('general_pdf')}}"><i class="fa-solid fa-file-pdf">
-                        </i> Скачать PDF</a></button>
-            </div>
         </div>
     </div>
 @endsection
