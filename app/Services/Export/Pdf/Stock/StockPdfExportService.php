@@ -3,25 +3,35 @@
 namespace App\Services\Export\Pdf\Stock;
 
 
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Export\Pdf\AbstractPdfExportService;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class StockPdfExportService
+class StockPdfExportService extends AbstractPdfExportService
 {
     const FILE_NAME = 'stock_export_pdf';
 
-    const STORAGE_DIRECTORY_NAME = 'export/stock/';
-    private Pdf $pdf;
-    public function __construct()
+    const SUB_DIRECTORY = 'stocks/';
+
+    public function export(): void
     {
-        $this->pdf = new Pdf();
+        Storage::deleteDirectory(self::STORAGE_DIRECTORY_NAME . self::SUB_DIRECTORY);
+
+        Storage::put($this->getFilePath(), $this->pdf::loadView('welcome')->output());
     }
 
-    public function export()
+    public function checkExport(): bool
     {
-        $pdf = Pdf::loadView('welcome');
-
-        Storage::put(self::STORAGE_DIRECTORY_NAME . self::FILE_NAME . '.pdf', $pdf->output());
+       return Storage::exists($this->getFilePath());
     }
 
+    public function downloadExport(): StreamedResponse
+    {
+        return Storage::download($this->getFilePath());
+    }
+
+    private function getFilePath(): string
+    {
+        return self::STORAGE_DIRECTORY_NAME . self::SUB_DIRECTORY. self::FILE_NAME . '.pdf';
+    }
 }

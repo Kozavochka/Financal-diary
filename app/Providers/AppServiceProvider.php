@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\Admin\Assets\AdminStockController;
 use App\Services\Assets\AssetsService;
 use App\Services\Assets\AssetsServiceContract;
 use App\Services\Chart\DataChartService;
 use App\Services\Chart\DataChartServiceContract;
+use App\Services\Export\Pdf\AbstractPdfExportService;
 use App\Services\Export\Pdf\PdfExportSerivce;
 use App\Services\Export\Pdf\PdfExportServiceContract;
+use App\Services\Export\Pdf\Stock\StockPdfExportService;
 use App\Services\Integrations\Akphavantage\AlphavantageIntegrationService;
 use App\Services\Integrations\Akphavantage\AplhavantageIntegrationServiceContract;
 use App\Services\Integrations\ByBit\ByBitIntegrationService;
@@ -54,6 +57,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(MoexIntegrationServiceContract::class, MoexIntegrationService::class);
         $this->app->singleton(AplhavantageIntegrationServiceContract::class, AlphavantageIntegrationService::class);
 
+        $this->app->when(AdminStockController::class)
+            ->needs(AbstractPdfExportService::class)
+            ->give(StockPdfExportService::class);
 
         Relation::enforceMorphMap([
             'income' => 'App\Models\Income',

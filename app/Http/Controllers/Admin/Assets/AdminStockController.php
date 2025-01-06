@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
 use App\Models\Assets\Stock;
 use App\Models\Industry;
-use App\Services\Export\Pdf\Stock\StockPdfExportService;
+use App\Services\Export\Pdf\AbstractPdfExportService;
 use App\Services\Filters\Stock\StockNameContainsFilter;
 use App\Services\Sorts\TotalPriceSort;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,6 +19,12 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminStockController extends Controller
 {
+
+    private $pdfExportService;
+    public function __construct(AbstractPdfExportService $pdfExportService)
+    {
+        $this->pdfExportService = $pdfExportService;
+    }
 
     public function index()
     {
@@ -38,7 +44,10 @@ class AdminStockController extends Controller
             ])
             ->paginate($perPage, '*', 'page', $page);
 
-        return view('admin.stocks.stocks', compact('stocks'));
+        $isPdfExportExist = $this->pdfExportService
+            ->checkExport();
+
+        return view('admin.stocks.stocks', compact('stocks','isPdfExportExist'));
 
     }
 
@@ -104,10 +113,15 @@ class AdminStockController extends Controller
 
     public function pdf_export()
     {
-        /** @var StockPdfExportService $pdfService */
-        $pdfService = resolve(StockPdfExportService::class);
-        $pdfService->export();
+        $this->pdfExportService
+            ->export();
 
         return redirect(route('admin.stocks.index'));
+    }
+
+    public function downloadPdfExport()
+    {
+        return $this->pdfExportService
+            ->downloadExport();
     }
 }
